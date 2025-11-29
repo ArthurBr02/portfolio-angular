@@ -4,10 +4,12 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
     selector: 'app-admin-layout',
     standalone: true,
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, TranslatePipe],
     templateUrl: './admin-layout.html',
     styleUrl: './admin-layout.css',
     encapsulation: ViewEncapsulation.None

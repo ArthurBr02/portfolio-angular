@@ -4,9 +4,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PortfolioService } from '../../services/portfolio.service';
 import { ValidationError } from '../validation-error/validation-error';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
   selector: 'app-contact',
-  imports: [CommonModule, ReactiveFormsModule, ValidationError],
+  imports: [CommonModule, ReactiveFormsModule, ValidationError, TranslatePipe],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
   encapsulation: ViewEncapsulation.None

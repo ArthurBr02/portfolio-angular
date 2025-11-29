@@ -8,18 +8,21 @@
             </a>
 
             <ul class="nav-links">
-                <li><a (click)="scrollToSection('about')">About</a></li>
-                <li><a (click)="scrollToSection('skills')">Skills</a></li>
-                <li><a (click)="scrollToSection('projects')">Projects</a></li>
-                <li><a (click)="scrollToSection('experience')">Experience</a></li>
-                <li><a (click)="scrollToSection('contact')">Contact</a></li>
+                <li><a (click)="scrollToSection('about')">{{ 'nav.about' | translate }}</a></li>
+                <li><a (click)="scrollToSection('skills')">{{ 'common.skills' | translate }}</a></li>
+                <li><a (click)="scrollToSection('projects')">{{ 'common.projects' | translate }}</a></li>
+                <li><a (click)="scrollToSection('experience')">{{ 'common.experience' | translate }}</a></li>
+                <li><a (click)="scrollToSection('contact')">{{ 'common.contact' | translate }}</a></li>
             </ul>
 
-            <button class="mobile-menu-btn" (click)="toggleMobileMenu()" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-actions">
+                <app-language-switcher></app-language-switcher>
+                <button class="mobile-menu-btn" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </div>
 </nav>
@@ -27,11 +30,11 @@
 @if (mobileMenuOpen()) {
 <div class="mobile-menu" (click)="closeMobileMenu()">
     <ul class="mobile-nav-links">
-        <li><a (click)="scrollToSection('about')">About</a></li>
-        <li><a (click)="scrollToSection('skills')">Skills</a></li>
-        <li><a (click)="scrollToSection('projects')">Projects</a></li>
-        <li><a (click)="scrollToSection('experience')">Experience</a></li>
-        <li><a (click)="scrollToSection('contact')">Contact</a></li>
+        <li><a (click)="scrollToSection('about')">{{ 'nav.about' | translate }}</a></li>
+        <li><a (click)="scrollToSection('skills')">{{ 'common.skills' | translate }}</a></li>
+        <li><a (click)="scrollToSection('projects')">{{ 'common.projects' | translate }}</a></li>
+        <li><a (click)="scrollToSection('experience')">{{ 'common.experience' | translate }}</a></li>
+        <li><a (click)="scrollToSection('contact')">{{ 'common.contact' | translate }}</a></li>
     </ul>
 </div>
 }

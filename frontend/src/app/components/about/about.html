@@ -3,8 +3,8 @@
         <section class="section" id="about">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title gradient-text">About Me</h2>
-                    <p class="section-subtitle">Get to know me better</p>
+                    <h2 class="section-title gradient-text">{{ 'about.title' | translate }}</h2>
+                    <p class="section-subtitle">{{ 'about.subtitle' | translate }}</p>
                 </div>
 
                 <div class="about-content">
@@ -13,31 +13,25 @@
                             {{ personalInfo().description }}
                         </p>
                         <p>
-                            My journey in tech started with a curiosity about how things work, and it has evolved into a
-                            career
-                            dedicated to crafting exceptional digital experiences. I believe in writing clean,
-                            maintainable code
-                            and staying up-to-date with the latest industry trends.
+                            {{ 'about.journey' | translate }}
                         </p>
                         <p>
-                            When I'm not coding, you can find me contributing to open-source projects, learning new
-                            technologies,
-                            or sharing knowledge with the developer community.
+                            {{ 'about.hobbies' | translate }}
                         </p>
                     </div>
 
                     <div class="about-stats">
                         <div class="stat-card glass-card">
                             <div class="stat-number">{{ personalInfo().stats.yearsExperience }}+</div>
-                            <div class="stat-label">Years Experience</div>
+                            <div class="stat-label">{{ 'about.yearsExperience' | translate }}</div>
                         </div>
                         <div class="stat-card glass-card">
                             <div class="stat-number">{{ personalInfo().stats.projectsCompleted }}+</div>
-                            <div class="stat-label">Projects Completed</div>
+                            <div class="stat-label">{{ 'about.projectsCompleted' | translate }}</div>
                         </div>
                         <div class="stat-card glass-card">
                             <div class="stat-number">{{ personalInfo().stats.technologiesMastered }}+</div>
-                            <div class="stat-label">Technologies Used</div>
+                            <div class="stat-label">{{ 'about.technologiesUsed' | translate }}</div>
                         </div>
                     </div>
                 </div>

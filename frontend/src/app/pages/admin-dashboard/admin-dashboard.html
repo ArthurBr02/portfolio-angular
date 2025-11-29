@@ -1,29 +1,30 @@
 <div class="dashboard-grid">
-    <app-stat-card icon="🚀" title="Projects" [value]="projectsCount()" iconClass="project-icon"
+    <app-stat-card icon="🚀" [title]="'admin.projects' | translate" [value]="projectsCount()" iconClass="project-icon"
         [link]="'/admin/projects'">
     </app-stat-card>
 
-    <app-stat-card icon="💼" title="Experience" [value]="experienceCount()" iconClass="exp-icon"
+    <app-stat-card icon="💼" [title]="'admin.experience' | translate" [value]="experienceCount()" iconClass="exp-icon"
         [link]="'/admin/experience'">
     </app-stat-card>
 
-    <app-stat-card icon="🎓" title="Education" [value]="educationCount()" iconClass="edu-icon"
+    <app-stat-card icon="🎓" [title]="'admin.education' | translate" [value]="educationCount()" iconClass="edu-icon"
         [link]="'/admin/education'">
     </app-stat-card>
 
-    <app-stat-card icon="⚡" title="Skills" [value]="skillsCount()" iconClass="skill-icon" [link]="'/admin/skills'">
+    <app-stat-card icon="⚡" [title]="'admin.skills' | translate" [value]="skillsCount()" iconClass="skill-icon"
+        [link]="'/admin/skills'">
     </app-stat-card>
 </div>
 
 <div class="recent-activity glass-card mt-4">
-    <h3>Recent Projects</h3>
+    <h3>{{ 'admin.recentProjects' | translate }}</h3>
     <div class="table-responsive">
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Technologies</th>
-                    <th>Link</th>
+                    <th>{{ 'admin.table.title' | translate }}</th>
+                    <th>{{ 'admin.table.technologies' | translate }}</th>
+                    <th>{{ 'admin.table.link' | translate }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +42,7 @@
                         </div>
                     </td>
                     <td>
-                        <a [href]="project.liveUrl" target="_blank" class="link-btn">View</a>
+                        <a [href]="project.liveUrl" target="_blank" class="link-btn">{{ 'common.view' | translate }}</a>
                     </td>
                 </tr>
                 }

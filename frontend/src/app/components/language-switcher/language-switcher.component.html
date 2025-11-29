@@ -1,0 +1,24 @@
+<div class="language-switcher">
+  <button class="language-button" (click)="toggleDropdown()" [attr.aria-label]="'common.language' | translate">
+    <img [src]="getFlagImage(currentLanguage())" [alt]="currentLanguage()" class="flag-icon">
+    <span class="language-code">{{ currentLanguage().toUpperCase() }}</span>
+    <svg class="chevron" [class.open]="isOpen" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div class="dropdown" [class.open]="isOpen">
+    <button *ngFor="let lang of availableLanguages" class="dropdown-item" [class.active]="lang === currentLanguage()"
+      (click)="selectLanguage(lang)">
+      <img [src]="getFlagImage(lang)" [alt]="lang" class="flag-icon">
+      <span class="language-name">{{ getLanguageName(lang) }}</span>
+      <svg *ngIf="lang === currentLanguage()" class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Backdrop to close dropdown when clicking outside -->
+<div *ngIf="isOpen" class="backdrop" (click)="toggleDropdown()"></div>

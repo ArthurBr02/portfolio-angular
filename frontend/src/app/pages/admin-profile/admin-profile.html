@@ -1,7 +1,7 @@
 <div class="admin-page">
     <div class="page-header">
-        <h2 class="page-title gradient-text">My Profile</h2>
-        <p class="page-subtitle">Manage your personal information</p>
+        <h2 class="page-title gradient-text">{{ 'admin.myProfile' | translate }}</h2>
+        <p class="page-subtitle">{{ 'admin.manageProfile' | translate }}</p>
     </div>
 
     <div class="form-card glass-card">
@@ -17,49 +17,52 @@
                     }
                 </div>
                 <div class="upload-controls">
-                    <label for="profilePicture" class="btn btn-secondary">Change Photo</label>
+                    <label for="profilePicture" class="btn btn-secondary">{{ 'admin.changePhoto' | translate }}</label>
                     <input type="file" id="profilePicture" (change)="onFileSelected($event)" accept="image/*" hidden>
-                    <p class="help-text">Recommended: Square image, max 2MB</p>
+                    <p class="help-text">{{ 'admin.photoHelp' | translate }}</p>
                 </div>
             </div>
 
             <div class="form-grid">
-                <app-form-input label="First Name" formControlName="firstName" [required]="true" placeholder="John">
+                <app-form-input [label]="'admin.form.firstName' | translate" formControlName="firstName"
+                    [required]="true" [placeholder]="'admin.placeholders.firstName' | translate">
                 </app-form-input>
 
-                <app-form-input label="Last Name" formControlName="lastName" [required]="true" placeholder="Doe">
+                <app-form-input [label]="'admin.form.lastName' | translate" formControlName="lastName" [required]="true"
+                    [placeholder]="'admin.placeholders.lastName' | translate">
                 </app-form-input>
 
-                <app-form-input label="Age" type="number" formControlName="age" [required]="true" placeholder="30">
+                <app-form-input [label]="'admin.form.age' | translate" type="number" formControlName="age"
+                    [required]="true" [placeholder]="'admin.placeholders.age' | translate">
                 </app-form-input>
 
-                <app-form-input label="Email" type="email" formControlName="email" [required]="true"
-                    placeholder="john@example.com">
+                <app-form-input [label]="'admin.form.email' | translate" type="email" formControlName="email"
+                    [required]="true" [placeholder]="'admin.placeholders.email' | translate">
                 </app-form-input>
             </div>
 
-            <h3 class="section-label">Social Media</h3>
+            <h3 class="section-label">{{ 'admin.socialMedia' | translate }}</h3>
             <div class="form-grid">
-                <app-form-input label="GitHub URL" type="url" formControlName="github"
+                <app-form-input [label]="'admin.form.github' | translate" type="url" formControlName="github"
                     placeholder="https://github.com/username">
                 </app-form-input>
 
-                <app-form-input label="LinkedIn URL" type="url" formControlName="linkedin"
+                <app-form-input [label]="'admin.form.linkedin' | translate" type="url" formControlName="linkedin"
                     placeholder="https://linkedin.com/in/username">
                 </app-form-input>
 
-                <app-form-input label="Twitter URL" type="url" formControlName="twitter"
+                <app-form-input [label]="'admin.form.twitter' | translate" type="url" formControlName="twitter"
                     placeholder="https://twitter.com/username">
                 </app-form-input>
 
-                <app-form-input label="Instagram URL" type="url" formControlName="instagram"
+                <app-form-input [label]="'admin.form.instagram' | translate" type="url" formControlName="instagram"
                     placeholder="https://instagram.com/username">
                 </app-form-input>
             </div>
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary" [disabled]="isSubmitting() || profileForm.invalid">
-                    {{ isSubmitting() ? 'Saving...' : 'Save Changes' }}
+                    {{ isSubmitting() ? ('common.saving' | translate) : ('common.saveChanges' | translate) }}
                 </button>
             </div>
         </form>

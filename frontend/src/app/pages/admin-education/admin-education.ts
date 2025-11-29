@@ -7,6 +7,7 @@ import { AdminPageHeader } from '../../components/admin-page-header/admin-page-h
 import { FormInput } from '../../components/shared/form-input/form-input';
 import { FormTextarea } from '../../components/shared/form-textarea/form-textarea';
 
+
 @Component({
     selector: 'app-admin-education',
     standalone: true,

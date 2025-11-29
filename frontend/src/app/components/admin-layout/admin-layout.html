@@ -14,35 +14,35 @@
                 </div>
                 <div class="profile-info">
                     <h3 class="profile-name">{{ profile()?.firstName }} {{ profile()?.lastName }}</h3>
-                    <span class="profile-role">Administrator</span>
+                    <span class="profile-role">{{ 'admin.role' | translate }}</span>
                 </div>
             </a>
         </div>
 
         <nav class="sidebar-nav">
             <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-                <span class="icon">📊</span> Dashboard
+                <span class="icon">📊</span> {{ 'admin.dashboard' | translate }}
             </a>
             <a routerLink="/admin/projects" routerLinkActive="active" class="nav-item">
-                <span class="icon">🚀</span> Projects
+                <span class="icon">🚀</span> {{ 'admin.projects' | translate }}
             </a>
             <a routerLink="/admin/experience" routerLinkActive="active" class="nav-item">
-                <span class="icon">💼</span> Experience
+                <span class="icon">💼</span> {{ 'admin.experience' | translate }}
             </a>
             <a routerLink="/admin/education" routerLinkActive="active" class="nav-item">
-                <span class="icon">🎓</span> Education
+                <span class="icon">🎓</span> {{ 'admin.education' | translate }}
             </a>
             <a routerLink="/admin/skills" routerLinkActive="active" class="nav-item">
-                <span class="icon">🛠️</span> Skills
+                <span class="icon">🛠️</span> {{ 'admin.skills' | translate }}
             </a>
             <a routerLink="/admin/profile" routerLinkActive="active" class="nav-item">
-                <span class="icon">👤</span> Profile
+                <span class="icon">👤</span> {{ 'admin.profile' | translate }}
             </a>
         </nav>
 
         <div class="sidebar-footer">
             <button (click)="logout()" class="logout-btn">
-                <span class="icon">🚪</span> Logout
+                <span class="icon">🚪</span> {{ 'admin.logout' | translate }}
             </button>
         </div>
     </aside>
@@ -51,10 +51,10 @@
     <main class="admin-content">
         <header class="admin-header">
             <div class="header-title">
-                <h1>Dashboard</h1>
+                <h1>{{ 'admin.dashboard' | translate }}</h1>
             </div>
             <div class="header-user">
-                <span>Welcome, {{ profile()?.firstName || 'Admin' }}</span>
+                <span>{{ 'admin.welcome' | translate }}, {{ profile()?.firstName || 'Admin' }}</span>
                 <a routerLink="/admin/profile" class="avatar">
                     @if (profile()?.profilePicture) {
                     <img [src]="profile()?.profilePicture" alt="Profile">

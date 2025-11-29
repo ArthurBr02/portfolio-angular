@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl } from '@angular/forms';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
     selector: 'app-validation-error',
@@ -10,6 +11,8 @@ import { AbstractControl } from '@angular/forms';
     styleUrl: './validation-error.css'
 })
 export class ValidationError {
+    private translationService = inject(TranslationService);
+
     @Input() control: AbstractControl | null = null;
     @Input() fieldName: string = 'This field';
 
@@ -21,28 +24,40 @@ export class ValidationError {
         const errors = this.control.errors;
 
         if (errors['required']) {
-            return `${this.fieldName} is required`;
+            return this.translationService.translate('validation.required', { field: this.fieldName });
         }
         if (errors['email']) {
-            return `Please enter a valid email address`;
+            return this.translationService.translate('validation.email');
         }
         if (errors['minlength']) {
-            return `${this.fieldName} must be at least ${errors['minlength'].requiredLength} characters`;
+            return this.translationService.translate('validation.minlength', {
+                field: this.fieldName,
+                requiredLength: errors['minlength'].requiredLength
+            });
         }
         if (errors['maxlength']) {
-            return `${this.fieldName} must not exceed ${errors['maxlength'].requiredLength} characters`;
+            return this.translationService.translate('validation.maxlength', {
+                field: this.fieldName,
+                requiredLength: errors['maxlength'].requiredLength
+            });
         }
         if (errors['pattern']) {
-            return `${this.fieldName} format is invalid`;
+            return this.translationService.translate('validation.pattern', { field: this.fieldName });
         }
         if (errors['min']) {
-            return `${this.fieldName} must be at least ${errors['min'].min}`;
+            return this.translationService.translate('validation.min', {
+                field: this.fieldName,
+                min: errors['min'].min
+            });
         }
         if (errors['max']) {
-            return `${this.fieldName} must not exceed ${errors['max'].max}`;
+            return this.translationService.translate('validation.max', {
+                field: this.fieldName,
+                max: errors['max'].max
+            });
         }
 
-        return 'Invalid input';
+        return this.translationService.translate('validation.default');
     }
 
     get showError(): boolean {

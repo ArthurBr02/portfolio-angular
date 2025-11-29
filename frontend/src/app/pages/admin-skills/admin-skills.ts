@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { FormInput } from '../../components/shared/form-input/form-input';
 import { FormFileInput } from '../../components/shared/form-file-input/form-file-input';
 
+
 @Component({
     selector: 'app-admin-skills',
     standalone: true,

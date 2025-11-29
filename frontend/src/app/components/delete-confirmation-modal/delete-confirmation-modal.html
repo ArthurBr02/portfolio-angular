@@ -4,8 +4,8 @@
         <h3>{{ title() }}</h3>
         <p>{{ message() }}</p>
         <div class="modal-actions">
-            <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
-            <button class="btn btn-danger" (click)="onConfirm()">Delete</button>
+            <button class="btn btn-secondary" (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
+            <button class="btn btn-danger" (click)="onConfirm()">{{ 'common.delete' | translate }}</button>
         </div>
     </div>
 </div>

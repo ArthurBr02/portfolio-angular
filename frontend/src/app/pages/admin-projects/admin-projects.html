@@ -1,31 +1,34 @@
 <div class="admin-page">
-    <app-admin-page-header title="Manage Projects" buttonText="Add New Project" [showForm]="showForm()"
-        (buttonClick)="toggleForm()">
+    <app-admin-page-header [title]="'admin.manageProjects' | translate" [buttonText]="'admin.addNewProject' | translate"
+        [showForm]="showForm()" (buttonClick)="toggleForm()">
     </app-admin-page-header>
 
     @if (showForm()) {
     <div class="form-card glass-card">
-        <h3>Add New Project</h3>
+        <h3>{{ 'admin.addNewProject' | translate }}</h3>
         <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-            <app-form-input label="Title" formControlName="title" [required]="true" placeholder="Enter project title">
+            <app-form-input [label]="'admin.form.title' | translate" formControlName="title" [required]="true"
+                [placeholder]="'admin.placeholders.projectTitle' | translate">
             </app-form-input>
 
-            <app-form-textarea label="Description" formControlName="description" [required]="true" [rows]="3"
-                placeholder="Describe your project">
+            <app-form-textarea [label]="'admin.form.description' | translate" formControlName="description"
+                [required]="true" [rows]="3" [placeholder]="'admin.placeholders.projectDesc' | translate">
             </app-form-textarea>
 
-            <app-form-input label="Technologies (comma separated)" formControlName="technologies" [required]="true"
-                placeholder="Angular, Node.js, etc.">
+            <app-form-input [label]="'admin.form.technologies' | translate" formControlName="technologies"
+                [required]="true" [placeholder]="'admin.placeholders.technologies' | translate">
             </app-form-input>
 
-            <app-form-input label="Project Link" type="url" formControlName="link" placeholder="https://example.com">
+            <app-form-input [label]="'admin.form.projectLink' | translate" type="url" formControlName="link"
+                [placeholder]="'admin.placeholders.url' | translate">
             </app-form-input>
 
-            <app-form-file-input label="Image" accept="image/*" (fileSelected)="onFileSelected($event)">
+            <app-form-file-input [label]="'admin.form.image' | translate" accept="image/*"
+                (fileSelected)="onFileSelected($event)">
             </app-form-file-input>
 
             <button type="submit" class="btn btn-primary" [disabled]="projectForm.invalid || isSubmitting()">
-                {{ isSubmitting() ? 'Saving...' : 'Save Project' }}
+                {{ isSubmitting() ? ('common.saving' | translate) : ('admin.saveProject' | translate) }}
             </button>
         </form>
     </div>
@@ -49,8 +52,7 @@
         }
     </div>
 
-    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" title="Delete Project"
-        message="Are you sure you want to delete this project? This action cannot be undone."
-        (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
+    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" [title]="'admin.deleteProject' | translate"
+        [message]="'admin.deleteConfirm' | translate" (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
     </app-delete-confirmation-modal>
 </div>

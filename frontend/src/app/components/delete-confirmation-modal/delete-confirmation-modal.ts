@@ -1,10 +1,12 @@
 import { Component, input, output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
     selector: 'app-delete-confirmation-modal',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, TranslatePipe],
     templateUrl: './delete-confirmation-modal.html',
     styleUrl: './delete-confirmation-modal.css',
     encapsulation: ViewEncapsulation.None

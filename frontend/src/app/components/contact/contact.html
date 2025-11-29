@@ -1,16 +1,15 @@
 <section class="section" id="contact">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title gradient-text">Get In Touch</h2>
-            <p class="section-subtitle">Let's work together</p>
+            <h2 class="section-title gradient-text">{{ 'contact.title' | translate }}</h2>
+            <p class="section-subtitle">{{ 'contact.subtitle' | translate }}</p>
         </div>
 
         <div class="contact-content">
             <div class="contact-info">
-                <h3>Let's create something amazing together!</h3>
+                <h3>{{ 'contact.cta' | translate }}</h3>
                 <p>
-                    I'm always interested in hearing about new projects and opportunities.
-                    Whether you have a question or just want to say hi, feel free to reach out!
+                    {{ 'contact.description' | translate }}
                 </p>
 
                 <div class="contact-methods">
@@ -25,7 +24,7 @@
                             </svg>
                         </div>
                         <div>
-                            <div class="method-label">Email</div>
+                            <div class="method-label">{{ 'contact.methods.email' | translate }}</div>
                             <div class="method-value">{{ personalInfo().email }}</div>
                         </div>
                     </a>
@@ -41,8 +40,8 @@
                             </svg>
                         </div>
                         <div>
-                            <div class="method-label">LinkedIn</div>
-                            <div class="method-value">Connect with me</div>
+                            <div class="method-label">{{ 'contact.methods.linkedin' | translate }}</div>
+                            <div class="method-value">{{ 'contact.methods.connect' | translate }}</div>
                         </div>
                     </a>
                     }
@@ -57,8 +56,8 @@
                             </svg>
                         </div>
                         <div>
-                            <div class="method-label">GitHub</div>
-                            <div class="method-value">Follow my work</div>
+                            <div class="method-label">{{ 'contact.methods.github' | translate }}</div>
+                            <div class="method-value">{{ 'contact.methods.follow' | translate }}</div>
                         </div>
                     </a>
                     }
@@ -67,30 +66,33 @@
 
             <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form glass-card">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" formControlName="name" class="form-input" placeholder="Your name">
-                    <app-validation-error [control]="contactForm.get('name')" fieldName="Name">
+                    <label for="name">{{ 'contact.name' | translate }}</label>
+                    <input type="text" id="name" formControlName="name" class="form-input"
+                        [placeholder]="'contact.placeholders.name' | translate">
+                    <app-validation-error [control]="contactForm.get('name')" [fieldName]="'contact.name' | translate">
                     </app-validation-error>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">{{ 'contact.email' | translate }}</label>
                     <input type="email" id="email" formControlName="email" class="form-input"
-                        placeholder="your.email@example.com">
-                    <app-validation-error [control]="contactForm.get('email')" fieldName="Email">
+                        [placeholder]="'contact.placeholders.email' | translate">
+                    <app-validation-error [control]="contactForm.get('email')"
+                        [fieldName]="'contact.email' | translate">
                     </app-validation-error>
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Message</label>
+                    <label for="message">{{ 'contact.message' | translate }}</label>
                     <textarea id="message" formControlName="message" class="form-input" rows="5"
-                        placeholder="Your message..."></textarea>
-                    <app-validation-error [control]="contactForm.get('message')" fieldName="Message">
+                        [placeholder]="'contact.placeholders.message' | translate"></textarea>
+                    <app-validation-error [control]="contactForm.get('message')"
+                        [fieldName]="'contact.message' | translate">
                     </app-validation-error>
                 </div>
 
                 <button type="submit" class="btn btn-primary" [disabled]="isSubmitting()">
-                    {{ isSubmitting() ? 'Sending...' : 'Send Message' }}
+                    {{ isSubmitting() ? ('contact.sending' | translate) : ('contact.send' | translate) }}
                 </button>
             </form>
         </div>

@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
     templateUrl: './login.html',
     styleUrl: './login.css',
     encapsulation: ViewEncapsulation.None

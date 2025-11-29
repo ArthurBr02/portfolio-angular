@@ -6,10 +6,12 @@ import { ExperienceService } from '../../services/experience.service';
 import { EducationService } from '../../services/education.service';
 import { StatCard } from '../../components/stat-card/stat-card';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
     selector: 'app-admin-dashboard',
     standalone: true,
-    imports: [CommonModule, StatCard],
+    imports: [CommonModule, StatCard, TranslatePipe],
     templateUrl: './admin-dashboard.html',
     styleUrl: './admin-dashboard.css',
     encapsulation: ViewEncapsulation.None

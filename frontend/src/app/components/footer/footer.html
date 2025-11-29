@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-content">
-            <p>&copy; {{ currentYear }} Portfolio. All rights reserved.</p>
+            <p>&copy; {{ currentYear }} Portfolio. {{ 'common.allRightsReserved' | translate }}</p>
             <div class="footer-links">
                 @if (personalInfo().socials.github) {
                 <a [href]="personalInfo().socials.github" target="_blank">GitHub</a>

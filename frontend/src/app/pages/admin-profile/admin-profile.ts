@@ -4,10 +4,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { FormInput } from '../../components/shared/form-input/form-input';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
     selector: 'app-admin-profile',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FormInput],
+    imports: [CommonModule, ReactiveFormsModule, FormInput, TranslatePipe],
     templateUrl: './admin-profile.html',
     styleUrl: './admin-profile.css',
     encapsulation: ViewEncapsulation.None

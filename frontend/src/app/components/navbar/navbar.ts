@@ -1,9 +1,11 @@
 import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe, LanguageSwitcherComponent],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
   encapsulation: ViewEncapsulation.None

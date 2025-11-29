@@ -1,0 +1,155 @@
+.language-switcher {
+  position: relative;
+  display: inline-block;
+  z-index: 1000;
+}
+
+.language-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add the subtle gradient overlay effect like other buttons */
+.language-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: 0;
+}
+
+.language-button:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+.language-button:hover::before {
+  opacity: 0.1;
+}
+
+.language-button:active {
+  transform: translateY(0);
+}
+
+/* Ensure content is above the pseudo-element */
+.language-button>* {
+  position: relative;
+  z-index: 1;
+}
+
+.flag-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.language-code {
+  font-family: var(--font-family-mono);
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+}
+
+.chevron {
+  transition: transform var(--transition-base);
+  color: var(--color-text-secondary);
+}
+
+.language-button:hover .chevron {
+  color: var(--color-accent-primary);
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+  color: var(--color-accent-primary);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 180px;
+  background: rgba(10, 14, 39, 0.98);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition-base);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
+}
+
+.dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  text-align: left;
+  position: relative;
+}
+
+.dropdown-item:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--color-text-primary);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.dropdown-item.active {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--color-accent-primary);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.language-name {
+  flex: 1;
+  font-family: var(--font-family-base);
+}
+
+.check-icon {
+  color: var(--color-accent-primary);
+  filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: transparent;
+}

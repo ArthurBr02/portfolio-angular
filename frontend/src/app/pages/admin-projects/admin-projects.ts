@@ -8,10 +8,12 @@ import { FormInput } from '../../components/shared/form-input/form-input';
 import { FormTextarea } from '../../components/shared/form-textarea/form-textarea';
 import { FormFileInput } from '../../components/shared/form-file-input/form-file-input';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
     selector: 'app-admin-projects',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormTextarea, FormFileInput],
+    imports: [CommonModule, ReactiveFormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormTextarea, FormFileInput, TranslatePipe],
     templateUrl: './admin-projects.html',
     styleUrl: './admin-projects.css',
     encapsulation: ViewEncapsulation.None

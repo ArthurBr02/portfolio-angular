@@ -4,9 +4,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PortfolioService } from '../../services/portfolio.service';
 import { environment } from '../../../environments/environment';
 
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+
 @Component({
   selector: 'app-skills',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './skills.html',
   styleUrl: './skills.css',
   encapsulation: ViewEncapsulation.None
