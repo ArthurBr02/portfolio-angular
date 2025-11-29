@@ -46,11 +46,28 @@ function initDb() {
             description TEXT
         )`);
 
-        // User/Admin Table (Simple)
+        // User/Admin Table
         db.run(`CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE,
-            password TEXT
+            password TEXT,
+            firstName TEXT,
+            lastName TEXT,
+            age INTEGER,
+            email TEXT,
+            github TEXT,
+            linkedin TEXT,
+            twitter TEXT,
+            instagram TEXT,
+            profilePicture TEXT
+        )`);
+
+        // Skill Categories Table
+        db.run(`CREATE TABLE IF NOT EXISTS skill_categories (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            icon TEXT,
+            skills TEXT
         )`);
     });
 }

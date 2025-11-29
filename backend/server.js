@@ -22,7 +22,10 @@ if (!fs.existsSync(uploadDir)) {
 app.use('/uploads', express.static(path.join(__dirname, uploadDir)));
 
 const apiRoutes = require('./routes/api');
+const authRoutes = require('./routes/auth');
+
 app.use('/api', apiRoutes);
+app.use('/auth', authRoutes);
 
 // Routes Placeholder
 app.get('/', (req, res) => {
