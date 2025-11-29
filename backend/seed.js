@@ -1,4 +1,3 @@
-const db = require('./database');
 const bcrypt = require('bcryptjs');
 
 const adminUser = {
@@ -12,7 +11,7 @@ const adminUser = {
     linkedin: 'https://linkedin.com',
     twitter: 'https://twitter.com',
     instagram: 'https://instagram.com',
-    profilePicture: 'https://via.placeholder.com/150'
+    profilePicture: null
 };
 
 const projects = [
@@ -101,58 +100,60 @@ const education = [
     }
 ];
 
-setTimeout(() => {
-    db.serialize(() => {
-        // Clear existing data
-        db.run('DELETE FROM projects');
-        db.run('DELETE FROM experience');
-        db.run('DELETE FROM education');
-        db.run('DELETE FROM users');
-        db.run('DELETE FROM sqlite_sequence WHERE name="projects" OR name="experience" OR name="education" OR name="users"');
+function seed(db) {
+    setTimeout(() => {
+        db.serialize(() => {
+            // Clear existing data
+            db.run('DELETE FROM projects');
+            db.run('DELETE FROM experience');
+            db.run('DELETE FROM education');
+            db.run('DELETE FROM users');
+            db.run('DELETE FROM sqlite_sequence WHERE name="projects" OR name="experience" OR name="education" OR name="users"');
 
-        // Insert Projects
-        const stmtProjects = db.prepare('INSERT INTO projects (title, description, imageUrl, link, technologies) VALUES (?, ?, ?, ?, ?)');
-        projects.forEach(p => {
-            stmtProjects.run(p.title, p.description, p.imageUrl, p.link, p.technologies);
-        });
-        stmtProjects.finalize();
+            // Insert Projects
+            const stmtProjects = db.prepare('INSERT INTO projects (title, description, imageUrl, link, technologies) VALUES (?, ?, ?, ?, ?)');
+            projects.forEach(p => {
+                stmtProjects.run(p.title, p.description, p.imageUrl, p.link, p.technologies);
+            });
+            stmtProjects.finalize();
 
-        // Insert Experience
-        const stmtExperience = db.prepare('INSERT INTO experience (company, position, startDate, endDate, description) VALUES (?, ?, ?, ?, ?)');
-        experience.forEach(e => {
-            stmtExperience.run(e.company, e.position, e.startDate, e.endDate, e.description);
-        });
-        stmtExperience.finalize();
+            // Insert Experience
+            const stmtExperience = db.prepare('INSERT INTO experience (company, position, startDate, endDate, description) VALUES (?, ?, ?, ?, ?)');
+            experience.forEach(e => {
+                stmtExperience.run(e.company, e.position, e.startDate, e.endDate, e.description);
+            });
+            stmtExperience.finalize();
 
-        // Insert Education
-        const stmtEducation = db.prepare('INSERT INTO education (institution, degree, startDate, endDate, description) VALUES (?, ?, ?, ?, ?)');
-        education.forEach(e => {
-            stmtEducation.run(e.institution, e.degree, e.startDate, e.endDate, e.description);
-        });
-        stmtEducation.finalize();
+            // Insert Education
+            const stmtEducation = db.prepare('INSERT INTO education (institution, degree, startDate, endDate, description) VALUES (?, ?, ?, ?, ?)');
+            education.forEach(e => {
+                stmtEducation.run(e.institution, e.degree, e.startDate, e.endDate, e.description);
+            });
+            stmtEducation.finalize();
 
-        // Insert Admin User
-        bcrypt.hash(adminUser.password, 10, (err, hash) => {
-            if (err) {
-                console.error('Error hashing password:', err);
-                db.close();
-                return;
-            }
-            db.run(`INSERT INTO users (
+            // Insert Admin User
+            bcrypt.hash(adminUser.password, 10, (err, hash) => {
+                if (err) {
+                    console.error('Error hashing password:', err);
+                    db.close();
+                    return;
+                }
+                db.run(`INSERT INTO users (
             username, password, firstName, lastName, age, email, 
             github, linkedin, twitter, instagram, profilePicture
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                [
-                    adminUser.username, hash, adminUser.firstName, adminUser.lastName,
-                    adminUser.age, adminUser.email, adminUser.github, adminUser.linkedin,
-                    adminUser.twitter, adminUser.instagram, adminUser.profilePicture
-                ], (err) => {
-                    if (err) console.error('Error creating admin user:', err);
-                    else console.log('Admin user created successfully');
-                    db.close();
-                });
-        });
+                    [
+                        adminUser.username, hash, adminUser.firstName, adminUser.lastName,
+                        adminUser.age, adminUser.email, adminUser.github, adminUser.linkedin,
+                        adminUser.twitter, adminUser.instagram, adminUser.profilePicture
+                    ], (err) => {
+                        if (err) console.error('Error creating admin user:', err);
+                        else console.log('Admin user created successfully');
+                        db.close();
+                    });
+            });
 
-        console.log('Database seeded successfully!');
-    });
-}, 1000);
+            console.log('Database seeded successfully!');
+        });
+    }, 1000);
+}

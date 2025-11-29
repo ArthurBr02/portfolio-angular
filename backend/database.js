@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const dotenv = require('dotenv');
+const seed = require('./seed');
 
 dotenv.config();
 
@@ -8,6 +9,11 @@ const dbPath = process.env.DB_PATH || './database.sqlite';
 const db = new sqlite3.Database(path.resolve(__dirname, dbPath), (err) => {
     if (err) {
         console.error('Error opening database ' + dbPath, err.message);
+
+        // If the database doesn't exist, seed it
+        if (err.code === 'SQLITE_CANTOPEN') {
+            seed(db);
+        }
     } else {
         console.log('Connected to the SQLite database.');
         initDb();

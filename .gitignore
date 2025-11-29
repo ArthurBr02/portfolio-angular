@@ -8,15 +8,15 @@ lerna-debug.log*
 
 # ==================== ANGULAR ====================
 # Build outputs
-/frontend/portfolio/dist/
-/frontend/portfolio/.angular/
-/frontend/portfolio/out-tsc/
-/frontend/portfolio/tmp/
-/frontend/portfolio/.env
+/frontend/dist/
+/frontend/.angular/
+/frontend/out-tsc/
+/frontend/tmp/
+/frontend/.env
 
 # Angular cache
-.angular/
-.sass-cache/
+/frontend/.angular/
+/frontend/.sass-cache/
 
 # ==================== EXPRESS/NODE BACKEND ====================
 # Build outputs
@@ -146,7 +146,7 @@ Requ?te.txt
 *Requ?te.txt
 
 # Angular backup
-/frontend/portfolio/src/app/app.css.backup
+/frontend/src/app/app.css.backup
 
 # Any generated documentation
 /docs/generated/
