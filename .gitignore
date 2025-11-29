@@ -12,6 +12,7 @@ lerna-debug.log*
 /frontend/portfolio/.angular/
 /frontend/portfolio/out-tsc/
 /frontend/portfolio/tmp/
+/frontend/portfolio/.env
 
 # Angular cache
 .angular/
@@ -21,6 +22,8 @@ lerna-debug.log*
 # Build outputs
 /backend/dist/
 /backend/build/
+
+/backend/.env
 
 # Logs
 /backend/logs/
