@@ -1,0 +1,43 @@
+@import '../admin-shared.css';
+
+/* Page-specific styles */
+.education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.edu-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.edu-info {
+    flex: 1;
+}
+
+.edu-info h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.edu-info .institution {
+    color: var(--color-primary);
+    font-weight: normal;
+}
+
+.edu-info .period {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    opacity: 0.8;
+}
+
+.edu-info .description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}

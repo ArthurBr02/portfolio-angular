@@ -1,0 +1,55 @@
+<div class="admin-page">
+    <app-admin-page-header title="Manage Education" buttonText="Add New Education" [showForm]="showForm()"
+        (buttonClick)="toggleForm()">
+    </app-admin-page-header>
+
+    @if (showForm()) {
+    <div class="form-card glass-card">
+        <h3>Add New Education</h3>
+        <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
+            <app-form-input label="Institution" formControlName="institution" [required]="true"
+                placeholder="Enter institution name">
+            </app-form-input>
+
+            <app-form-input label="Degree" formControlName="degree" [required]="true"
+                placeholder="Enter degree or qualification">
+            </app-form-input>
+
+            <div class="form-row">
+                <app-form-input label="Start Date" formControlName="startDate" [required]="true"
+                    placeholder="e.g. 2018">
+                </app-form-input>
+
+                <app-form-input label="End Date" formControlName="endDate" placeholder="e.g. 2022">
+                </app-form-input>
+            </div>
+
+            <app-form-textarea label="Description" formControlName="description" [required]="true" [rows]="3"
+                placeholder="Describe your studies and achievements">
+            </app-form-textarea>
+
+            <button type="submit" class="btn btn-primary" [disabled]="educationForm.invalid || isSubmitting()">
+                {{ isSubmitting() ? 'Saving...' : 'Save Education' }}
+            </button>
+        </form>
+    </div>
+    }
+
+    <div class="education-list">
+        @for (edu of education(); track edu.id) {
+        <div class="edu-item glass-card">
+            <div class="edu-info">
+                <h4>{{ edu.degree }} <span class="institution">at {{ edu.institution }}</span></h4>
+                <p class="period">{{ edu.period }}</p>
+                <p class="description">{{ edu.description }}</p>
+            </div>
+            <button type="button" class="btn-delete" (click)="deleteEducation(edu.id, $event)">🗑️</button>
+        </div>
+        }
+    </div>
+
+    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" title="Delete Education"
+        message="Are you sure you want to delete this education entry? This action cannot be undone."
+        (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
+    </app-delete-confirmation-modal>
+</div>

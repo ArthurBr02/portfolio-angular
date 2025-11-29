@@ -1,0 +1,22 @@
+<section class="section" id="experience">
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title gradient-text">Professional Experience</h2>
+                <p class="section-subtitle">My career journey</p>
+            </div>
+
+            <div class="timeline">
+                @for (exp of experiences(); track exp.id) {
+                <app-timeline-item [title]="exp.position" [subtitle]="exp.company" [period]="exp.period">
+                    <p class="timeline-description">{{ exp.description }}</p>
+                    <ul class="timeline-achievements">
+                        @for (achievement of exp.achievements; track achievement) {
+                        <li>{{ achievement }}</li>
+                        }
+                    </ul>
+                </app-timeline-item>
+                }
+            </div>
+        </div>
+    </section>

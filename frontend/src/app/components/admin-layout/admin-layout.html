@@ -1,0 +1,72 @@
+<div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <a routerLink="/admin/profile" class="profile-link">
+                <div class="profile-pic-container">
+                    @if (profile()?.profilePicture) {
+                    <img [src]="profile()?.profilePicture" alt="Profile" class="profile-pic">
+                    } @else {
+                    <div class="placeholder-avatar-small">
+                        <span>{{ profile()?.firstName?.charAt(0) || 'A' }}</span>
+                    </div>
+                    }
+                </div>
+                <div class="profile-info">
+                    <h3 class="profile-name">{{ profile()?.firstName }} {{ profile()?.lastName }}</h3>
+                    <span class="profile-role">Administrator</span>
+                </div>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                <span class="icon">📊</span> Dashboard
+            </a>
+            <a routerLink="/admin/projects" routerLinkActive="active" class="nav-item">
+                <span class="icon">🚀</span> Projects
+            </a>
+            <a routerLink="/admin/experience" routerLinkActive="active" class="nav-item">
+                <span class="icon">💼</span> Experience
+            </a>
+            <a routerLink="/admin/education" routerLinkActive="active" class="nav-item">
+                <span class="icon">🎓</span> Education
+            </a>
+            <a routerLink="/admin/skills" routerLinkActive="active" class="nav-item">
+                <span class="icon">🛠️</span> Skills
+            </a>
+            <a routerLink="/admin/profile" routerLinkActive="active" class="nav-item">
+                <span class="icon">👤</span> Profile
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button (click)="logout()" class="logout-btn">
+                <span class="icon">🚪</span> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-content">
+        <header class="admin-header">
+            <div class="header-title">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="header-user">
+                <span>Welcome, {{ profile()?.firstName || 'Admin' }}</span>
+                <a routerLink="/admin/profile" class="avatar">
+                    @if (profile()?.profilePicture) {
+                    <img [src]="profile()?.profilePicture" alt="Profile">
+                    } @else {
+                    <span>{{ profile()?.firstName?.charAt(0) || 'A' }}</span>
+                    }
+                </a>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

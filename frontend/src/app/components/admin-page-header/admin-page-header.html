@@ -1,0 +1,6 @@
+<div class="page-header">
+    <h2>{{ title }}</h2>
+    <button [class]="showForm ? 'btn btn-cancel' : 'btn btn-primary'" (click)="onButtonClick()">
+        {{ showForm ? 'Cancel' : buttonText }}
+    </button>
+</div>

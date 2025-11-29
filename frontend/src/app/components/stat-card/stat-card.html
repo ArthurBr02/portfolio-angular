@@ -1,0 +1,7 @@
+<div class="stat-card glass-card pointer" [class.clickable]="link" (click)="navigateTo()">
+    <div class="stat-icon" [ngClass]="iconClass">{{ icon }}</div>
+    <div class="stat-info">
+        <h3>{{ title }}</h3>
+        <p class="stat-value">{{ value }}</p>
+    </div>
+</div>

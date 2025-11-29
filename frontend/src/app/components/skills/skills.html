@@ -1,0 +1,24 @@
+<section class="section" id="skills">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title gradient-text">Skills &amp; Technologies</h2>
+            <p class="section-subtitle">My technical expertise</p>
+        </div>
+
+        <div class="skills-grid">
+            @for (category of skillCategories(); track category.name) {
+            <div class="skill-category glass-card">
+                <div class="category-icon">
+                    <img [src]="getIconUrl(category.id)" [alt]="category.name + ' icon'">
+                </div>
+                <h3 class="category-title">{{ category.name }}</h3>
+                <div class="skills-list">
+                    @for (skill of category.skills; track skill) {
+                    <span class="skill-tag">{{ skill }}</span>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>

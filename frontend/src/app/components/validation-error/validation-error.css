@@ -1,0 +1,35 @@
+.validation-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--color-accent-error);
+    border-radius: var(--radius-sm);
+    color: var(--color-accent-error);
+    font-size: 0.875rem;
+    animation: slideIn 0.2s ease-out;
+}
+
+.validation-error svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.validation-error span {
+    line-height: 1.4;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,16 @@
+<section class="section" id="education">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title gradient-text">Education</h2>
+            <p class="section-subtitle">My academic background</p>
+        </div>
+
+        <div class="timeline">
+            @for (edu of education(); track edu.id) {
+            <app-timeline-item [title]="edu.degree" [subtitle]="edu.institution" [period]="edu.period">
+                <p class="timeline-description">{{ edu.description }}</p>
+            </app-timeline-item>
+            }
+        </div>
+    </div>
+</section>

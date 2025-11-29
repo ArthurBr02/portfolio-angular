@@ -1,0 +1,43 @@
+@import '../admin-shared.css';
+
+/* Page-specific styles */
+.experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.exp-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.exp-info {
+    flex: 1;
+}
+
+.exp-info h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.exp-info .company {
+    color: var(--color-primary);
+    font-weight: normal;
+}
+
+.exp-info .period {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    opacity: 0.8;
+}
+
+.exp-info .description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}

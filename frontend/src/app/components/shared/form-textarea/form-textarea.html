@@ -1,0 +1,7 @@
+<div class="form-group">
+    @if (label) {
+    <label>{{ label }}@if (required) {<span class="required">*</span>}</label>
+    }
+    <textarea [value]="value" [placeholder]="placeholder" [rows]="rows" [disabled]="disabled" (input)="onInput($event)"
+        (blur)="onTouched()" class="form-input"></textarea>
+</div>

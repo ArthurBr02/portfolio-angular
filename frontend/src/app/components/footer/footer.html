@@ -1,0 +1,19 @@
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <p>&copy; {{ currentYear }} Portfolio. All rights reserved.</p>
+            <div class="footer-links">
+                @if (personalInfo().socials.github) {
+                <a [href]="personalInfo().socials.github" target="_blank">GitHub</a>
+                }
+                @if (personalInfo().socials.linkedin) {
+                <a [href]="personalInfo().socials.linkedin" target="_blank">LinkedIn</a>
+                }
+                @if (personalInfo().email) {
+                <a [href]="'mailto:' + personalInfo().email">Email</a>
+                }
+            </div>
+
+        </div>
+    </div>
+</footer>

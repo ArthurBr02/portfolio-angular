@@ -1,0 +1,67 @@
+<div class="admin-page">
+    <div class="page-header">
+        <h2 class="page-title gradient-text">My Profile</h2>
+        <p class="page-subtitle">Manage your personal information</p>
+    </div>
+
+    <div class="form-card glass-card">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="profile-upload-section">
+                <div class="profile-preview">
+                    @if (previewUrl()) {
+                    <img [src]="previewUrl()" alt="Profile Preview">
+                    } @else {
+                    <div class="placeholder-avatar">
+                        <span>{{ profile()?.firstName?.charAt(0) || 'A' }}</span>
+                    </div>
+                    }
+                </div>
+                <div class="upload-controls">
+                    <label for="profilePicture" class="btn btn-secondary">Change Photo</label>
+                    <input type="file" id="profilePicture" (change)="onFileSelected($event)" accept="image/*" hidden>
+                    <p class="help-text">Recommended: Square image, max 2MB</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <app-form-input label="First Name" formControlName="firstName" [required]="true" placeholder="John">
+                </app-form-input>
+
+                <app-form-input label="Last Name" formControlName="lastName" [required]="true" placeholder="Doe">
+                </app-form-input>
+
+                <app-form-input label="Age" type="number" formControlName="age" [required]="true" placeholder="30">
+                </app-form-input>
+
+                <app-form-input label="Email" type="email" formControlName="email" [required]="true"
+                    placeholder="john@example.com">
+                </app-form-input>
+            </div>
+
+            <h3 class="section-label">Social Media</h3>
+            <div class="form-grid">
+                <app-form-input label="GitHub URL" type="url" formControlName="github"
+                    placeholder="https://github.com/username">
+                </app-form-input>
+
+                <app-form-input label="LinkedIn URL" type="url" formControlName="linkedin"
+                    placeholder="https://linkedin.com/in/username">
+                </app-form-input>
+
+                <app-form-input label="Twitter URL" type="url" formControlName="twitter"
+                    placeholder="https://twitter.com/username">
+                </app-form-input>
+
+                <app-form-input label="Instagram URL" type="url" formControlName="instagram"
+                    placeholder="https://instagram.com/username">
+                </app-form-input>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" [disabled]="isSubmitting() || profileForm.invalid">
+                    {{ isSubmitting() ? 'Saving...' : 'Save Changes' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
