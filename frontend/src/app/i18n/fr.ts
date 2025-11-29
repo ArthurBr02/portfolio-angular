@@ -41,9 +41,9 @@ export const fr: TranslationData = {
         dashboard: 'Tableau de bord'
     },
     hero: {
-        badge: 'Disponible pour travailler',
+        availableForWork: 'Disponible pour travailler',
         greeting: "Bonjour, je suis",
-        role: 'Développeur Full Stack & Résolveur de problèmes créatif',
+        role: 'Développeur Full Stack',
         cta: 'Me contacter',
         viewProjects: 'Voir mes projets'
     },

@@ -153,7 +153,7 @@ Edit `src/index.html`:
 
 ```bash
 # Navigate to the project directory
-cd frontend/portfolio
+cd frontend
 
 # Install dependencies
 npm install

@@ -10,10 +10,12 @@
                 {{ 'hero.greeting' | translate }} <span class="gradient-text">{{ personalInfo().name }}</span>
             </h1>
 
-            <p class="hero-subtitle">{{ personalInfo().role }}</p>
+            <p class="hero-subtitle">
+                {{ 'hero.role' | translate }}
+            </p>
 
             <p class="hero-description">
-                {{ personalInfo().description }}
+                {{ 'about.description' | translate }}
             </p>
 
             <div class="hero-actions">

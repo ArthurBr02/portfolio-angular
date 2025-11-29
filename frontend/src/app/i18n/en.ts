@@ -43,7 +43,7 @@ export const en: TranslationData = {
     hero: {
         availableForWork: 'Available for work',
         greeting: "Hi, I'm",
-        role: 'Full Stack Developer & Creative Problem Solver',
+        role: 'Full Stack Developer',
         cta: 'Get In Touch',
         viewProjects: 'View Projects'
     },

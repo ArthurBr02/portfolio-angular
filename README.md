@@ -6,7 +6,7 @@ A modern, full-stack portfolio application built with Angular (frontend) and Exp
 
 ```
 portfolio-3-vue-express/
-├── frontend/portfolio/     # Angular application
+├── frontend/     # Angular application
 │   ├── src/
 │   │   ├── app/
 │   │   │   ├── core/       # Models & interfaces
@@ -33,7 +33,7 @@ portfolio-3-vue-express/
 ### Frontend (Angular)
 
 ```bash
-cd frontend/portfolio
+cd frontend
 npm install
 ```
 
@@ -50,7 +50,7 @@ npm install
 
 **Frontend:**
 ```bash
-cd frontend/portfolio
+cd frontend
 npm start
 # or
 ng serve
@@ -69,11 +69,11 @@ The API will be available at `http://localhost:3000` (or configured port)
 ### Frontend
 
 ```bash
-cd frontend/portfolio
+cd frontend
 npm run build
 ```
 
-Build artifacts will be in `frontend/portfolio/dist/`
+Build artifacts will be in `frontend/dist/`
 
 ### Backend
 
@@ -105,9 +105,9 @@ Each component follows Angular best practices:
 
 ## 🎨 Customization
 
-See `frontend/portfolio/QUICK_START.md` for a 5-minute customization guide.
+See `frontend/QUICK_START.md` for a 5-minute customization guide.
 
-See `frontend/portfolio/PORTFOLIO_CUSTOMIZATION.md` for detailed customization instructions.
+See `frontend/PORTFOLIO_CUSTOMIZATION.md` for detailed customization instructions.
 
 ## 🔒 Security
 
