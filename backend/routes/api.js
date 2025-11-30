@@ -99,21 +99,21 @@ router.delete('/experience/:id', authenticateToken, (req, res) => {
 
 // --- PROFILE ---
 router.get('/profile', authenticateToken, (req, res) => {
-    db.get('SELECT username, firstName, lastName, age, email, github, linkedin, twitter, instagram, profilePicture FROM users WHERE username = ?', [req.user.username], (err, row) => {
+    db.get('SELECT username, firstName, lastName, age, email, github, linkedin, twitter, instagram, profilePicture, availableForWork FROM users WHERE username = ?', [req.user.username], (err, row) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(row);
     });
 });
 
 router.put('/profile', authenticateToken, upload.single('profilePicture'), (req, res) => {
-    const { firstName, lastName, age, email, github, linkedin, twitter, instagram } = req.body;
+    const { firstName, lastName, age, email, github, linkedin, twitter, instagram, availableForWork } = req.body;
     let profilePicture = req.body.profilePicture;
     if (req.file) {
         profilePicture = `/uploads/${req.file.filename}`;
     }
 
-    db.run(`UPDATE users SET firstName = ?, lastName = ?, age = ?, email = ?, github = ?, linkedin = ?, twitter = ?, instagram = ?, profilePicture = COALESCE(?, profilePicture) WHERE username = ?`,
-        [firstName, lastName, age, email, github, linkedin, twitter, instagram, profilePicture, req.user.username],
+    db.run(`UPDATE users SET firstName = ?, lastName = ?, age = ?, email = ?, github = ?, linkedin = ?, twitter = ?, instagram = ?, availableForWork = ?, profilePicture = COALESCE(?, profilePicture) WHERE username = ?`,
+        [firstName, lastName, age, email, github, linkedin, twitter, instagram, availableForWork ? 1 : 0, profilePicture, req.user.username],
         function (err) {
             if (err) return res.status(500).json({ error: err.message });
             res.json({ message: 'Profile updated', changes: this.changes, profilePicture });
@@ -123,7 +123,7 @@ router.put('/profile', authenticateToken, upload.single('profilePicture'), (req,
 
 // --- PUBLIC PROFILE ---
 router.get('/user', (req, res) => {
-    db.get('SELECT firstName, lastName, age, email, github, linkedin, twitter, instagram, profilePicture FROM users LIMIT 1', [], (err, row) => {
+    db.get('SELECT firstName, lastName, age, email, github, linkedin, twitter, instagram, profilePicture, availableForWork FROM users LIMIT 1', [], (err, row) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(row);
     });
@@ -204,6 +204,40 @@ router.delete('/skill-categories/:id', authenticateToken, (req, res) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: 'Deleted', changes: this.changes });
     });
+});
+
+// --- CONTACT FORM ---
+router.post('/contact', async (req, res) => {
+    const { name, email, message } = req.body;
+
+    // Validation
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    // Check minimum lengths
+    if (name.length < 2) {
+        return res.status(400).json({ error: 'Name must be at least 2 characters' });
+    }
+
+    if (message.length < 10) {
+        return res.status(400).json({ error: 'Message must be at least 10 characters' });
+    }
+
+    try {
+        const { sendContactEmail } = require('../mailer');
+        await sendContactEmail({ name, email, message });
+        res.json({ success: true, message: 'Message sent successfully' });
+    } catch (error) {
+        console.error('Error sending contact email:', error);
+        res.status(500).json({ error: 'Failed to send message. Please try again later.' });
+    }
 });
 
 module.exports = router;

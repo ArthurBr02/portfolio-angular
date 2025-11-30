@@ -65,7 +65,8 @@ function initDb() {
             linkedin TEXT,
             twitter TEXT,
             instagram TEXT,
-            profilePicture TEXT
+            profilePicture TEXT,
+            availableForWork INTEGER DEFAULT 0
         )`);
 
         // Skill Categories Table
