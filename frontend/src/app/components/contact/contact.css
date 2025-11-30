@@ -19,6 +19,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
+    margin-bottom: 3rem;
 }
 
 .contact-method {
@@ -27,6 +28,11 @@
     gap: 1rem;
     padding: 1.5rem;
     text-decoration: none;
+    transition: all var(--transition-base);
+}
+
+.contact-method:hover {
+    transform: translateY(-2px);
 }
 
 .method-icon {
@@ -52,8 +58,27 @@
     color: var(--color-text-primary);
 }
 
+.contact-form {
+    padding: 2rem;
+}
+
+.contact-form app-validation-error {
+    margin-top: -1rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.contact-form .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
 @media (max-width: 480px) {
     .contact-methods {
         grid-template-columns: 1fr;
+    }
+    
+    .contact-form {
+        padding: 1.5rem;
     }
 }

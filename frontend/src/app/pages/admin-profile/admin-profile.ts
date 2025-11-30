@@ -2,6 +2,7 @@ import { Component, inject, signal, ViewEncapsulation, effect } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
+import { ToastService } from '../../services/toast.service';
 import { FormInput } from '../../components/shared/form-input/form-input';
 
 import { TranslatePipe } from '../../core/pipes/translate.pipe';
@@ -16,6 +17,7 @@ import { TranslatePipe } from '../../core/pipes/translate.pipe';
 })
 export class AdminProfile {
     private profileService = inject(ProfileService);
+    private toastService = inject(ToastService);
     private fb = inject(FormBuilder);
 
     profile = this.profileService.getProfile;
@@ -80,12 +82,12 @@ export class AdminProfile {
         this.profileService.updateProfile(formData).subscribe({
             next: () => {
                 this.isSubmitting.set(false);
-                alert('Profile updated successfully!');
+                this.toastService.success('Profile updated successfully!');
             },
             error: (err) => {
                 console.error('Error updating profile:', err);
                 this.isSubmitting.set(false);
-                alert('Error updating profile');
+                this.toastService.error('Error updating profile');
             }
         });
     }

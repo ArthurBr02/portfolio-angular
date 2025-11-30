@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal, inject, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PersonalInfo, SkillCategory } from '../core/models/portfolio.models';
 import { ProjectService } from './project.service';
@@ -19,7 +19,7 @@ export class PortfolioService {
     private readonly API_URL = environment.apiUrl;
 
     // Personal Info Signal
-    private readonly personalInfo = signal<PersonalInfo>({
+    private readonly personalInfoBase = signal<Omit<PersonalInfo, 'stats'>>({
         name: '',
         role: 'Full Stack Developer',
         description: 'Passionate developer with expertise in building scalable web applications and creating intuitive user experiences.',
@@ -30,16 +30,60 @@ export class PortfolioService {
             twitter: '',
             instagram: ''
         },
-        stats: {
-            yearsExperience: 5,
-            projectsCompleted: 10,
-            technologiesMastered: 15
-        },
         profilePicture: ''
     });
 
     // Skills Data
     private readonly skillCategories = signal<SkillCategory[]>([]);
+
+    // Computed stats based on real data
+    private readonly stats = computed(() => {
+        const projects = this.projectService.getProjects();
+        const experiences = this.experienceService.getExperiences();
+        const skills = this.skillCategories();
+
+        // Calculate years of experience from the earliest start date
+        let yearsExperience = 0;
+        if (experiences.length > 0) {
+            const dates = experiences
+                .map(exp => {
+                    const period = exp.period.split(' - ');
+                    return period[0];
+                })
+                .filter(date => date && date.trim() !== '');
+
+            if (dates.length > 0) {
+                const earliestYear = Math.min(...dates.map(date => {
+                    const year = parseInt(date);
+                    return isNaN(year) ? new Date().getFullYear() : year;
+                }));
+                yearsExperience = new Date().getFullYear() - earliestYear;
+            }
+        }
+
+        // Count total projects
+        const projectsCompleted = projects.length;
+
+        // Count total unique technologies from skills
+        let technologiesMastered = 0;
+        skills.forEach(category => {
+            if (category.skills && Array.isArray(category.skills)) {
+                technologiesMastered += category.skills.length;
+            }
+        });
+
+        return {
+            yearsExperience: yearsExperience || 0,
+            projectsCompleted: projectsCompleted || 0,
+            technologiesMastered: technologiesMastered || 0
+        };
+    });
+
+    // Computed personal info with stats
+    readonly getPersonalInfo = computed<PersonalInfo>(() => ({
+        ...this.personalInfoBase(),
+        stats: this.stats()
+    }));
 
     constructor() {
         this.loadUser();
@@ -50,7 +94,7 @@ export class PortfolioService {
         this.http.get<any>(`${this.API_URL}/user`).subscribe({
             next: (user) => {
                 if (user) {
-                    this.personalInfo.update(info => ({
+                    this.personalInfoBase.update(info => ({
                         ...info,
                         name: `${user.firstName} ${user.lastName}`,
                         email: user.email,
@@ -83,7 +127,6 @@ export class PortfolioService {
         });
     }
 
-    // Expose signals
-    readonly getPersonalInfo = this.personalInfo.asReadonly();
+    // Expose skills signal
     readonly getSkillCategories = this.skillCategories.asReadonly();
 }

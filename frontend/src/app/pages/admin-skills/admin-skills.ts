@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SkillService } from '../../services/skill.service';
 import { PortfolioService } from '../../services/portfolio.service';
+import { ToastService } from '../../services/toast.service';
 import { DeleteConfirmationModal } from '../../components/delete-confirmation-modal/delete-confirmation-modal';
 import { AdminPageHeader } from '../../components/admin-page-header/admin-page-header';
 import { environment } from '../../../environments/environment';
@@ -21,6 +22,7 @@ import { FormFileInput } from '../../components/shared/form-file-input/form-file
 export class AdminSkills {
     private skillService = inject(SkillService);
     private portfolioService = inject(PortfolioService);
+    private toastService = inject(ToastService);
     private fb = inject(FormBuilder);
 
     skillCategories = this.portfolioService.getSkillCategories;
@@ -59,7 +61,7 @@ export class AdminSkills {
         }
 
         if (!this.selectedIconFile) {
-            alert('Please select an icon image');
+            this.toastService.warning('Please select an icon image');
             return;
         }
 
@@ -78,13 +80,14 @@ export class AdminSkills {
         this.skillService.addSkillCategory(formData).subscribe({
             next: (category) => {
                 console.log('Category saved successfully:', category);
+                this.toastService.success('Category saved successfully');
                 this.isSubmitting.set(false);
                 this.toggleForm();
                 this.portfolioService.refreshSkills();
             },
             error: (err) => {
                 console.error('Error creating skill category:', err);
-                alert('Error saving category: ' + (err.error?.error || err.message));
+                this.toastService.error('Error saving category: ' + (err.error?.error || err.message));
                 this.isSubmitting.set(false);
             }
         });
@@ -104,10 +107,14 @@ export class AdminSkills {
             this.skillService.deleteSkillCategory(id).subscribe({
                 next: () => {
                     console.log('Skill category deleted successfully');
+                    this.toastService.success('Skill category deleted successfully');
                     this.closeDeleteModal();
                     this.portfolioService.refreshSkills();
                 },
-                error: (err) => console.error('Error deleting skill category:', err)
+                error: (err) => {
+                    console.error('Error deleting skill category:', err);
+                    this.toastService.error('Error deleting skill category');
+                }
             });
         }
     }

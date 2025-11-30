@@ -106,7 +106,8 @@ export const fr: TranslationData = {
             linkedin: 'LinkedIn',
             github: 'GitHub',
             connect: 'Connectez-vous avec moi',
-            follow: 'Suivez mon travail'
+            follow: 'Suivez mon travail',
+            contactByEmail: 'Contactez moi par email'
         }
     },
     admin: {
