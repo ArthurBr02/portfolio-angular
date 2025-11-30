@@ -30,7 +30,8 @@ export class PortfolioService {
             twitter: '',
             instagram: ''
         },
-        profilePicture: ''
+        profilePicture: '',
+        availableForWork: false
     });
 
     // Skills Data
@@ -106,7 +107,8 @@ export class PortfolioService {
                         },
                         profilePicture: user.profilePicture ?
                             (user.profilePicture.startsWith('http') ? user.profilePicture : `${environment.baseUrl}${user.profilePicture}`)
-                            : info.profilePicture
+                            : info.profilePicture,
+                        availableForWork: !!user.availableForWork
                     }));
                 }
             },

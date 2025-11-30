@@ -30,4 +30,5 @@ export interface PersonalInfo {
         technologiesMastered: number;
     };
     profilePicture?: string;
+    availableForWork?: boolean;
 }

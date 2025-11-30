@@ -41,6 +41,11 @@
                 </app-form-input>
             </div>
 
+            <h3 class="section-label">{{ 'admin.availability' | translate }}</h3>
+            <app-form-checkbox formControlName="availableForWork" [label]="'admin.form.availableForWork' | translate"
+                [helpText]="'admin.availableForWorkHelp' | translate">
+            </app-form-checkbox>
+
             <h3 class="section-label">{{ 'admin.socialMedia' | translate }}</h3>
             <div class="form-grid">
                 <app-form-input [label]="'admin.form.github' | translate" type="url" formControlName="github"

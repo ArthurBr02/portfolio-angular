@@ -9,4 +9,5 @@ export interface Profile {
     twitter?: string;
     instagram?: string;
     profilePicture?: string;
+    availableForWork?: boolean;
 }

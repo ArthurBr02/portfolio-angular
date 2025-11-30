@@ -1,10 +1,12 @@
 <section class="hero" id="hero">
     <div class="container">
         <div class="hero-content">
+            @if (personalInfo().availableForWork) {
             <div class="hero-badge">
                 <span class="badge-dot"></span>
                 {{ 'hero.availableForWork' | translate }}
             </div>
+            }
 
             <h1 class="hero-title">
                 {{ 'hero.greeting' | translate }} <span class="gradient-text">{{ personalInfo().name }}</span>
@@ -86,7 +88,7 @@
                                 <span class="code-property">name</span>: <span class="code-string">'{{ personalInfo().name }}'</span>,
                                 <span class="code-property">skills</span>: [<span class="code-string">'Angular'</span>, <span class="code-string">'React'</span>, <span class="code-string">'Node.js'</span>],
                                 <span class="code-property">passion</span>: <span class="code-string">'Building amazing things'</span>,
-                                <span class="code-property">available</span>: <span class="code-keyword">true</span>
+                                <span class="code-property">available</span>: <span class="code-keyword">{{ personalInfo().availableForWork ? 'true' : 'false' }}</span>
                             {{ '}' }};
                         </code>
                     </pre>

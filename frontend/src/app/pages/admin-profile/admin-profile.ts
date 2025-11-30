@@ -4,13 +4,14 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { ToastService } from '../../services/toast.service';
 import { FormInput } from '../../components/shared/form-input/form-input';
+import { FormCheckbox } from '../../components/shared/form-checkbox/form-checkbox';
 
 import { TranslatePipe } from '../../core/pipes/translate.pipe';
 
 @Component({
     selector: 'app-admin-profile',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FormInput, TranslatePipe],
+    imports: [CommonModule, ReactiveFormsModule, FormInput, FormCheckbox, TranslatePipe],
     templateUrl: './admin-profile.html',
     styleUrl: './admin-profile.css',
     encapsulation: ViewEncapsulation.None
@@ -33,7 +34,8 @@ export class AdminProfile {
         github: [''],
         linkedin: [''],
         twitter: [''],
-        instagram: ['']
+        instagram: [''],
+        availableForWork: [false]
     });
 
     constructor() {
@@ -48,7 +50,8 @@ export class AdminProfile {
                     github: p.github,
                     linkedin: p.linkedin,
                     twitter: p.twitter,
-                    instagram: p.instagram
+                    instagram: p.instagram,
+                    availableForWork: p.availableForWork ?? false
                 });
                 this.previewUrl.set(p.profilePicture || null);
             }

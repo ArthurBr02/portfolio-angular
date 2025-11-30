@@ -160,6 +160,8 @@ export const fr: TranslationData = {
         changePhoto: 'Changer la photo',
         photoHelp: 'Recommandé : Image carrée, max 2Mo',
         socialMedia: 'Réseaux sociaux',
+        availability: 'Disponibilité',
+        availableForWorkHelp: 'Afficher le badge "Disponible pour travailler" sur la page d\'accueil',
         form: {
             firstName: 'Prénom',
             lastName: 'Nom',
@@ -184,7 +186,8 @@ export const fr: TranslationData = {
             iconImage: 'Image de l\'icône',
             skills: 'Compétences (séparées par des virgules)',
             username: 'Nom d\'utilisateur',
-            password: 'Mot de passe'
+            password: 'Mot de passe',
+            availableForWork: 'Disponible pour travailler'
         },
         placeholders: {
             firstName: 'Jean',
