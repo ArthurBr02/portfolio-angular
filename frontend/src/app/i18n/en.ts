@@ -31,7 +31,8 @@ export const en: TranslationData = {
         view: 'View',
         saving: 'Saving...',
         saveChanges: 'Save Changes',
-        allRightsReserved: 'All rights reserved.'
+        allRightsReserved: 'All rights reserved.',
+        chooseFile: 'Choose file'
     },
     nav: {
         home: 'Home',
@@ -235,6 +236,40 @@ export const en: TranslationData = {
             deleteCategory: 'Delete Category',
             confirmDelete: 'Are you sure you want to delete this skill category? This action cannot be undone.',
             selectedFile: 'Selected:'
+        },
+        translationsPage: {
+            allCategories: 'All Categories',
+            translationKey: 'Translation Key',
+            english: 'English (EN)',
+            french: 'French (FR)',
+            actions: 'Actions',
+            addTranslation: 'Add Translation',
+            exportBackup: 'Export Backup',
+            saveAllChanges: 'Save All Changes',
+            noResults: 'No translations found matching your criteria',
+            noteTitle: 'Note:',
+            noteDescription: 'After saving translations, refresh the page or restart the application to see the changes reflected in the UI.',
+            editTooltip: 'Edit',
+            doneTooltip: 'Done editing',
+            deleteTooltip: 'Delete',
+            addModalTitle: 'Add New Translation',
+            translationKeyPath: 'Translation Key Path',
+            translationKeyHelp: 'Use dot notation: category.subcategory.key',
+            translationKeyPlaceholder: 'e.g., common.newKey or admin.section.key',
+            englishValue: 'English (EN)',
+            frenchValue: 'French (FR)',
+            englishPlaceholder: 'English translation',
+            frenchPlaceholder: 'Traduction française',
+            successSave: 'Translations saved successfully! Refresh the page to see changes.',
+            errorSave: 'Failed to save translations',
+            successAdd: 'Translation added. Click "Save All Changes" to persist.',
+            successRemove: 'Translation removed. Click "Save All Changes" to persist.',
+            confirmDelete: 'Are you sure you want to delete "{{path}}"?',
+            errorLoad: 'Failed to load translations',
+            errorPathRequired: 'Translation path is required',
+            errorPathInvalid: 'Invalid path format. Use: category.key or category.subcategory.key',
+            errorPathExists: 'This translation key already exists',
+            errorValuesRequired: 'Both English and French translations are required'
         }
     },
     validation: {

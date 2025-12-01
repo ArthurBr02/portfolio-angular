@@ -31,7 +31,8 @@ export const fr: TranslationData = {
         view: 'Voir',
         saving: 'Enregistrement...',
         saveChanges: 'Enregistrer les modifications',
-        allRightsReserved: 'Tous droits réservés.'
+        allRightsReserved: 'Tous droits réservés.',
+        chooseFile: 'Choisir un fichier'
     },
     nav: {
         home: 'Accueil',
@@ -235,6 +236,40 @@ export const fr: TranslationData = {
             deleteCategory: 'Supprimer la catégorie',
             confirmDelete: 'Êtes-vous sûr de vouloir supprimer cette catégorie de compétences ? Cette action est irréversible.',
             selectedFile: 'Sélectionné :'
+        },
+        translationsPage: {
+            allCategories: 'Toutes les catégories',
+            translationKey: 'Clé de traduction',
+            english: 'Anglais (EN)',
+            french: 'Français (FR)',
+            actions: 'Actions',
+            addTranslation: 'Ajouter une traduction',
+            exportBackup: 'Exporter une sauvegarde',
+            saveAllChanges: 'Enregistrer toutes les modifications',
+            noResults: 'Aucune traduction ne correspond à vos critères',
+            noteTitle: 'Note :',
+            noteDescription: 'Après avoir enregistré les traductions, actualisez la page ou redémarrez l\'application pour voir les modifications reflétées dans l\'interface.',
+            editTooltip: 'Modifier',
+            doneTooltip: 'Terminer la modification',
+            deleteTooltip: 'Supprimer',
+            addModalTitle: 'Ajouter une nouvelle traduction',
+            translationKeyPath: 'Chemin de la clé de traduction',
+            translationKeyHelp: 'Utilisez la notation par points : catégorie.sous-catégorie.clé',
+            translationKeyPlaceholder: 'ex: common.newKey ou admin.section.key',
+            englishValue: 'Anglais (EN)',
+            frenchValue: 'Français (FR)',
+            englishPlaceholder: 'English translation',
+            frenchPlaceholder: 'Traduction française',
+            successSave: 'Traductions enregistrées avec succès ! Actualisez la page pour voir les modifications.',
+            errorSave: 'Échec de l\'enregistrement des traductions',
+            successAdd: 'Traduction ajoutée. Cliquez sur "Enregistrer toutes les modifications" pour persister.',
+            successRemove: 'Traduction supprimée. Cliquez sur "Enregistrer toutes les modifications" pour persister.',
+            confirmDelete: 'Êtes-vous sûr de vouloir supprimer "{{path}}" ?',
+            errorLoad: 'Échec du chargement des traductions',
+            errorPathRequired: 'Le chemin de traduction est requis',
+            errorPathInvalid: 'Format de chemin invalide. Utilisez : catégorie.clé ou catégorie.sous-catégorie.clé',
+            errorPathExists: 'Cette clé de traduction existe déjà',
+            errorValuesRequired: 'Les traductions en anglais et en français sont requises'
         }
     },
     validation: {

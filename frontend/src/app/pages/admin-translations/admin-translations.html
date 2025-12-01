@@ -26,7 +26,7 @@
                     [(ngModel)]="selectedCategory"
                     (ngModelChange)="selectedCategory.set($event)">
                     @for (cat of categories(); track cat) {
-                        <option [value]="cat">{{ cat === 'all' ? 'All Categories' : cat }}</option>
+                        <option [value]="cat">{{ cat === 'all' ? ('admin.translationsPage.allCategories' | translate) : cat }}</option>
                     }
                 </select>
             </div>
@@ -36,13 +36,13 @@
                     class="btn btn-secondary"
                     (click)="addNewTranslation()">
                     <span class="icon">➕</span>
-                    Add Translation
+                    {{ 'admin.translationsPage.addTranslation' | translate }}
                 </button>
                 <button 
                     class="btn btn-secondary"
                     (click)="exportTranslations()">
                     <span class="icon">📥</span>
-                    Export Backup
+                    {{ 'admin.translationsPage.exportBackup' | translate }}
                 </button>
                 <button 
                     class="btn btn-primary"
@@ -51,7 +51,7 @@
                     @if (isSaving()) {
                         <span class="spinner-small"></span>
                     }
-                    {{ isSaving() ? ('common.saving' | translate) : ('common.saveChanges' | translate) }}
+                    {{ isSaving() ? ('common.saving' | translate) : ('admin.translationsPage.saveAllChanges' | translate) }}
                 </button>
             </div>
         </div>
@@ -61,10 +61,10 @@
             <table class="translations-table">
                 <thead>
                     <tr>
-                        <th class="col-path">Translation Key</th>
-                        <th class="col-lang">English (EN)</th>
-                        <th class="col-lang">French (FR)</th>
-                        <th class="col-actions">Actions</th>
+                        <th class="col-path">{{ 'admin.translationsPage.translationKey' | translate }}</th>
+                        <th class="col-lang">{{ 'admin.translationsPage.english' | translate }}</th>
+                        <th class="col-lang">{{ 'admin.translationsPage.french' | translate }}</th>
+                        <th class="col-actions">{{ 'admin.translationsPage.actions' | translate }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,7 +79,7 @@
                                         [(ngModel)]="entry.en"
                                         class="translation-input"
                                         rows="2"
-                                        placeholder="English translation"></textarea>
+                                        [placeholder]="'admin.translationsPage.englishPlaceholder' | translate"></textarea>
                                 } @else {
                                     <span class="value-display">{{ entry.en }}</span>
                                 }
@@ -90,7 +90,7 @@
                                         [(ngModel)]="entry.fr"
                                         class="translation-input"
                                         rows="2"
-                                        placeholder="French translation"></textarea>
+                                        [placeholder]="'admin.translationsPage.frenchPlaceholder' | translate"></textarea>
                                 } @else {
                                     <span class="value-display">{{ entry.fr }}</span>
                                 }
@@ -100,13 +100,13 @@
                                     class="action-btn"
                                     [class.editing-btn]="entry.isEditing"
                                     (click)="toggleEdit(entry)"
-                                    [title]="entry.isEditing ? 'Done editing' : 'Edit'">
+                                    [title]="entry.isEditing ? ('admin.translationsPage.doneTooltip' | translate) : ('admin.translationsPage.editTooltip' | translate)">
                                     {{ entry.isEditing ? '✓' : '✏️' }}
                                 </button>
                                 <button 
                                     class="action-btn delete-btn"
                                     (click)="deleteTranslation(entry)"
-                                    title="Delete">
+                                    [title]="'admin.translationsPage.deleteTooltip' | translate">
                                     🗑️
                                 </button>
                             </td>
@@ -114,7 +114,7 @@
                     } @empty {
                         <tr>
                             <td colspan="4" class="no-results">
-                                No translations found matching your criteria
+                                {{ 'admin.translationsPage.noResults' | translate }}
                             </td>
                         </tr>
                     }
@@ -126,8 +126,7 @@
         <div class="info-banner">
             <span class="icon">ℹ️</span>
             <div>
-                <strong>Note:</strong> After saving translations, refresh the page or restart the application 
-                to see the changes reflected in the UI.
+                <strong>{{ 'admin.translationsPage.noteTitle' | translate }}</strong> {{ 'admin.translationsPage.noteDescription' | translate }}
             </div>
         </div>
     </div>
