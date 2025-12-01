@@ -6,12 +6,13 @@ import { DeleteConfirmationModal } from '../../components/delete-confirmation-mo
 import { AdminPageHeader } from '../../components/admin-page-header/admin-page-header';
 import { FormInput } from '../../components/shared/form-input/form-input';
 import { FormTextarea } from '../../components/shared/form-textarea/form-textarea';
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
 
 
 @Component({
     selector: 'app-admin-experience',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormTextarea],
+    imports: [CommonModule, ReactiveFormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormTextarea, TranslatePipe],
     templateUrl: './admin-experience.html',
     styleUrl: './admin-experience.css',
     encapsulation: ViewEncapsulation.None

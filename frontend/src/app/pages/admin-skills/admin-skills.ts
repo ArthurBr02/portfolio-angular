@@ -9,12 +9,13 @@ import { AdminPageHeader } from '../../components/admin-page-header/admin-page-h
 import { environment } from '../../../environments/environment';
 import { FormInput } from '../../components/shared/form-input/form-input';
 import { FormFileInput } from '../../components/shared/form-file-input/form-file-input';
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
 
 
 @Component({
     selector: 'app-admin-skills',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormFileInput],
+    imports: [CommonModule, ReactiveFormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormFileInput, TranslatePipe],
     templateUrl: './admin-skills.html',
     styleUrl: './admin-skills.css',
     encapsulation: ViewEncapsulation.None

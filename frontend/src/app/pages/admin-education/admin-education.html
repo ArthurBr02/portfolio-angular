@@ -1,35 +1,35 @@
 <div class="admin-page">
-    <app-admin-page-header title="Manage Education" buttonText="Add New Education" [showForm]="showForm()"
+    <app-admin-page-header [title]="'admin.educationPage.manageEducation' | translate" [buttonText]="'admin.educationPage.addNewEducation' | translate" [showForm]="showForm()"
         (buttonClick)="toggleForm()">
     </app-admin-page-header>
 
     @if (showForm()) {
     <div class="form-card glass-card">
-        <h3>Add New Education</h3>
+        <h3>{{ 'admin.educationPage.addNewEducation' | translate }}</h3>
         <form [formGroup]="educationForm" (ngSubmit)="onSubmit()">
-            <app-form-input label="Institution" formControlName="institution" [required]="true"
-                placeholder="Enter institution name">
+            <app-form-input [label]="'admin.educationPage.institution' | translate" formControlName="institution" [required]="true"
+                [placeholder]="'admin.placeholders.institution' | translate">
             </app-form-input>
 
-            <app-form-input label="Degree" formControlName="degree" [required]="true"
-                placeholder="Enter degree or qualification">
+            <app-form-input [label]="'admin.educationPage.degree' | translate" formControlName="degree" [required]="true"
+                [placeholder]="'admin.placeholders.degree' | translate">
             </app-form-input>
 
             <div class="form-row">
-                <app-form-input label="Start Date" formControlName="startDate" [required]="true"
-                    placeholder="e.g. 2018">
+                <app-form-input [label]="'admin.educationPage.startDate' | translate" formControlName="startDate" [required]="true"
+                    [placeholder]="'admin.placeholders.year' | translate">
                 </app-form-input>
 
-                <app-form-input label="End Date" formControlName="endDate" placeholder="e.g. 2022">
+                <app-form-input [label]="'admin.educationPage.endDate' | translate" formControlName="endDate" [placeholder]="'admin.placeholders.year' | translate">
                 </app-form-input>
             </div>
 
-            <app-form-textarea label="Description" formControlName="description" [required]="true" [rows]="3"
-                placeholder="Describe your studies and achievements">
+            <app-form-textarea [label]="'admin.educationPage.description' | translate" formControlName="description" [required]="true" [rows]="3"
+                [placeholder]="'admin.placeholders.studiesDesc' | translate">
             </app-form-textarea>
 
             <button type="submit" class="btn btn-primary" [disabled]="educationForm.invalid || isSubmitting()">
-                {{ isSubmitting() ? 'Saving...' : 'Save Education' }}
+                {{ isSubmitting() ? ('admin.educationPage.savingEducation' | translate) : ('admin.educationPage.saveEducation' | translate) }}
             </button>
         </form>
     </div>
@@ -39,7 +39,7 @@
         @for (edu of education(); track edu.id) {
         <div class="edu-item glass-card">
             <div class="edu-info">
-                <h4>{{ edu.degree }} <span class="institution">at {{ edu.institution }}</span></h4>
+                <h4>{{ edu.degree }} <span class="institution">{{ 'admin.educationPage.at' | translate }} {{ edu.institution }}</span></h4>
                 <p class="period">{{ edu.period }}</p>
                 <p class="description">{{ edu.description }}</p>
             </div>
@@ -48,8 +48,8 @@
         }
     </div>
 
-    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" title="Delete Education"
-        message="Are you sure you want to delete this education entry? This action cannot be undone."
+    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" [title]="'admin.educationPage.deleteEducation' | translate"
+        [message]="'admin.educationPage.confirmDelete' | translate"
         (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
     </app-delete-confirmation-modal>
 </div>

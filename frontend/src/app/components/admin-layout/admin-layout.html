@@ -57,6 +57,7 @@
                 <h1>{{ 'admin.dashboard' | translate }}</h1>
             </div>
             <div class="header-user">
+                <app-language-switcher></app-language-switcher>
                 <span>{{ 'admin.welcome' | translate }}, {{ profile()?.firstName || 'Admin' }}</span>
                 <a routerLink="/admin/profile" class="avatar">
                     @if (profile()?.profilePicture) {

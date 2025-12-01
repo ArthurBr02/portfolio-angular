@@ -138,24 +138,6 @@ export const en: TranslationData = {
         deleteProject: 'Delete Project',
         deleteConfirm: 'Are you sure you want to delete this project? This action cannot be undone.',
 
-        manageExperience: 'Manage Experience',
-        addNewExperience: 'Add New Experience',
-        saveExperience: 'Save Experience',
-        deleteExperience: 'Delete Experience',
-        deleteExperienceConfirm: 'Are you sure you want to delete this experience? This action cannot be undone.',
-
-        manageEducation: 'Manage Education',
-        addNewEducation: 'Add New Education',
-        saveEducation: 'Save Education',
-        deleteEducation: 'Delete Education',
-        deleteEducationConfirm: 'Are you sure you want to delete this education entry? This action cannot be undone.',
-
-        manageSkills: 'Manage Skills',
-        addNewCategory: 'Add New Category',
-        saveCategory: 'Save Category',
-        deleteCategory: 'Delete Category',
-        deleteCategoryConfirm: 'Are you sure you want to delete this skill category? This action cannot be undone.',
-
         myProfile: 'My Profile',
         manageProfile: 'Manage your personal information',
         manageTranslations: 'Manage application translations',
@@ -212,6 +194,47 @@ export const en: TranslationData = {
             skillsList: 'Angular, React, Vue.js, etc.',
             username: 'Enter username',
             password: 'Enter password'
+        },
+        experiencePage: {
+            manageExperience: 'Manage Experience',
+            addNewExperience: 'Add New Experience',
+            company: 'Company',
+            position: 'Position',
+            startDate: 'Start Date',
+            endDate: 'End Date',
+            description: 'Description',
+            savingExperience: 'Saving...',
+            saveExperience: 'Save Experience',
+            deleteExperience: 'Delete Experience',
+            confirmDelete: 'Are you sure you want to delete this experience? This action cannot be undone.',
+            at: 'at'
+        },
+        educationPage: {
+            manageEducation: 'Manage Education',
+            addNewEducation: 'Add New Education',
+            institution: 'Institution',
+            degree: 'Degree',
+            startDate: 'Start Date',
+            endDate: 'End Date',
+            description: 'Description',
+            savingEducation: 'Saving...',
+            saveEducation: 'Save Education',
+            deleteEducation: 'Delete Education',
+            confirmDelete: 'Are you sure you want to delete this education entry? This action cannot be undone.',
+            at: 'at'
+        },
+        skillsPage: {
+            manageSkills: 'Manage Skills',
+            addNewCategory: 'Add New Category',
+            addNewSkillCategory: 'Add New Skill Category',
+            categoryName: 'Category Name',
+            iconImage: 'Icon Image',
+            skills: 'Skills (comma separated)',
+            savingCategory: 'Saving...',
+            saveCategory: 'Save Category',
+            deleteCategory: 'Delete Category',
+            confirmDelete: 'Are you sure you want to delete this skill category? This action cannot be undone.',
+            selectedFile: 'Selected:'
         }
     },
     validation: {

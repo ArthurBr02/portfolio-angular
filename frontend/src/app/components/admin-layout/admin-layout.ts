@@ -5,11 +5,12 @@ import { AuthService } from '../../services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 
 import { TranslatePipe } from '../../core/pipes/translate.pipe';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
     selector: 'app-admin-layout',
     standalone: true,
-    imports: [CommonModule, RouterModule, TranslatePipe],
+    imports: [CommonModule, RouterModule, TranslatePipe, LanguageSwitcherComponent],
     templateUrl: './admin-layout.html',
     styleUrl: './admin-layout.css',
     encapsulation: ViewEncapsulation.None

@@ -1,31 +1,31 @@
 <div class="admin-page">
-    <app-admin-page-header title="Manage Skills" buttonText="Add New Category" [showForm]="showForm()"
+    <app-admin-page-header [title]="'admin.skillsPage.manageSkills' | translate" [buttonText]="'admin.skillsPage.addNewCategory' | translate" [showForm]="showForm()"
         (buttonClick)="toggleForm()">
     </app-admin-page-header>
 
     @if (showForm()) {
     <div class="form-card glass-card">
-        <h3>Add New Skill Category</h3>
+        <h3>{{ 'admin.skillsPage.addNewSkillCategory' | translate }}</h3>
         <form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
-            <app-form-input label="Category Name" formControlName="name" [required]="true"
-                placeholder="e.g. Frontend Development">
+            <app-form-input [label]="'admin.skillsPage.categoryName' | translate" formControlName="name" [required]="true"
+                [placeholder]="'admin.placeholders.categoryName' | translate">
             </app-form-input>
 
-            <app-form-file-input label="Icon Image" accept="image/*" [required]="true"
+            <app-form-file-input [label]="'admin.skillsPage.iconImage' | translate" accept="image/*" [required]="true"
                 (fileSelected)="onIconFileSelected($event)">
             </app-form-file-input>
             @if (selectedIconFile) {
             <small class="form-hint" style="color: #10b981; display: block; margin-top: -1rem; margin-bottom: 1rem;">
-                Selected: {{ selectedIconFile.name }}
+                {{ 'admin.skillsPage.selectedFile' | translate }} {{ selectedIconFile.name }}
             </small>
             }
 
-            <app-form-input label="Skills (comma separated)" formControlName="skills" [required]="true"
-                placeholder="Angular, React, Vue.js, etc.">
+            <app-form-input [label]="'admin.skillsPage.skills' | translate" formControlName="skills" [required]="true"
+                [placeholder]="'admin.placeholders.skillsList' | translate">
             </app-form-input>
 
             <button type="submit" class="btn btn-primary" [disabled]="skillForm.invalid || isSubmitting()">
-                {{ isSubmitting() ? 'Saving...' : 'Save Category' }}
+                {{ isSubmitting() ? ('admin.skillsPage.savingCategory' | translate) : ('admin.skillsPage.saveCategory' | translate) }}
             </button>
         </form>
     </div>
@@ -50,8 +50,8 @@
         }
     </div>
 
-    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" title="Delete Category"
-        message="Are you sure you want to delete this skill category? This action cannot be undone."
+    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" [title]="'admin.skillsPage.deleteCategory' | translate"
+        [message]="'admin.skillsPage.confirmDelete' | translate"
         (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
     </app-delete-confirmation-modal>
 </div>

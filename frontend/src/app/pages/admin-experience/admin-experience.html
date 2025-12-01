@@ -1,35 +1,35 @@
 <div class="admin-page">
-    <app-admin-page-header title="Manage Experience" buttonText="Add New Experience" [showForm]="showForm()"
+    <app-admin-page-header [title]="'admin.experiencePage.manageExperience' | translate" [buttonText]="'admin.experiencePage.addNewExperience' | translate" [showForm]="showForm()"
         (buttonClick)="toggleForm()">
     </app-admin-page-header>
 
     @if (showForm()) {
     <div class="form-card glass-card">
-        <h3>Add New Experience</h3>
+        <h3>{{ 'admin.experiencePage.addNewExperience' | translate }}</h3>
         <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
-            <app-form-input label="Company" formControlName="company" [required]="true"
-                placeholder="Enter company name">
+            <app-form-input [label]="'admin.experiencePage.company' | translate" formControlName="company" [required]="true"
+                [placeholder]="'admin.placeholders.company' | translate">
             </app-form-input>
 
-            <app-form-input label="Position" formControlName="position" [required]="true"
-                placeholder="Enter your position">
+            <app-form-input [label]="'admin.experiencePage.position' | translate" formControlName="position" [required]="true"
+                [placeholder]="'admin.placeholders.position' | translate">
             </app-form-input>
 
             <div class="form-row">
-                <app-form-input label="Start Date" formControlName="startDate" [required]="true"
-                    placeholder="e.g. 2022">
+                <app-form-input [label]="'admin.experiencePage.startDate' | translate" formControlName="startDate" [required]="true"
+                    [placeholder]="'admin.placeholders.year' | translate">
                 </app-form-input>
 
-                <app-form-input label="End Date" formControlName="endDate" placeholder="e.g. Present">
+                <app-form-input [label]="'admin.experiencePage.endDate' | translate" formControlName="endDate" [placeholder]="'admin.placeholders.present' | translate">
                 </app-form-input>
             </div>
 
-            <app-form-textarea label="Description" formControlName="description" [required]="true" [rows]="3"
-                placeholder="Describe your role and achievements">
+            <app-form-textarea [label]="'admin.experiencePage.description' | translate" formControlName="description" [required]="true" [rows]="3"
+                [placeholder]="'admin.placeholders.roleDesc' | translate">
             </app-form-textarea>
 
             <button type="submit" class="btn btn-primary" [disabled]="experienceForm.invalid || isSubmitting()">
-                {{ isSubmitting() ? 'Saving...' : 'Save Experience' }}
+                {{ isSubmitting() ? ('admin.experiencePage.savingExperience' | translate) : ('admin.experiencePage.saveExperience' | translate) }}
             </button>
         </form>
     </div>
@@ -39,7 +39,7 @@
         @for (exp of experiences(); track exp.id) {
         <div class="exp-item glass-card">
             <div class="exp-info">
-                <h4>{{ exp.position }} <span class="company">at {{ exp.company }}</span></h4>
+                <h4>{{ exp.position }} <span class="company">{{ 'admin.experiencePage.at' | translate }} {{ exp.company }}</span></h4>
                 <p class="period">{{ exp.period }}</p>
                 <p class="description">{{ exp.description }}</p>
             </div>
@@ -48,8 +48,8 @@
         }
     </div>
 
-    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" title="Delete Experience"
-        message="Are you sure you want to delete this experience? This action cannot be undone."
+    <app-delete-confirmation-modal [isOpen]="showDeleteModal()" [title]="'admin.experiencePage.deleteExperience' | translate"
+        [message]="'admin.experiencePage.confirmDelete' | translate"
         (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
     </app-delete-confirmation-modal>
 </div>

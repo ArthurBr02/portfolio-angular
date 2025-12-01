@@ -138,24 +138,6 @@ export const fr: TranslationData = {
         deleteProject: 'Supprimer le projet',
         deleteConfirm: 'Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.',
 
-        manageExperience: 'Gérer l\'expérience',
-        addNewExperience: 'Ajouter une nouvelle expérience',
-        saveExperience: 'Enregistrer l\'expérience',
-        deleteExperience: 'Supprimer l\'expérience',
-        deleteExperienceConfirm: 'Êtes-vous sûr de vouloir supprimer cette expérience ? Cette action est irréversible.',
-
-        manageEducation: 'Gérer l\'éducation',
-        addNewEducation: 'Ajouter une nouvelle éducation',
-        saveEducation: 'Enregistrer l\'éducation',
-        deleteEducation: 'Supprimer l\'éducation',
-        deleteEducationConfirm: 'Êtes-vous sûr de vouloir supprimer cette entrée d\'éducation ? Cette action est irréversible.',
-
-        manageSkills: 'Gérer les compétences',
-        addNewCategory: 'Ajouter une nouvelle catégorie',
-        saveCategory: 'Enregistrer la catégorie',
-        deleteCategory: 'Supprimer la catégorie',
-        deleteCategoryConfirm: 'Êtes-vous sûr de vouloir supprimer cette catégorie de compétences ? Cette action est irréversible.',
-
         myProfile: 'Mon profil',
         manageProfile: 'Gérer vos informations personnelles',
         manageTranslations: 'Gérer les traductions de l\'application',
@@ -212,6 +194,47 @@ export const fr: TranslationData = {
             skillsList: 'Angular, React, Vue.js, etc.',
             username: 'Entrez le nom d\'utilisateur',
             password: 'Entrez le mot de passe'
+        },
+        experiencePage: {
+            manageExperience: 'Gérer l\'expérience',
+            addNewExperience: 'Ajouter une nouvelle expérience',
+            company: 'Entreprise',
+            position: 'Poste',
+            startDate: 'Date de début',
+            endDate: 'Date de fin',
+            description: 'Description',
+            savingExperience: 'Enregistrement...',
+            saveExperience: 'Enregistrer l\'expérience',
+            deleteExperience: 'Supprimer l\'expérience',
+            confirmDelete: 'Êtes-vous sûr de vouloir supprimer cette expérience ? Cette action est irréversible.',
+            at: 'chez'
+        },
+        educationPage: {
+            manageEducation: 'Gérer l\'éducation',
+            addNewEducation: 'Ajouter une nouvelle éducation',
+            institution: 'Institution',
+            degree: 'Diplôme',
+            startDate: 'Date de début',
+            endDate: 'Date de fin',
+            description: 'Description',
+            savingEducation: 'Enregistrement...',
+            saveEducation: 'Enregistrer l\'éducation',
+            deleteEducation: 'Supprimer l\'éducation',
+            confirmDelete: 'Êtes-vous sûr de vouloir supprimer cette entrée d\'éducation ? Cette action est irréversible.',
+            at: 'à'
+        },
+        skillsPage: {
+            manageSkills: 'Gérer les compétences',
+            addNewCategory: 'Ajouter une nouvelle catégorie',
+            addNewSkillCategory: 'Ajouter une nouvelle catégorie de compétences',
+            categoryName: 'Nom de la catégorie',
+            iconImage: 'Image de l\'icône',
+            skills: 'Compétences (séparées par des virgules)',
+            savingCategory: 'Enregistrement...',
+            saveCategory: 'Enregistrer la catégorie',
+            deleteCategory: 'Supprimer la catégorie',
+            confirmDelete: 'Êtes-vous sûr de vouloir supprimer cette catégorie de compétences ? Cette action est irréversible.',
+            selectedFile: 'Sélectionné :'
         }
     },
     validation: {
