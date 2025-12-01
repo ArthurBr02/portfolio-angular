@@ -1,0 +1,143 @@
+<div class="admin-container">
+    <div class="page-header">
+        <h1 class="page-title">{{ 'admin.translations' | translate }}</h1>
+        <p class="page-subtitle">{{ 'admin.manageTranslations' | translate }}</p>
+    </div>
+
+    @if (isLoading()) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>{{ 'common.loading' | translate }}</p>
+    </div>
+    } @else {
+    <div class="translations-content">
+        <!-- Actions Bar -->
+        <div class="actions-bar">
+            <div class="search-filter">
+                <input 
+                    type="text" 
+                    class="search-input"
+                    [placeholder]="'common.search' | translate"
+                    [(ngModel)]="searchQuery"
+                    (ngModelChange)="searchQuery.set($event)">
+                
+                <select 
+                    class="category-filter"
+                    [(ngModel)]="selectedCategory"
+                    (ngModelChange)="selectedCategory.set($event)">
+                    @for (cat of categories(); track cat) {
+                        <option [value]="cat">{{ cat === 'all' ? 'All Categories' : cat }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="action-buttons">
+                <button 
+                    class="btn btn-secondary"
+                    (click)="addNewTranslation()">
+                    <span class="icon">➕</span>
+                    Add Translation
+                </button>
+                <button 
+                    class="btn btn-secondary"
+                    (click)="exportTranslations()">
+                    <span class="icon">📥</span>
+                    Export Backup
+                </button>
+                <button 
+                    class="btn btn-primary"
+                    [disabled]="isSaving()"
+                    (click)="saveTranslations()">
+                    @if (isSaving()) {
+                        <span class="spinner-small"></span>
+                    }
+                    {{ isSaving() ? ('common.saving' | translate) : ('common.saveChanges' | translate) }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Translation Table -->
+        <div class="translations-table-wrapper">
+            <table class="translations-table">
+                <thead>
+                    <tr>
+                        <th class="col-path">Translation Key</th>
+                        <th class="col-lang">English (EN)</th>
+                        <th class="col-lang">French (FR)</th>
+                        <th class="col-actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (entry of filteredEntries(); track entry.path) {
+                        <tr [class.editing]="entry.isEditing">
+                            <td class="translation-path">
+                                <code>{{ entry.path }}</code>
+                            </td>
+                            <td class="translation-value">
+                                @if (entry.isEditing) {
+                                    <textarea
+                                        [(ngModel)]="entry.en"
+                                        class="translation-input"
+                                        rows="2"
+                                        placeholder="English translation"></textarea>
+                                } @else {
+                                    <span class="value-display">{{ entry.en }}</span>
+                                }
+                            </td>
+                            <td class="translation-value">
+                                @if (entry.isEditing) {
+                                    <textarea
+                                        [(ngModel)]="entry.fr"
+                                        class="translation-input"
+                                        rows="2"
+                                        placeholder="French translation"></textarea>
+                                } @else {
+                                    <span class="value-display">{{ entry.fr }}</span>
+                                }
+                            </td>
+                            <td class="translation-actions">
+                                <button 
+                                    class="action-btn"
+                                    [class.editing-btn]="entry.isEditing"
+                                    (click)="toggleEdit(entry)"
+                                    [title]="entry.isEditing ? 'Done editing' : 'Edit'">
+                                    {{ entry.isEditing ? '✓' : '✏️' }}
+                                </button>
+                                <button 
+                                    class="action-btn delete-btn"
+                                    (click)="deleteTranslation(entry)"
+                                    title="Delete">
+                                    🗑️
+                                </button>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="4" class="no-results">
+                                No translations found matching your criteria
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Info Banner -->
+        <div class="info-banner">
+            <span class="icon">ℹ️</span>
+            <div>
+                <strong>Note:</strong> After saving translations, refresh the page or restart the application 
+                to see the changes reflected in the UI.
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- Add Translation Modal -->
+    <app-add-translation-modal
+        [isOpen]="showAddModal()"
+        [existingKeys]="getExistingKeys()"
+        (confirm)="onAddTranslation($event)"
+        (cancel)="onCancelAddTranslation()">
+    </app-add-translation-modal>
+</div>

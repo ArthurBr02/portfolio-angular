@@ -240,4 +240,90 @@ router.post('/contact', async (req, res) => {
     }
 });
 
+// --- TRANSLATIONS ---
+const fs = require('fs').promises;
+
+// Get translations for a specific language
+router.get('/translations/:lang', authenticateToken, async (req, res) => {
+    const { lang } = req.params;
+    
+    if (!['en', 'fr'].includes(lang)) {
+        return res.status(400).json({ error: 'Invalid language. Must be "en" or "fr"' });
+    }
+
+    try {
+        const filePath = path.join(__dirname, '../../frontend/src/app/i18n', `${lang}.ts`);
+        const content = await fs.readFile(filePath, 'utf-8');
+        
+        // Extract the translation object from the TypeScript file
+        // This is a simple approach - for production, consider using a proper parser
+        const match = content.match(/export const \w+: TranslationData = ({[\s\S]*});/);
+        if (!match) {
+            return res.status(500).json({ error: 'Could not parse translation file' });
+        }
+        
+        // Use eval in a safe context (only for admin use)
+        const translations = eval(`(${match[1]})`);
+        res.json({ lang, translations });
+    } catch (error) {
+        console.error('Error reading translation file:', error);
+        res.status(500).json({ error: 'Failed to read translation file' });
+    }
+});
+
+// Update translations for a specific language
+router.put('/translations/:lang', authenticateToken, async (req, res) => {
+    const { lang } = req.params;
+    const { translations } = req.body;
+    
+    if (!['en', 'fr'].includes(lang)) {
+        return res.status(400).json({ error: 'Invalid language. Must be "en" or "fr"' });
+    }
+
+    if (!translations || typeof translations !== 'object') {
+        return res.status(400).json({ error: 'Invalid translations data' });
+    }
+
+    try {
+        const filePath = path.join(__dirname, '../../frontend/src/app/i18n', `${lang}.ts`);
+        
+        // Convert the translations object to a formatted TypeScript file
+        const formattedContent = formatTranslationFile(lang, translations);
+        
+        // Write the updated file
+        await fs.writeFile(filePath, formattedContent, 'utf-8');
+        
+        res.json({ success: true, message: 'Translations updated successfully' });
+    } catch (error) {
+        console.error('Error writing translation file:', error);
+        res.status(500).json({ error: 'Failed to update translation file' });
+    }
+});
+
+// Helper function to format translation object as TypeScript file
+function formatTranslationFile(lang, translations) {
+    const varName = lang === 'en' ? 'en' : 'fr';
+    
+    // Function to recursively format the translation object with proper indentation
+    function formatObject(obj, indent = 1) {
+        const spaces = '    '.repeat(indent);
+        const entries = Object.entries(obj).map(([key, value]) => {
+            if (typeof value === 'object' && value !== null) {
+                return `${spaces}${key}: {\n${formatObject(value, indent + 1)}${spaces}}`;
+            } else {
+                // Escape single quotes and backslashes in strings
+                const escapedValue = String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                return `${spaces}${key}: '${escapedValue}'`;
+            }
+        });
+        return entries.join(',\n') + '\n';
+    }
+    
+    return `import { TranslationData } from '../services/translation.service';
+
+export const ${varName}: TranslationData = {
+${formatObject(translations)}};
+`;
+}
+
 module.exports = router;

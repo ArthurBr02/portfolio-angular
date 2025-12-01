@@ -21,7 +21,8 @@ export const routes: Routes = [
             { path: 'experience', component: AdminExperience },
             { path: 'education', component: AdminEducation },
             { path: 'skills', loadComponent: () => import('./pages/admin-skills/admin-skills').then(m => m.AdminSkills) },
-            { path: 'profile', loadComponent: () => import('./pages/admin-profile/admin-profile').then(m => m.AdminProfile) }
+            { path: 'profile', loadComponent: () => import('./pages/admin-profile/admin-profile').then(m => m.AdminProfile) },
+            { path: 'translations', loadComponent: () => import('./pages/admin-translations/admin-translations').then(m => m.AdminTranslations) }
         ]
     },
     { path: '**', redirectTo: '' }

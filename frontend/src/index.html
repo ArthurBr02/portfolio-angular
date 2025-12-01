@@ -16,5 +16,23 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    (function() {
+      function onLoaded() {
+        try {
+          document.documentElement.classList.add('dom-loaded');
+          document.body.classList.add('dom-loaded');
+        } catch (e) {
+          // noop
+        }
+      }
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        onLoaded();
+      } else {
+        document.addEventListener('DOMContentLoaded', onLoaded);
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,60 @@
+@if (isOpen()) {
+<div class="modal-overlay" (click)="onCancel()">
+    <div class="modal-content glass-card add-translation-modal" (click)="$event.stopPropagation()">
+        <h3>Add New Translation</h3>
+        
+        @if (errorMessage()) {
+        <div class="error-banner">
+            <span class="icon">⚠️</span>
+            {{ errorMessage() }}
+        </div>
+        }
+
+        <div class="form-group">
+            <label for="translationPath">Translation Key Path</label>
+            <input 
+                type="text" 
+                id="translationPath"
+                class="form-input"
+                placeholder="e.g., common.newKey or admin.section.key"
+                [(ngModel)]="translationPath"
+                (ngModelChange)="translationPath.set($event); errorMessage.set('')"
+                autofocus>
+            <small class="form-help">Use dot notation: category.subcategory.key</small>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="enValue">English (EN)</label>
+                <textarea 
+                    id="enValue"
+                    class="form-input"
+                    rows="3"
+                    placeholder="English translation"
+                    [(ngModel)]="enValue"
+                    (ngModelChange)="enValue.set($event); errorMessage.set('')"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="frValue">French (FR)</label>
+                <textarea 
+                    id="frValue"
+                    class="form-input"
+                    rows="3"
+                    placeholder="Traduction française"
+                    [(ngModel)]="frValue"
+                    (ngModelChange)="frValue.set($event); errorMessage.set('')"></textarea>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn btn-secondary" (click)="onCancel()">
+                {{ 'common.cancel' | translate }}
+            </button>
+            <button class="btn btn-primary" (click)="onConfirm()">
+                {{ 'common.add' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+}

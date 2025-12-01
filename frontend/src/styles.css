@@ -302,6 +302,17 @@ code {
     animation: float 3s ease-in-out infinite;
 }
 
+/* ==================== ENTRANCE ON DOM LOADED ==================== */
+app-root {
+    opacity: 0;
+    transform: translateY(12px);
+    will-change: opacity, transform;
+}
+
+.dom-loaded app-root {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
 /* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
     width: 10px;

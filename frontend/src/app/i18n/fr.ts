@@ -117,6 +117,7 @@ export const fr: TranslationData = {
         education: 'Éducation',
         skills: 'Compétences',
         profile: 'Profil',
+        translations: 'Traductions',
         logout: 'Déconnexion',
         welcome: 'Bienvenue',
         role: 'Administrateur',
@@ -157,6 +158,7 @@ export const fr: TranslationData = {
 
         myProfile: 'Mon profil',
         manageProfile: 'Gérer vos informations personnelles',
+        manageTranslations: 'Gérer les traductions de l\'application',
         changePhoto: 'Changer la photo',
         photoHelp: 'Recommandé : Image carrée, max 2Mo',
         socialMedia: 'Réseaux sociaux',
