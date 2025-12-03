@@ -18,10 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static files for uploads
 const uploadDir = process.env.UPLOAD_DIR || 'uploads';
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
+// Use absolute path if UPLOAD_DIR is absolute, otherwise resolve relative to __dirname
+const uploadPath = path.isAbsolute(uploadDir) ? uploadDir : path.join(__dirname, uploadDir);
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
 }
-app.use('/uploads', express.static(path.join(__dirname, uploadDir)));
+app.use('/uploads', express.static(uploadPath));
 
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');

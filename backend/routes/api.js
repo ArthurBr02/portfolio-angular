@@ -6,9 +6,13 @@ const path = require('path');
 const authenticateToken = require('../middleware/auth');
 
 // Multer Setup
+const uploadDir = process.env.UPLOAD_DIR || 'uploads';
+// Use absolute path if UPLOAD_DIR is absolute, otherwise resolve relative to project root
+const uploadPath = path.isAbsolute(uploadDir) ? uploadDir : path.join(__dirname, '..', uploadDir);
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, process.env.UPLOAD_DIR || 'uploads');
+        cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
