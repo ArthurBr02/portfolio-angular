@@ -22,14 +22,23 @@ function parseDotenv(content) {
   return vars;
 }
 
+/**
+ * Convert SNAKE_CASE to camelCase
+ * e.g. API_URL -> apiUrl, BASE_URL -> baseUrl
+ */
+function snakeToCamel(str) {
+  return str.toLowerCase().replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
 function buildEnvironmentObject(vars) {
-  // Map env vars to a flat object. If you need nested structure, adapt here.
+  // Map env vars to a flat object with camelCase keys
   return Object.keys(vars).reduce((acc, k) => {
-    // Try to coerce booleans and numbers
+    const camelKey = snakeToCamel(k);
     const v = vars[k];
-    if (v === 'true' || v === 'false') acc[k] = v === 'true';
-    else if (!isNaN(v) && v !== '') acc[k] = Number(v);
-    else acc[k] = v;
+    // Try to coerce booleans and numbers
+    if (v === 'true' || v === 'false') acc[camelKey] = v === 'true';
+    else if (!isNaN(v) && v !== '') acc[camelKey] = Number(v);
+    else acc[camelKey] = v;
     return acc;
   }, {});
 }
