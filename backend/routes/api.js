@@ -157,7 +157,7 @@ router.post('/skill-categories', authenticateToken, upload.single('iconImage'), 
     // If an image was uploaded, use its path as the icon
     if (req.file) {
         icon = `/uploads/${req.file.filename}`;
-    }
+    } 
 
     // skills should be an array or comma-separated string, convert to JSON string for storage
     let skillsArray = skills;
