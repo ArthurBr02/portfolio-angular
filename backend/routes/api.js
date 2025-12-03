@@ -190,7 +190,9 @@ router.get('/skill-categories/:id/icon', (req, res) => {
 
         // If it's a file path, serve the file
         if (iconPath && iconPath.startsWith('/uploads/')) {
-            const filePath = path.join(__dirname, '..', iconPath);
+            // Use the absolute uploadPath instead of relative path
+            const fileName = path.basename(iconPath);
+            const filePath = path.join(uploadPath, fileName);
             return res.sendFile(filePath, (err) => {
                 if (err) {
                     console.error('Error sending file:', err);
