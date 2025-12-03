@@ -5,7 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "db:migrate": "node scripts/migrate.js up",
+    "db:rollback": "node scripts/migrate.js down",
+    "db:reset": "node scripts/migrate.js reset",
+    "db:status": "node scripts/migrate.js status",
+    "db:seed": "node scripts/seed.js"
   },
   "keywords": [],
   "author": "",

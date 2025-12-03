@@ -1,4 +1,18 @@
+#!/usr/bin/env node
+
+/**
+ * Database Seeding Script
+ * Populates the database with initial data
+ */
+
+const path = require('path');
+const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
+
+// Load environment variables
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
+
+const { getDatabase, initializeDatabase, closeDatabase } = require('../db');
 
 const adminUser = {
     username: 'admin',
@@ -11,7 +25,8 @@ const adminUser = {
     linkedin: 'https://linkedin.com',
     twitter: 'https://twitter.com',
     instagram: 'https://instagram.com',
-    profilePicture: null
+    profilePicture: null,
+    availableForWork: 0
 };
 
 const projects = [
@@ -65,21 +80,21 @@ const experience = [
         position: 'Senior Full Stack Developer',
         startDate: '2022',
         endDate: 'Present',
-        description: 'Leading development of enterprise web applications and mentoring junior developers. Architected and deployed microservices infrastructure serving 100K+ users. Reduced application load time by 60% through optimization.'
+        description: 'Leading development of enterprise web applications and mentoring junior developers.'
     },
     {
         company: 'Digital Solutions Ltd.',
         position: 'Full Stack Developer',
         startDate: '2020',
         endDate: '2022',
-        description: 'Developed and maintained multiple client projects using modern web technologies. Built 15+ responsive web applications from scratch. Implemented CI/CD pipelines reducing deployment time by 40%.'
+        description: 'Developed and maintained multiple client projects using modern web technologies.'
     },
     {
         company: 'StartUp Ventures',
         position: 'Junior Developer',
         startDate: '2019',
         endDate: '2020',
-        description: 'Contributed to various web development projects and learned industry best practices. Developed RESTful APIs for mobile applications. Participated in code reviews and agile ceremonies.'
+        description: 'Contributed to various web development projects and learned industry best practices.'
     }
 ];
 
@@ -89,26 +104,35 @@ const education = [
         degree: 'Master of Science in Computer Science',
         startDate: '2018',
         endDate: '2020',
-        description: 'Specialized in Artificial Intelligence and Machine Learning. Graduated with Honors. Thesis on Neural Networks optimization.'
+        description: 'Specialized in Artificial Intelligence and Machine Learning.'
     },
     {
         institution: 'State University',
         degree: 'Bachelor of Science in Software Engineering',
         startDate: '2014',
         endDate: '2018',
-        description: 'Core curriculum focused on software architecture, algorithms, and data structures. Dean\'s List for 6 consecutive semesters.'
+        description: 'Core curriculum focused on software architecture, algorithms, and data structures.'
     }
 ];
 
-function seed(db) {
-    setTimeout(() => {
+async function seed() {
+    const db = getDatabase();
+    
+    // First, run migrations to ensure tables exist
+    console.log('Ensuring database schema is up to date...');
+    await initializeDatabase();
+    
+    console.log('\nSeeding database...');
+
+    return new Promise((resolve, reject) => {
         db.serialize(() => {
             // Clear existing data
             db.run('DELETE FROM projects');
             db.run('DELETE FROM experience');
             db.run('DELETE FROM education');
             db.run('DELETE FROM users');
-            db.run('DELETE FROM sqlite_sequence WHERE name="projects" OR name="experience" OR name="education" OR name="users"');
+            db.run('DELETE FROM skill_categories');
+            db.run(`DELETE FROM sqlite_sequence WHERE name IN ('projects', 'experience', 'education', 'users', 'skill_categories')`);
 
             // Insert Projects
             const stmtProjects = db.prepare('INSERT INTO projects (title, description, imageUrl, link, technologies) VALUES (?, ?, ?, ?, ?)');
@@ -116,6 +140,7 @@ function seed(db) {
                 stmtProjects.run(p.title, p.description, p.imageUrl, p.link, p.technologies);
             });
             stmtProjects.finalize();
+            console.log(`  ✓ Inserted ${projects.length} projects`);
 
             // Insert Experience
             const stmtExperience = db.prepare('INSERT INTO experience (company, position, startDate, endDate, description) VALUES (?, ?, ?, ?, ?)');
@@ -123,6 +148,7 @@ function seed(db) {
                 stmtExperience.run(e.company, e.position, e.startDate, e.endDate, e.description);
             });
             stmtExperience.finalize();
+            console.log(`  ✓ Inserted ${experience.length} experiences`);
 
             // Insert Education
             const stmtEducation = db.prepare('INSERT INTO education (institution, degree, startDate, endDate, description) VALUES (?, ?, ?, ?, ?)');
@@ -130,31 +156,50 @@ function seed(db) {
                 stmtEducation.run(e.institution, e.degree, e.startDate, e.endDate, e.description);
             });
             stmtEducation.finalize();
+            console.log(`  ✓ Inserted ${education.length} education records`);
 
             // Insert Admin User
             bcrypt.hash(adminUser.password, 10, (err, hash) => {
                 if (err) {
                     console.error('Error hashing password:', err);
-                    db.close();
+                    reject(err);
                     return;
                 }
+                
                 db.run(`INSERT INTO users (
-            username, password, firstName, lastName, age, email, 
-            github, linkedin, twitter, instagram, profilePicture
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                    username, password, firstName, lastName, age, email, 
+                    github, linkedin, twitter, instagram, profilePicture, availableForWork
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                     [
                         adminUser.username, hash, adminUser.firstName, adminUser.lastName,
                         adminUser.age, adminUser.email, adminUser.github, adminUser.linkedin,
-                        adminUser.twitter, adminUser.instagram, adminUser.profilePicture
+                        adminUser.twitter, adminUser.instagram, adminUser.profilePicture,
+                        adminUser.availableForWork
                     ], (err) => {
-                        if (err) console.error('Error creating admin user:', err);
-                        else console.log('Admin user created successfully');
-                        db.close();
-                    });
+                        if (err) {
+                            console.error('Error creating admin user:', err);
+                            reject(err);
+                        } else {
+                            console.log('  ✓ Admin user created (username: admin, password: password123)');
+                            console.log('\n✓ Database seeded successfully!');
+                            resolve();
+                        }
+                    }
+                );
             });
-
-            console.log('Database seeded successfully!');
         });
-    }, 1000);
+    });
 }
- 
+
+// Run if executed directly
+if (require.main === module) {
+    seed()
+        .then(() => closeDatabase())
+        .then(() => process.exit(0))
+        .catch(err => {
+            console.error('Seeding failed:', err);
+            process.exit(1);
+        });
+}
+
+module.exports = seed;

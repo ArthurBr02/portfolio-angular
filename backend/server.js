@@ -6,6 +6,8 @@ const fs = require('fs');
 
 dotenv.config();
 
+const { initializeDatabase } = require('./db');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -32,6 +34,19 @@ app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the Portfolio API' });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Initialize database and start server
+async function startServer() {
+    try {
+        // Run database migrations
+        await initializeDatabase();
+        
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error('Failed to start server:', err);
+        process.exit(1);
+    }
+}
+
+startServer();
