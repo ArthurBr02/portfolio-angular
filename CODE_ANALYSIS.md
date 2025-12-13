@@ -1,5 +1,8 @@
 # Analyse du Code - Portfolio Application
 
+> **Dernière mise à jour:** 13 décembre 2025  
+> **Modifications récentes:** Implémentation complète du système d'internationalisation avec rechargement dynamique des traductions
+
 ## 📊 Vue d'ensemble du projet
 
 Ce projet est une application portfolio full-stack construite avec :
@@ -27,6 +30,8 @@ Ce projet est une application portfolio full-stack construite avec :
    - Support multilingue (EN/FR)
    - Interface d'administration pour gérer les traductions
    - Export/import des traductions
+   - **Rechargement dynamique des traductions** sans rafraîchissement de page
+   - Service de traduction avec API pour récupérer les traductions à jour
 
 4. **Authentification robuste**
    - JWT pour l'authentification
@@ -401,6 +406,104 @@ const xss = require('xss-clean');
 app.use(mongoSanitize());
 app.use(xss());
 ```
+
+---
+
+## 🌐 Système d'Internationalisation
+
+### Architecture i18n
+
+**Composants principaux:**
+
+1. **TranslationService** (`translation.service.ts`)
+   - Gestion centralisée des traductions
+   - Support de plusieurs langues (EN/FR)
+   - Détection automatique de la langue du navigateur
+   - Sauvegarde de la préférence utilisateur dans localStorage
+   - **Rechargement dynamique** des traductions depuis l'API
+
+2. **TranslationAdminService** (`translation-admin.service.ts`)
+   - API pour récupérer les traductions
+   - Mise à jour des fichiers de traduction côté serveur
+   - Retour des traductions mises à jour
+
+3. **TranslatePipe** (`translate.pipe`)
+   - Pipe Angular pour utiliser les traductions dans les templates
+   - Support des paramètres dynamiques (ex: `{{ 'message' | translate: {name: 'John'} }}`)
+
+4. **Interface d'administration** (`admin-translations`)
+   - Édition en ligne des traductions
+   - Ajout de nouvelles clés de traduction
+   - Filtrage par catégorie
+   - Export/import pour backup
+   - **Sauvegarde et rechargement automatique** sans rafraîchissement
+
+### Flux de rechargement dynamique
+
+```typescript
+// 1. L'utilisateur modifie une traduction dans l'admin
+// 2. Clic sur "Save All Changes"
+saveTranslations() {
+    // Reconstruit les objets de traduction
+    const newEnTranslations = {...};
+    const newFrTranslations = {...};
+    
+    // Sauvegarde via API (écrit dans les fichiers .ts)
+    Promise.all([
+        this.translationAdminService.updateTranslations('en', newEnTranslations),
+        this.translationAdminService.updateTranslations('fr', newFrTranslations)
+    ]).then(async () => {
+        // 3. Recharge automatiquement les traductions
+        await this.translationService.reloadTranslations();
+        // 4. Les changements sont immédiatement visibles
+        this.toastService.success('Translations saved and reloaded successfully!');
+    });
+}
+
+// Dans TranslationService
+async reloadTranslations(): Promise<void> {
+    // Récupère les nouvelles traductions depuis l'API
+    const [enResponse, frResponse] = await Promise.all([
+        firstValueFrom(this.http.get(`${this.apiUrl}/translations/en`)),
+        firstValueFrom(this.http.get(`${this.apiUrl}/translations/fr`))
+    ]);
+    
+    // Met à jour les traductions en mémoire
+    this.translations.en = enResponse.translations;
+    this.translations.fr = frResponse.translations;
+}
+```
+
+### Bonnes pratiques implémentées
+
+✅ **Toutes les chaînes visibles sont traduites**
+- Textes dans les composants publics (hero, about, projects, etc.)
+- Messages d'erreur et de succès (toasts)
+- Confirmations de suppression
+- Messages de validation
+
+✅ **Organisation structurée des clés**
+```typescript
+{
+    common: { home, about, save, cancel, ... },
+    hero: { greeting, role, description, ... },
+    admin: {
+        dashboard: { ... },
+        skillsPage: { ... },
+        translationsPage: { ... }
+    }
+}
+```
+
+✅ **Support des paramètres dynamiques**
+```typescript
+translate('validation.required', { field: 'Email' })
+// Output: "Email is required" / "Email est requis"
+```
+
+✅ **Aucun texte en dur dans le code**
+- Tous les composants utilisent le `TranslatePipe` ou `TranslationService`
+- Même les messages de `console.log` importants sont internationalisés
 
 ---
 

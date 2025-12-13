@@ -1,5 +1,9 @@
 # 🎨 Portfolio Full-Stack - Documentation Complète
 
+> **Dernière mise à jour:** 13 décembre 2025  
+> **Version:** 2.0  
+> **Modifications récentes:** Système d'internationalisation avec rechargement dynamique des traductions
+
 [![Angular](https://img.shields.io/badge/Angular-20.3-DD0031?logo=angular)](https://angular.io/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.18-000000?logo=express)](https://expressjs.com/)
 [![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite)](https://www.sqlite.org/)
@@ -188,15 +192,19 @@ Accessible via `/admin` après authentification.
 #### 8. **Gestion des Traductions**
 - Interface dédiée pour éditer les traductions
 - Visualisation côte à côte EN/FR
+- **Modification en temps réel sans rafraîchissement**
 - Modification des textes :
   - Navigation
   - Sections du site
   - Messages de l'admin
   - Formulaires
+  - Messages de succès/erreur
+  - Confirmations
 - Export/Import des traductions (JSON)
 - Ajout de nouvelles clés de traduction
 - Navigation par sections
-- Sauvegarde avec validation
+- **Rechargement automatique** après sauvegarde
+- Toutes les chaînes visibles sont traduites (aucun texte en dur)
 
 ---
 
@@ -846,6 +854,14 @@ Content-Type: application/json
 
 ## 🌍 Internationalisation
 
+### Système de traduction dynamique
+
+L'application dispose d'un système d'internationalisation avancé avec :
+- ✅ **Rechargement dynamique** des traductions sans rafraîchissement
+- ✅ **Interface d'administration** pour éditer les traductions
+- ✅ **Tous les textes sont traduits** (aucun texte en dur)
+- ✅ **Support des paramètres** dans les traductions
+
 ### Langues disponibles
 
 - 🇬🇧 Anglais (`en`)
@@ -899,12 +915,41 @@ import { TranslatePipe } from '../../core/pipes/translate.pipe';
     template: `
         <h1>{{ 'common.welcome' | translate }}</h1>
         <p>{{ 'about.description' | translate }}</p>
+        
+        <!-- Avec paramètres -->
+        <p>{{ 'validation.required' | translate: {field: 'Email'} }}</p>
     `
 })
 export class MyComponent {}
 ```
 
-📖 **Guide complet:** [TRANSLATION_GUIDE.md](frontend/TRANSLATION_GUIDE.md)
+### Édition des traductions via l'interface admin
+
+1. Connectez-vous au panneau d'administration
+2. Accédez à **Translations** dans le menu
+3. Recherchez et modifiez les traductions souhaitées
+4. Cliquez sur **Save All Changes**
+5. Les changements sont **immédiatement appliqués** sans rafraîchissement
+
+### Architecture technique
+
+```typescript
+// Flux de rechargement dynamique
+TranslationService.reloadTranslations()
+  → Appel API GET /api/translations/en et /api/translations/fr
+  → Mise à jour des traductions en mémoire
+  → Toutes les vues utilisent automatiquement les nouvelles traductions
+```
+
+**Avantages:**
+- ✅ Pas besoin de rebuild l'application
+- ✅ Changements visibles immédiatement
+- ✅ Aucune perte de données ou de session
+- ✅ Expérience utilisateur fluide
+
+📖 **Guides complets:** 
+- [TRANSLATION_GUIDE.md](frontend/TRANSLATION_GUIDE.md)
+- [TRANSLATION_README.md](frontend/TRANSLATION_README.md)
 
 ---
 

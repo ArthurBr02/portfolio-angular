@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslationAdminService } from '../../services/translation-admin.service';
-import { TranslationData } from '../../services/translation.service';
+import { TranslationData, TranslationService } from '../../services/translation.service';
 import { ToastService } from '../../services/toast.service';
 import { TranslatePipe } from '../../core/pipes/translate.pipe';
 import { AddTranslationModal } from '../../components/add-translation-modal/add-translation-modal';
@@ -35,7 +35,8 @@ export class AdminTranslations implements OnInit {
 
     constructor(
         private translationAdminService: TranslationAdminService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private translationService: TranslationService
     ) { }
 
     ngOnInit() {
@@ -57,7 +58,7 @@ export class AdminTranslations implements OnInit {
             }
         }).catch(error => {
             console.error('Error loading translations:', error);
-            this.toastService.error('Failed to load translations');
+            this.toastService.error(this.translationService.translate('admin.translationsPage.errorLoad'));
         }).finally(() => {
             this.isLoading.set(false);
         });
@@ -130,7 +131,7 @@ export class AdminTranslations implements OnInit {
 
         this.translationEntries().forEach(entry => {
             const keys = entry.path.split('.');
-            
+
             // Set English value
             let enCurrent = newEnTranslations;
             for (let i = 0; i < keys.length - 1; i++) {
@@ -156,8 +157,11 @@ export class AdminTranslations implements OnInit {
         Promise.all([
             this.translationAdminService.updateTranslations('en', newEnTranslations).toPromise(),
             this.translationAdminService.updateTranslations('fr', newFrTranslations).toPromise()
-        ]).then(() => {
-            this.toastService.success('Translations saved successfully! Refresh the page to see changes.');
+        ]).then(async () => {
+            // Reload translations in the translation service
+            await this.translationService.reloadTranslations();
+
+            this.toastService.success('Translations saved and reloaded successfully!');
             // Mark all as not editing
             this.translationEntries().forEach(e => e.isEditing = false);
         }).catch(error => {
@@ -185,7 +189,7 @@ export class AdminTranslations implements OnInit {
         };
 
         this.translationEntries.set([...this.translationEntries(), newEntry]);
-        
+
         // Update categories if needed
         const category = keys[0];
         if (!this.categories().includes(category)) {
@@ -197,7 +201,7 @@ export class AdminTranslations implements OnInit {
         }
 
         this.showAddModal.set(false);
-        this.toastService.success('Translation added. Click "Save All Changes" to persist.');
+        this.toastService.success(this.translationService.translate('admin.translationsPage.successAdd'));
     }
 
     onCancelAddTranslation() {
@@ -209,13 +213,14 @@ export class AdminTranslations implements OnInit {
     }
 
     deleteTranslation(entry: TranslationEntry) {
-        if (!confirm(`Are you sure you want to delete "${entry.path}"?`)) {
+        const confirmMsg = this.translationService.translate('admin.translationsPage.confirmDelete', { path: entry.path });
+        if (!confirm(confirmMsg)) {
             return;
         }
 
         const filtered = this.translationEntries().filter(e => e.path !== entry.path);
         this.translationEntries.set(filtered);
-        this.toastService.success('Translation removed. Click "Save All Changes" to persist.');
+        this.toastService.success(this.translationService.translate('admin.translationsPage.successRemove'));
     }
 
     exportTranslations() {

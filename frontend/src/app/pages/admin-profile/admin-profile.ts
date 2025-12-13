@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { ToastService } from '../../services/toast.service';
+import { TranslationService } from '../../services/translation.service';
 import { FormInput } from '../../components/shared/form-input/form-input';
 import { FormCheckbox } from '../../components/shared/form-checkbox/form-checkbox';
 
@@ -19,6 +20,7 @@ import { TranslatePipe } from '../../core/pipes/translate.pipe';
 export class AdminProfile {
     private profileService = inject(ProfileService);
     private toastService = inject(ToastService);
+    private translationService = inject(TranslationService);
     private fb = inject(FormBuilder);
 
     profile = this.profileService.getProfile;
@@ -85,12 +87,12 @@ export class AdminProfile {
         this.profileService.updateProfile(formData).subscribe({
             next: () => {
                 this.isSubmitting.set(false);
-                this.toastService.success('Profile updated successfully!');
+                this.toastService.success(this.translationService.translate('admin.profileUpdated'));
             },
             error: (err) => {
                 console.error('Error updating profile:', err);
                 this.isSubmitting.set(false);
-                this.toastService.error('Error updating profile');
+                this.toastService.error(this.translationService.translate('admin.profileUpdateError'));
             }
         });
     }

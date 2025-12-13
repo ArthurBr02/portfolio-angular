@@ -6,7 +6,7 @@ export const fr: TranslationData = {
         about: 'À propos',
         projects: 'Projets',
         experience: 'Expérience',
-        education: 'Éducation',
+        education: 'Niveau scolaire',
         skills: 'Compétences',
         contact: 'Contact',
         admin: 'Admin',
@@ -43,8 +43,9 @@ export const fr: TranslationData = {
     },
     hero: {
         availableForWork: 'Disponible pour travailler',
-        greeting: "Bonjour, je suis",
+        greeting: 'Bonjour, je suis',
         role: 'Développeur Full Stack',
+        description: 'Développeur passionné avec une expertise dans la création d\'applications web évolutives et d\'expériences utilisateur intuitives.',
         cta: 'Me contacter',
         viewProjects: 'Voir mes projets'
     },
@@ -57,7 +58,7 @@ export const fr: TranslationData = {
         projectsCompleted: 'Projets réalisés',
         technologiesUsed: 'Technologies utilisées',
         journey: 'Mon parcours dans la tech a commencé par une curiosité sur le fonctionnement des choses, et a évolué vers une carrière dédiée à la création d\'expériences numériques exceptionnelles. Je crois en l\'écriture d\'un code propre et maintenable, et je reste à jour avec les dernières tendances de l\'industrie.',
-        hobbies: "Quand je ne code pas, vous pouvez me trouver en train de contribuer à des projets open-source, d'apprendre de nouvelles technologies ou de partager mes connaissances avec la communauté des développeurs."
+        hobbies: 'Quand je ne code pas, vous pouvez me trouver en train de contribuer à des projets open-source, d\'apprendre de nouvelles technologies ou de partager mes connaissances avec la communauté des développeurs.'
     },
     projects: {
         title: 'Projets en vedette',
@@ -76,7 +77,7 @@ export const fr: TranslationData = {
         noExperience: 'Aucune expérience disponible'
     },
     education: {
-        title: 'Éducation',
+        title: 'Test',
         subtitle: 'Mon parcours académique',
         noEducation: 'Aucun dossier scolaire disponible'
     },
@@ -87,9 +88,9 @@ export const fr: TranslationData = {
     },
     contact: {
         title: 'Me contacter',
-        subtitle: "Travaillons ensemble",
-        cta: "Créons quelque chose d'incroyable ensemble !",
-        description: "Je suis toujours intéressé par de nouveaux projets et opportunités. Que vous ayez une question ou que vous vouliez simplement dire bonjour, n'hésitez pas à me contacter !",
+        subtitle: 'Travaillons ensemble',
+        cta: 'Créons quelque chose d\'incroyable ensemble !',
+        description: 'Je suis toujours intéressé par de nouveaux projets et opportunités. Que vous ayez une question ou que vous vouliez simplement dire bonjour, n\'hésitez pas à me contacter !',
         name: 'Nom',
         email: 'Email',
         message: 'Message',
@@ -115,7 +116,7 @@ export const fr: TranslationData = {
         dashboard: 'Tableau de bord',
         projects: 'Projets',
         experience: 'Expérience',
-        education: 'Éducation',
+        education: 'Test',
         skills: 'Compétences',
         profile: 'Profil',
         translations: 'Traductions',
@@ -127,6 +128,8 @@ export const fr: TranslationData = {
         loginSubtitle: 'Entrez vos identifiants pour accéder au tableau de bord',
         loggingIn: 'Connexion en cours...',
         loginButton: 'Se connecter',
+        loginErrorFields: 'Veuillez remplir tous les champs',
+        loginErrorInvalid: 'Nom d\'utilisateur ou mot de passe invalide',
         table: {
             title: 'Titre',
             technologies: 'Technologies',
@@ -138,10 +141,11 @@ export const fr: TranslationData = {
         saveProject: 'Enregistrer le projet',
         deleteProject: 'Supprimer le projet',
         deleteConfirm: 'Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.',
-
         myProfile: 'Mon profil',
         manageProfile: 'Gérer vos informations personnelles',
         manageTranslations: 'Gérer les traductions de l\'application',
+        profileUpdated: 'Profil mis à jour avec succès !',
+        profileUpdateError: 'Erreur lors de la mise à jour du profil',
         changePhoto: 'Changer la photo',
         photoHelp: 'Recommandé : Image carrée, max 2Mo',
         socialMedia: 'Réseaux sociaux',
@@ -235,7 +239,12 @@ export const fr: TranslationData = {
             saveCategory: 'Enregistrer la catégorie',
             deleteCategory: 'Supprimer la catégorie',
             confirmDelete: 'Êtes-vous sûr de vouloir supprimer cette catégorie de compétences ? Cette action est irréversible.',
-            selectedFile: 'Sélectionné :'
+            selectedFile: 'Sélectionné :',
+            selectIconWarning: 'Veuillez sélectionner une image d\'icône',
+            categorySaved: 'Catégorie enregistrée avec succès',
+            categoryDeleted: 'Catégorie de compétences supprimée avec succès',
+            errorSaving: 'Erreur lors de l\'enregistrement de la catégorie',
+            errorDeleting: 'Erreur lors de la suppression de la catégorie de compétences'
         },
         translationsPage: {
             allCategories: 'Toutes les catégories',
@@ -260,7 +269,7 @@ export const fr: TranslationData = {
             frenchValue: 'Français (FR)',
             englishPlaceholder: 'English translation',
             frenchPlaceholder: 'Traduction française',
-            successSave: 'Traductions enregistrées avec succès ! Actualisez la page pour voir les modifications.',
+            successSave: 'Traductions enregistrées et rechargées avec succès !',
             errorSave: 'Échec de l\'enregistrement des traductions',
             successAdd: 'Traduction ajoutée. Cliquez sur "Enregistrer toutes les modifications" pour persister.',
             successRemove: 'Traduction supprimée. Cliquez sur "Enregistrer toutes les modifications" pour persister.',

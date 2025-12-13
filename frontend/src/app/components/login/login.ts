@@ -2,6 +2,7 @@ import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { TranslationService } from '../../services/translation.service';
 
 import { TranslatePipe } from '../../core/pipes/translate.pipe';
 
@@ -15,6 +16,7 @@ import { TranslatePipe } from '../../core/pipes/translate.pipe';
 })
 export class Login {
     private authService = inject(AuthService);
+    private translationService = inject(TranslationService);
 
     usernameControl = new FormControl('', [Validators.required]);
     passwordControl = new FormControl('', [Validators.required]);
@@ -26,7 +28,7 @@ export class Login {
         event.preventDefault();
 
         if (this.usernameControl.invalid || this.passwordControl.invalid) {
-            this.error.set('Please fill in all fields');
+            this.error.set(this.translationService.translate('admin.loginErrorFields'));
             return;
         }
 
@@ -41,7 +43,7 @@ export class Login {
         this.authService.login(credentials).subscribe(success => {
             this.isLoading.set(false);
             if (!success) {
-                this.error.set('Invalid username or password');
+                this.error.set(this.translationService.translate('admin.loginErrorInvalid'));
             }
         });
     }

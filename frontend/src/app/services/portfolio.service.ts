@@ -5,6 +5,7 @@ import { ProjectService } from './project.service';
 import { ExperienceService } from './experience.service';
 import { EducationService } from './education.service';
 import { SkillService } from './skill.service';
+import { TranslationService } from './translation.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -15,6 +16,7 @@ export class PortfolioService {
     private projectService = inject(ProjectService);
     private experienceService = inject(ExperienceService);
     private skillService = inject(SkillService);
+    private translationService = inject(TranslationService);
 
     private readonly API_URL = environment.apiUrl;
 
@@ -22,7 +24,7 @@ export class PortfolioService {
     private readonly personalInfoBase = signal<Omit<PersonalInfo, 'stats'>>({
         name: '',
         role: 'Full Stack Developer',
-        description: 'Passionate developer with expertise in building scalable web applications and creating intuitive user experiences.',
+        description: this.translationService.translate('hero.description'),
         email: '',
         socials: {
             github: '',

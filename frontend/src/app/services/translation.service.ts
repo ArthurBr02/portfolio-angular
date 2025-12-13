@@ -1,6 +1,9 @@
 import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { en } from '../i18n/en';
 import { fr } from '../i18n/fr';
+import { environment } from '../../environments/environment';
 
 export type Language = 'en' | 'fr';
 
@@ -20,8 +23,9 @@ export class TranslationService {
     // Using Angular signals for reactive language changes
     currentLanguage = signal<Language>('fr');
     availableLanguages: Language[] = ['en', 'fr'];
+    private apiUrl = environment.apiUrl;
 
-    constructor() {
+    constructor(private http: HttpClient) {
         // Try to get saved language from localStorage
         const savedLang = this.getSavedLanguage();
         if (savedLang) {
@@ -126,5 +130,30 @@ export class TranslationService {
             fr: 'Français'
         };
         return names[lang];
+    }
+
+    /**
+     * Reload translations from the server
+     * This is used after updating translations in the admin panel
+     */
+    async reloadTranslations(): Promise<void> {
+        try {
+            const [enResponse, frResponse] = await Promise.all([
+                firstValueFrom(this.http.get<{ lang: string; translations: TranslationData }>(`${this.apiUrl}/translations/en`)),
+                firstValueFrom(this.http.get<{ lang: string; translations: TranslationData }>(`${this.apiUrl}/translations/fr`))
+            ]);
+
+            if (enResponse && enResponse.translations) {
+                this.translations.en = enResponse.translations;
+            }
+            if (frResponse && frResponse.translations) {
+                this.translations.fr = frResponse.translations;
+            }
+
+            console.log('Translations reloaded successfully');
+        } catch (error) {
+            console.error('Error reloading translations:', error);
+            throw error;
+        }
     }
 }

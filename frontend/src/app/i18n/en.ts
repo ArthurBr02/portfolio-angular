@@ -43,8 +43,9 @@ export const en: TranslationData = {
     },
     hero: {
         availableForWork: 'Available for work',
-        greeting: "Hi, I'm",
+        greeting: 'Hi, I\'m',
         role: 'Full Stack Developer',
+        description: 'Passionate developer with expertise in building scalable web applications and creating intuitive user experiences.',
         cta: 'Get In Touch',
         viewProjects: 'View Projects'
     },
@@ -57,7 +58,7 @@ export const en: TranslationData = {
         projectsCompleted: 'Projects Completed',
         technologiesUsed: 'Technologies Used',
         journey: 'My journey in tech started with a curiosity about how things work, and it has evolved into a career dedicated to crafting exceptional digital experiences. I believe in writing clean, maintainable code and staying up-to-date with the latest industry trends.',
-        hobbies: "When I'm not coding, you can find me contributing to open-source projects, learning new technologies, or sharing knowledge with the developer community."
+        hobbies: 'When I\'m not coding, you can find me contributing to open-source projects, learning new technologies, or sharing knowledge with the developer community.'
     },
     projects: {
         title: 'Featured Projects',
@@ -87,9 +88,9 @@ export const en: TranslationData = {
     },
     contact: {
         title: 'Get In Touch',
-        subtitle: "Let's work together",
-        cta: "Let's create something amazing together!",
-        description: "I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out!",
+        subtitle: 'Let\'s work together',
+        cta: 'Let\'s create something amazing together!',
+        description: 'I\'m always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out!',
         name: 'Name',
         email: 'Email',
         message: 'Message',
@@ -127,6 +128,8 @@ export const en: TranslationData = {
         loginSubtitle: 'Enter your credentials to access the dashboard',
         loggingIn: 'Logging in...',
         loginButton: 'Login to Dashboard',
+        loginErrorFields: 'Please fill in all fields',
+        loginErrorInvalid: 'Invalid username or password',
         table: {
             title: 'Title',
             technologies: 'Technologies',
@@ -138,10 +141,11 @@ export const en: TranslationData = {
         saveProject: 'Save Project',
         deleteProject: 'Delete Project',
         deleteConfirm: 'Are you sure you want to delete this project? This action cannot be undone.',
-
         myProfile: 'My Profile',
         manageProfile: 'Manage your personal information',
         manageTranslations: 'Manage application translations',
+        profileUpdated: 'Profile updated successfully!',
+        profileUpdateError: 'Error updating profile',
         changePhoto: 'Change Photo',
         photoHelp: 'Recommended: Square image, max 2MB',
         socialMedia: 'Social Media',
@@ -235,7 +239,12 @@ export const en: TranslationData = {
             saveCategory: 'Save Category',
             deleteCategory: 'Delete Category',
             confirmDelete: 'Are you sure you want to delete this skill category? This action cannot be undone.',
-            selectedFile: 'Selected:'
+            selectedFile: 'Selected:',
+            selectIconWarning: 'Please select an icon image',
+            categorySaved: 'Category saved successfully',
+            categoryDeleted: 'Skill category deleted successfully',
+            errorSaving: 'Error saving category',
+            errorDeleting: 'Error deleting skill category'
         },
         translationsPage: {
             allCategories: 'All Categories',
@@ -260,7 +269,7 @@ export const en: TranslationData = {
             frenchValue: 'French (FR)',
             englishPlaceholder: 'English translation',
             frenchPlaceholder: 'Traduction française',
-            successSave: 'Translations saved successfully! Refresh the page to see changes.',
+            successSave: 'Translations saved and reloaded successfully!',
             errorSave: 'Failed to save translations',
             successAdd: 'Translation added. Click "Save All Changes" to persist.',
             successRemove: 'Translation removed. Click "Save All Changes" to persist.',
