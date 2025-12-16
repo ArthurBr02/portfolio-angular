@@ -130,7 +130,7 @@ export class PortfolioService {
             error: (err) => console.error('Error loading skills:', err)
         });
     }
-
+ 
     // Expose skills signal
     readonly getSkillCategories = this.skillCategories.asReadonly();
 }
