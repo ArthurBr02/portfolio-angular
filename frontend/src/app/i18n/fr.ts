@@ -77,7 +77,7 @@ export const fr: TranslationData = {
         noExperience: 'Aucune expérience disponible'
     },
     education: {
-        title: 'Test',
+        title: 'Niveau d\'éducation',
         subtitle: 'Mon parcours académique',
         noEducation: 'Aucun dossier scolaire disponible'
     },
@@ -116,7 +116,7 @@ export const fr: TranslationData = {
         dashboard: 'Tableau de bord',
         projects: 'Projets',
         experience: 'Expérience',
-        education: 'Test',
+        education: 'Niveau d\'études',
         skills: 'Compétences',
         profile: 'Profil',
         translations: 'Traductions',
