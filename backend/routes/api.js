@@ -41,6 +41,29 @@ router.post('/projects', authenticateToken, upload.single('image'), (req, res) =
     );
 });
 
+router.get('/projects/:id/image', (req, res) => {
+    db.get('SELECT imageUrl FROM projects WHERE id = ?', [req.params.id], (err, row) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!row) return res.status(404).json({ error: 'Project not found' });
+
+        const imagePath = row.imageUrl;
+
+        // If it's a file path, serve the file
+        if (imagePath && imagePath.startsWith('/uploads/')) {
+            const fileName = path.basename(imagePath);
+            const filePath = path.join(uploadPath, fileName);
+            return res.sendFile(filePath, (err) => {
+                if (err) {
+                    console.error('Error sending file:', err);
+                    res.status(404).json({ error: 'Image file not found' });
+                }
+            });
+        }
+
+        res.status(404).json({ error: 'No image available' });
+    });
+});
+
 router.delete('/projects/:id', authenticateToken, (req, res) => {
     console.log('Deleting project with ID:', req.params.id);
     db.run('DELETE FROM projects WHERE id = ?', req.params.id, function (err) {

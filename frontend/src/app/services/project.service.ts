@@ -24,7 +24,9 @@ export class ProjectService {
                     id: p.id,
                     title: p.title,
                     description: p.description,
-                    image: p.imageUrl || 'https://via.placeholder.com/800x600',
+                    image: p.imageUrl
+                        ? `${environment.apiUrl}/projects/${p.id}/image`
+                        : 'https://via.placeholder.com/800x600',
                     technologies: p.technologies ? p.technologies.split(',').map((t: string) => t.trim()) : [],
                     liveUrl: p.link
                 }));
