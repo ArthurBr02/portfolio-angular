@@ -194,6 +194,8 @@ code {
     border: none;
     transition: all var(--transition-base);
     text-decoration: none;
+    position: relative;
+    z-index: 1;
 }
 
 .btn-primary {
@@ -303,13 +305,14 @@ code {
 }
 
 /* ==================== ENTRANCE ON DOM LOADED ==================== */
-app-root {
+/* IMPORTANT: do not transform `app-root` (breaks `position: fixed` children like the navbar) */
+.app-content {
     opacity: 0;
     transform: translateY(12px);
     will-change: opacity, transform;
 }
 
-.dom-loaded app-root {
+.dom-loaded .app-content {
     animation: fadeInUp 0.6s ease-out forwards;
 }
 

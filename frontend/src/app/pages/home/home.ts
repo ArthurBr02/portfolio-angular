@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Navbar } from '../../components/navbar/navbar';
 import { Hero } from '../../components/hero/hero';
 import { About } from '../../components/about/about';
 import { Skills } from '../../components/skills/skills';
@@ -12,7 +11,6 @@ import { Footer } from '../../components/footer/footer';
 @Component({
   selector: 'app-home',
   imports: [
-    Navbar,
     Hero,
     About,
     Skills,
