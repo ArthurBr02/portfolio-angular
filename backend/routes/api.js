@@ -20,6 +20,62 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+function normalizeAutonomyLevel(value) {
+    if (value === undefined || value === null || value === '') return null;
+    const numberValue = typeof value === 'number' ? value : parseInt(String(value), 10);
+    if (Number.isNaN(numberValue)) return null;
+    if (numberValue < 1) return 1;
+    if (numberValue > 5) return 5;
+    return numberValue;
+}
+
+function normalizeSkillsInput(skillsInput) {
+    if (skillsInput === undefined || skillsInput === null) return [];
+
+    let raw = skillsInput;
+
+    if (typeof raw === 'string') {
+        const trimmed = raw.trim();
+        if (!trimmed) return [];
+
+        // Try JSON first (array of strings or objects)
+        if ((trimmed.startsWith('[') && trimmed.endsWith(']')) || (trimmed.startsWith('{') && trimmed.endsWith('}'))) {
+            try {
+                raw = JSON.parse(trimmed);
+            } catch (e) {
+                // Fallback to comma-separated list
+                raw = trimmed;
+            }
+        }
+
+        if (typeof raw === 'string') {
+            raw = raw
+                .split(',')
+                .map(s => s.trim())
+                .filter(s => s.length > 0);
+        }
+    }
+
+    const arr = Array.isArray(raw) ? raw : [];
+    return arr
+        .map(item => {
+            if (typeof item === 'string') {
+                const name = item.trim();
+                return name ? { name, autonomyLevel: null } : null;
+            }
+
+            if (item && typeof item === 'object') {
+                const name = String(item.name ?? '').trim();
+                if (!name) return null;
+                const autonomyLevel = normalizeAutonomyLevel(item.autonomyLevel);
+                return { name, autonomyLevel };
+            }
+
+            return null;
+        })
+        .filter(Boolean);
+}
+
 // --- PROJECTS ---
 router.get('/projects', (req, res) => {
     db.all('SELECT * FROM projects', [], (err, rows) => {
@@ -160,15 +216,24 @@ router.get('/user', (req, res) => {
 router.get('/skill-categories', (req, res) => {
     db.all('SELECT * FROM skill_categories', [], (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
-        // Parse skills JSON string back to array if needed, or handle in frontend
-        // For simplicity, we'll send as is, but frontend expects array.
-        // Let's parse it here to match the frontend model expectation if possible,
-        // or just send rows and let frontend handle parsing.
-        // Actually, storing as JSON string means we should parse it.
-        const categories = rows.map(row => ({
-            ...row,
-            skills: row.skills ? JSON.parse(row.skills) : []
-        }));
+        const categories = rows.map(row => {
+            let parsedSkills = [];
+            if (row.skills) {
+                try {
+                    parsedSkills = JSON.parse(row.skills);
+                } catch (e) {
+                    parsedSkills = [];
+                }
+            }
+
+            // Always return array of objects: { name, autonomyLevel }
+            const normalizedSkills = normalizeSkillsInput(parsedSkills);
+
+            return {
+                ...row,
+                skills: normalizedSkills
+            };
+        });
         res.json(categories);
     });
 });
@@ -182,11 +247,7 @@ router.post('/skill-categories', authenticateToken, upload.single('iconImage'), 
         icon = `/uploads/${req.file.filename}`;
     } 
 
-    // skills should be an array or comma-separated string, convert to JSON string for storage
-    let skillsArray = skills;
-    if (typeof skills === 'string') {
-        skillsArray = skills.split(',').map(s => s.trim()).filter(s => s.length > 0);
-    }
+    const skillsArray = normalizeSkillsInput(skills);
     const skillsString = JSON.stringify(skillsArray);
 
     db.run(`INSERT INTO skill_categories (name, icon, skills) VALUES (?, ?, ?)`,
@@ -196,6 +257,20 @@ router.post('/skill-categories', authenticateToken, upload.single('iconImage'), 
             res.json({ id: this.lastID, name, icon, skills: skillsArray });
         }
     );
+});
+
+router.put('/skill-categories/:id', authenticateToken, (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid category id' });
+
+    const skillsArray = normalizeSkillsInput(req.body?.skills);
+    const skillsString = JSON.stringify(skillsArray);
+
+    db.run('UPDATE skill_categories SET skills = ? WHERE id = ?', [skillsString, id], function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        if (this.changes === 0) return res.status(404).json({ error: 'Category not found' });
+        res.json({ message: 'Updated', id, skills: skillsArray });
+    });
 });
 
 router.get('/skill-categories/:id/icon', (req, res) => {

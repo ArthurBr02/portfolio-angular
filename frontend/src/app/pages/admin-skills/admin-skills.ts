@@ -1,4 +1,4 @@
-import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SkillService } from '../../services/skill.service';
@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment';
 import { FormInput } from '../../components/shared/form-input/form-input';
 import { FormFileInput } from '../../components/shared/form-file-input/form-file-input';
 import { TranslatePipe } from '../../core/pipes/translate.pipe';
+import { SkillItem } from '../../core/models/portfolio.models';
 
 
 @Component({
@@ -33,6 +34,9 @@ export class AdminSkills {
     isSubmitting = signal(false);
     selectedIconFile: File | null = null;
 
+    private readonly editableSkillsByCategoryId = signal<Record<number, SkillItem[]>>({});
+    protected readonly autonomyScale = [1, 2, 3, 4, 5] as const;
+
     deleteId = signal<number | null>(null);
     showDeleteModal = signal(false);
 
@@ -40,6 +44,30 @@ export class AdminSkills {
         name: ['', Validators.required],
         skills: ['', Validators.required]
     });
+
+    constructor() {
+        effect(() => {
+            const categories = this.skillCategories();
+            const current = this.editableSkillsByCategoryId();
+            const next: Record<number, SkillItem[]> = { ...current };
+            const presentIds = new Set<number>();
+
+            for (const category of categories) {
+                if (!category.id) continue;
+                presentIds.add(category.id);
+                if (!next[category.id]) {
+                    next[category.id] = (category.skills || []).map(s => ({ ...s }));
+                }
+            }
+
+            for (const key of Object.keys(next)) {
+                const id = parseInt(key, 10);
+                if (!presentIds.has(id)) delete next[id];
+            }
+
+            this.editableSkillsByCategoryId.set(next);
+        });
+    }
 
     toggleForm() {
         this.showForm.update(v => !v);
@@ -126,6 +154,39 @@ export class AdminSkills {
     closeDeleteModal() {
         this.showDeleteModal.set(false);
         this.deleteId.set(null);
+    }
+
+    getEditableSkills(categoryId: number | undefined): SkillItem[] {
+        if (!categoryId) return [];
+        return this.editableSkillsByCategoryId()[categoryId] || [];
+    }
+
+    updateSkillAutonomy(categoryId: number | undefined, skillName: string, autonomyValue: string) {
+        if (!categoryId) return;
+        const autonomyLevel = autonomyValue === '' ? null : parseInt(autonomyValue, 10);
+
+        const current = this.editableSkillsByCategoryId();
+        const skills = (current[categoryId] || []).map(s => ({ ...s }));
+        const index = skills.findIndex(s => s.name === skillName);
+        if (index === -1) return;
+
+        skills[index].autonomyLevel = Number.isNaN(autonomyLevel as any) ? null : autonomyLevel;
+        this.editableSkillsByCategoryId.set({ ...current, [categoryId]: skills });
+    }
+
+    saveAutonomy(categoryId: number | undefined) {
+        if (!categoryId) return;
+        const skills = this.getEditableSkills(categoryId);
+        this.skillService.updateSkillCategorySkills(categoryId, skills).subscribe({
+            next: () => {
+                this.toastService.success(this.translationService.translate('admin.skillsPage.autonomySaved'));
+                this.portfolioService.refreshSkills();
+            },
+            error: (err) => {
+                console.error('Error updating skill autonomy:', err);
+                this.toastService.error(this.translationService.translate('admin.skillsPage.autonomySaveError'));
+            }
+        });
     }
 
     getIconUrl(categoryId: number | undefined): string {

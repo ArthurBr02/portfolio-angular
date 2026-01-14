@@ -40,9 +40,24 @@
             <div class="skill-info">
                 <h4>{{ category.name }}</h4>
                 <div class="tech-tags">
-                    @for (skill of category.skills; track skill) {
-                    <span class="tech-tag">{{ skill }}</span>
+                    @for (skill of getEditableSkills(category.id); track skill.name) {
+                    <div class="tech-tag skill-autonomy-item">
+                        <span class="skill-autonomy-name">{{ skill.name }}</span>
+                        <select class="skill-autonomy-select"
+                            [value]="skill.autonomyLevel ?? ''"
+                            (change)="updateSkillAutonomy(category.id, skill.name, $any($event.target).value)">
+                            <option value="">{{ 'admin.skillsPage.autonomyNone' | translate }}</option>
+                            @for (lvl of autonomyScale; track lvl) {
+                            <option [value]="lvl">{{ lvl }}</option>
+                            }
+                        </select>
+                    </div>
                     }
+                </div>
+                <div style="margin-top: 0.75rem;">
+                    <button type="button" class="btn btn-secondary" (click)="saveAutonomy(category.id)">
+                        {{ 'admin.skillsPage.saveAutonomy' | translate }}
+                    </button>
                 </div>
             </div>
             <button type="button" class="btn-delete" (click)="deleteCategory(category.id, $event)">🗑️</button>

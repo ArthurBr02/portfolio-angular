@@ -84,7 +84,14 @@ export const en: TranslationData = {
     skills: {
         title: 'Skills & Technologies',
         subtitle: 'My technical expertise',
-        noSkills: 'No skills available'
+        noSkills: 'No skills available',
+        autonomy: {
+            level1: 'Guided',
+            level2: 'With help',
+            level3: 'Autonomous',
+            level4: 'Very autonomous',
+            level5: 'Go-to person'
+        }
     },
     contact: {
         title: 'Get In Touch',
@@ -244,7 +251,11 @@ export const en: TranslationData = {
             categorySaved: 'Category saved successfully',
             categoryDeleted: 'Skill category deleted successfully',
             errorSaving: 'Error saving category',
-            errorDeleting: 'Error deleting skill category'
+            errorDeleting: 'Error deleting skill category',
+            saveAutonomy: 'Save autonomy',
+            autonomyNone: 'Autonomy: not set',
+            autonomySaved: 'Autonomy levels saved',
+            autonomySaveError: 'Error saving autonomy levels'
         },
         translationsPage: {
             allCategories: 'All Categories',

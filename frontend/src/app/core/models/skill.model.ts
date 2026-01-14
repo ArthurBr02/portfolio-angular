@@ -2,5 +2,10 @@ export interface SkillCategory {
     id?: number;
     name: string;
     icon: string;
-    skills: string[];
+    skills: SkillItem[];
+}
+
+export interface SkillItem {
+    name: string;
+    autonomyLevel: number | null;
 }

@@ -13,8 +13,18 @@
                 </div>
                 <h3 class="category-title">{{ category.name }}</h3>
                 <div class="skills-list">
-                    @for (skill of category.skills; track skill) {
-                    <span class="skill-tag">{{ skill }}</span>
+                    @for (skill of category.skills; track skill.name) {
+                    <span class="skill-tag">
+                        <span class="skill-name">{{ skill.name }}</span>
+                        @if (skill.autonomyLevel) {
+                        <span class="autonomy" [attr.aria-label]="'Niveau d\'autonomie: ' + (skill.autonomyLevel || '')">
+                            @for (lvl of autonomyScale; track lvl) {
+                            <span class="autonomy-dot" [class.filled]="lvl <= (skill.autonomyLevel || 0)"></span>
+                            }
+                        </span>
+                        <span class="autonomy-label">{{ autonomyLabel(skill.autonomyLevel) | translate }}</span>
+                        }
+                    </span>
                     }
                 </div>
             </div>

@@ -84,7 +84,14 @@ export const fr: TranslationData = {
     skills: {
         title: 'Compétences & Technologies',
         subtitle: 'Mon expertise technique',
-        noSkills: 'Aucune compétence disponible'
+        noSkills: 'Aucune compétence disponible',
+        autonomy: {
+            level1: 'Guidé',
+            level2: 'Avec aide',
+            level3: 'Autonome',
+            level4: 'Très autonome',
+            level5: 'Référent'
+        }
     },
     contact: {
         title: 'Me contacter',
@@ -244,7 +251,11 @@ export const fr: TranslationData = {
             categorySaved: 'Catégorie enregistrée avec succès',
             categoryDeleted: 'Catégorie de compétences supprimée avec succès',
             errorSaving: 'Erreur lors de l\'enregistrement de la catégorie',
-            errorDeleting: 'Erreur lors de la suppression de la catégorie de compétences'
+            errorDeleting: 'Erreur lors de la suppression de la catégorie de compétences',
+            saveAutonomy: 'Enregistrer l\'autonomie',
+            autonomyNone: 'Autonomie: non définie',
+            autonomySaved: 'Niveaux d\'autonomie enregistrés',
+            autonomySaveError: 'Erreur lors de l\'enregistrement des niveaux d\'autonomie'
         },
         translationsPage: {
             allCategories: 'Toutes les catégories',

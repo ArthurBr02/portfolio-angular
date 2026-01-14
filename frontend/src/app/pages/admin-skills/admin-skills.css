@@ -40,6 +40,26 @@
     font-size: 1.1rem;
 }
 
+.skill-autonomy-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-autonomy-name {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.skill-autonomy-select {
+    background: rgba(10, 14, 39, 0.9);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-md);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
 .form-hint {
     display: block;
     margin-top: 0.5rem;

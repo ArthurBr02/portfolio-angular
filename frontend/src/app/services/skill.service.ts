@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { SkillCategory } from '../core/models/portfolio.models';
+import { SkillCategory, SkillItem } from '../core/models/portfolio.models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -21,5 +21,12 @@ export class SkillService {
 
     deleteSkillCategory(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`);
+    }
+
+    updateSkillCategorySkills(
+        id: number,
+        skills: SkillItem[]
+    ): Observable<{ message: string; id: number; skills: SkillItem[] }> {
+        return this.http.put<{ message: string; id: number; skills: SkillItem[] }>(`${this.apiUrl}/${id}`, { skills });
     }
 }

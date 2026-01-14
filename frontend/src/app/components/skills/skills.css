@@ -43,6 +43,36 @@
     font-size: 0.875rem;
     font-weight: 500;
     transition: all var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-name {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.autonomy {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.autonomy-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: rgba(59, 130, 246, 0.25);
+}
+
+.autonomy-dot.filled {
+    background: rgba(59, 130, 246, 0.95);
+}
+
+.autonomy-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
 }
 
 .skill-tag:hover {
