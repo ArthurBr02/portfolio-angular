@@ -38,13 +38,16 @@
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 1.5rem;
 }
 
-.skill-category {
-    padding: 1.75rem;
-    transition: all var(--transition-base);
+/* Force maximum 3 columns on large screens */
+@media (min-width: 1025px) {
+    .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .category-main {
@@ -52,6 +55,48 @@
     align-items: center;
     gap: 1.25rem;
     margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .skills-legend {
+        gap: 1rem;
+        padding: 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .legend-label {
+        font-size: 0.75rem;
+    }
+
+    .skill-category {
+        padding: 1.25rem;
+    }
+
+    .category-main {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .skills-tags-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-main {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .category-icon-wrapper {
+        width: 48px;
+        height: 48px;
+    }
 }
 
 .category-icon-wrapper {
@@ -189,10 +234,4 @@
 
 .advanced-skill-tag[style*="--level: 5"] .level-label {
     color: #00d1ff;
-}
-
-@media (max-width: 480px) {
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
 }

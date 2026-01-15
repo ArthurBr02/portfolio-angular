@@ -33,6 +33,21 @@
     color: var(--color-text-secondary);
 }
 
+@media (max-width: 768px) {
+    .timeline {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-achievements li {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .timeline-achievements li::before {
+        display: none;
+    }
+}
+
 .timeline-achievements li::before {
     content: '▹';
     position: absolute;

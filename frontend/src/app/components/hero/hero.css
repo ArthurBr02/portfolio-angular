@@ -205,6 +205,20 @@
 @media (max-width: 768px) {
     .hero {
         padding-top: 100px;
+        text-align: center;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-social {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        display: none;
     }
 
     .hero-actions {
@@ -218,11 +232,4 @@
 }
 
 @media (max-width: 480px) {
-    .code-window {
-        font-size: 0.75rem;
-    }
-
-    .window-content {
-        padding: 1rem;
-    }
 }

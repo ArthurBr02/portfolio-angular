@@ -31,5 +31,12 @@
     .footer-content {
         flex-direction: column;
         text-align: center;
+        gap: 1.5rem;
+    }
+
+    .footer-links {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }

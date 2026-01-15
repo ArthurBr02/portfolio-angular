@@ -1,39 +1,37 @@
 <section class="section" id="about">
     <div class="container">
-        <section class="section" id="about">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title gradient-text">{{ 'about.title' | translate }}</h2>
-                    <p class="section-subtitle">{{ 'about.subtitle' | translate }}</p>
-                </div>
+        <div class="section-header">
+            <h2 class="section-title gradient-text">{{ 'about.title' | translate }}</h2>
+            <p class="section-subtitle">{{ 'about.subtitle' | translate }}</p>
+        </div>
 
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>
-                            {{ personalInfo().description }}
-                        </p>
-                        <p>
-                            {{ 'about.journey' | translate }}
-                        </p>
-                        <p>
-                            {{ 'about.hobbies' | translate }}
-                        </p>
-                    </div>
-
-                    <div class="about-stats">
-                        <div class="stat-card glass-card">
-                            <div class="stat-number">{{ personalInfo().stats.yearsExperience }}+</div>
-                            <div class="stat-label">{{ 'about.yearsExperience' | translate }}</div>
-                        </div>
-                        <div class="stat-card glass-card">
-                            <div class="stat-number">{{ personalInfo().stats.projectsCompleted }}+</div>
-                            <div class="stat-label">{{ 'about.projectsCompleted' | translate }}</div>
-                        </div>
-                        <div class="stat-card glass-card">
-                            <div class="stat-number">{{ personalInfo().stats.technologiesMastered }}+</div>
-                            <div class="stat-label">{{ 'about.technologiesUsed' | translate }}</div>
-                        </div>
-                    </div>
-                </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    {{ personalInfo().description }}
+                </p>
+                <p>
+                    {{ 'about.journey' | translate }}
+                </p>
+                <p>
+                    {{ 'about.hobbies' | translate }}
+                </p>
             </div>
-        </section>
+        </div>
+
+        <div class="about-stats glass-card">
+            <div class="stat-item">
+                <div class="stat-number">{{ personalInfo().stats.yearsExperience }}+</div>
+                <div class="stat-label">{{ 'about.yearsExperience' | translate }}</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ personalInfo().stats.projectsCompleted }}+</div>
+                <div class="stat-label">{{ 'about.projectsCompleted' | translate }}</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ personalInfo().stats.technologiesMastered }}+</div>
+                <div class="stat-label">{{ 'about.technologiesUsed' | translate }}</div>
+            </div>
+        </div>
+    </div>
+</section>
