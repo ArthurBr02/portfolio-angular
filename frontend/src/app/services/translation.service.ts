@@ -24,6 +24,8 @@ export class TranslationService {
     currentLanguage = signal<Language>('fr');
     availableLanguages: Language[] = ['en', 'fr'];
     private apiUrl = environment.apiUrl;
+    // Signal to force refresh of translations
+    private translationsVersion = signal(0);
 
     constructor(private http: HttpClient) {
         // Try to get saved language from localStorage
@@ -35,6 +37,11 @@ export class TranslationService {
             const browserLang = this.detectBrowserLanguage();
             this.currentLanguage.set(browserLang);
         }
+        
+        // Load translations from API on startup
+        this.reloadTranslations().catch(error => {
+            console.warn('Failed to load translations from API, using static files:', error);
+        });
     }
 
     /**
@@ -43,6 +50,9 @@ export class TranslationService {
      * @param params - Optional parameters to replace in the translation
      */
     translate(key: string, params?: Record<string, string | number>): string {
+        // Access translationsVersion to create dependency for reactivity
+        this.translationsVersion();
+        
         const keys = key.split('.');
         let value: any = this.translations[this.currentLanguage()];
 
@@ -149,6 +159,9 @@ export class TranslationService {
             if (frResponse && frResponse.translations) {
                 this.translations.fr = frResponse.translations;
             }
+
+            // Increment version to trigger reactivity
+            this.translationsVersion.update(v => v + 1);
 
             console.log('Translations reloaded successfully');
         } catch (error) {

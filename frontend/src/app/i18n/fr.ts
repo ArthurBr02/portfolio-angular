@@ -3,7 +3,7 @@ import { TranslationData } from '../services/translation.service';
 export const fr: TranslationData = {
     common: {
         home: 'Accueil',
-        about: 'À propos',
+        about: 'À proposhggf',
         projects: 'Projets',
         experience: 'Expérience',
         education: 'Niveau scolaire',
@@ -45,7 +45,7 @@ export const fr: TranslationData = {
         availableForWork: 'Disponible pour travailler',
         greeting: 'Bonjour, je suis',
         role: 'Développeur Full Stack',
-        description: 'Développeur passionné avec une expertise dans la création d\'applications web évolutives et d\'expériences utilisateur intuitives.',
+        description: 'dfsdgfdgfdfgdfgdgf',
         cta: 'Me contacter',
         viewProjects: 'Voir mes projets'
     },

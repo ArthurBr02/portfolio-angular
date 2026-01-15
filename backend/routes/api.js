@@ -379,8 +379,8 @@ router.post('/contact', async (req, res) => {
 // --- TRANSLATIONS ---
 const fs = require('fs').promises;
 
-// Get translations for a specific language
-router.get('/translations/:lang', authenticateToken, async (req, res) => {
+// Get translations for a specific language (PUBLIC - no auth required)
+router.get('/translations/:lang', async (req, res) => {
     const { lang } = req.params;
     
     if (!['en', 'fr'].includes(lang)) {
