@@ -31,6 +31,7 @@
                     @for (skill of category.skills; track skill.name) {
                     <div class="advanced-skill-tag" 
                         [class.has-autonomy]="!!skill.autonomyLevel"
+                        [class.advanced-skill-tag-has-experience]="skill.autonomyLevel"
                         [style.--level]="skill.autonomyLevel || 0">
                         <span class="tag-name">{{ skill.name }}</span>
                         @if (skill.autonomyLevel) {
