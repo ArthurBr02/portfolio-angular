@@ -8,23 +8,34 @@
         <div class="skills-grid">
             @for (category of skillCategories(); track category.name) {
             <div class="skill-category glass-card">
-                <div class="category-icon">
-                    <img [src]="getIconUrl(category.id)" [alt]="category.name + ' icon'">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <img [src]="getIconUrl(category.id)" [alt]="category.name + ' icon'">
+                    </div>
+                    <h3 class="category-title">{{ category.name }}</h3>
                 </div>
-                <h3 class="category-title">{{ category.name }}</h3>
                 <div class="skills-list">
                     @for (skill of category.skills; track skill.name) {
-                    <span class="skill-tag">
-                        <span class="skill-name">{{ skill.name }}</span>
-                        @if (skill.autonomyLevel) {
-                        <span class="autonomy" [attr.aria-label]="'Niveau d\'autonomie: ' + (skill.autonomyLevel || '')">
-                            @for (lvl of autonomyScale; track lvl) {
-                            <span class="autonomy-dot" [class.filled]="lvl <= (skill.autonomyLevel || 0)"></span>
+                    <div class="skill-row" [title]="autonomyLabel(skill.autonomyLevel) | translate">
+                        <div class="skill-info">
+                            <span class="skill-name">{{ skill.name }}</span>
+                            @if (skill.autonomyLevel) {
+                            <span class="autonomy-text">{{ autonomyLabel(skill.autonomyLevel) | translate }}</span>
                             }
-                        </span>
-                        <span class="autonomy-label">{{ autonomyLabel(skill.autonomyLevel) | translate }}</span>
+                        </div>
+                        @if (skill.autonomyLevel) {
+                        <div class="autonomy-bar-container">
+                            <div class="autonomy-bar-progress" 
+                                [style.width.%]="(skill.autonomyLevel / 5) * 100"
+                                [class.level-1]="skill.autonomyLevel === 1"
+                                [class.level-2]="skill.autonomyLevel === 2"
+                                [class.level-3]="skill.autonomyLevel === 3"
+                                [class.level-4]="skill.autonomyLevel === 4"
+                                [class.level-5]="skill.autonomyLevel === 5">
+                            </div>
+                        </div>
                         }
-                    </span>
+                    </div>
                     }
                 </div>
             </div>
