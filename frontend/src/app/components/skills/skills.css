@@ -26,8 +26,8 @@
 }
 
 .legend-dot[style*="--level: 5"] {
-    background: #ec4899;
-    box-shadow: 0 0 10px #ec4899;
+    background: #00d1ff;
+    box-shadow: 0 0 10px #00d1ff;
 }
 
 .legend-label {
@@ -47,12 +47,6 @@
     transition: all var(--transition-base);
 }
 
-.skill-category:hover {
-    transform: translateY(-5px);
-    border-color: rgba(59, 130, 246, 0.4);
-    box-shadow: var(--shadow-glow);
-}
-
 .category-main {
     display: flex;
     align-items: center;
@@ -66,7 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 0.75rem;
@@ -177,17 +171,17 @@
 }
 
 .advanced-skill-tag[style*="--level: 5"] {
-    background: rgba(139, 92, 246, 0.05);
-    border-color: rgba(139, 92, 246, 0.3);
+    background: rgba(6, 182, 212, 0.05);
+    border-color: rgba(6, 182, 212, 0.3);
 }
 
 .advanced-skill-tag[style*="--level: 5"] .level-indicator {
-    background: #ec4899;
-    box-shadow: 0 0 8px #ec4899;
+    background: #00d1ff;
+    box-shadow: 0 0 8px #00d1ff;
 }
 
 .advanced-skill-tag[style*="--level: 5"] .level-label {
-    color: #ec4899;
+    color: #00d1ff;
 }
 
 @media (max-width: 480px) {
