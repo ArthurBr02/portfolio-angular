@@ -85,6 +85,7 @@ export const fr: TranslationData = {
         title: 'Compétences & Technologies',
         subtitle: 'Mon expertise technique',
         noSkills: 'Aucune compétence disponible',
+        technologies: 'technologies',
         autonomy: {
             level1: 'Guidé',
             level2: 'Avec aide',

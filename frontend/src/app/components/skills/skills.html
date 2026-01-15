@@ -3,35 +3,42 @@
         <div class="section-header">
             <h2 class="section-title gradient-text">{{ 'skills.title' | translate }}</h2>
             <p class="section-subtitle">{{ 'skills.subtitle' | translate }}</p>
+            
+            <div class="skills-legend">
+                @for (lvl of autonomyScale; track lvl) {
+                <div class="legend-item">
+                    <span class="legend-dot" [style.--level]="lvl"></span>
+                    <span class="legend-label">{{ (lvl) }}/5 : {{ 'skills.autonomy.level' + lvl | translate }}</span>
+                </div>
+                }
+            </div>
         </div>
 
         <div class="skills-grid">
             @for (category of skillCategories(); track category.name) {
             <div class="skill-category glass-card">
-                <div class="category-header">
-                    <div class="category-icon">
+                <div class="category-main">
+                    <div class="category-icon-wrapper">
                         <img [src]="getIconUrl(category.id)" [alt]="category.name + ' icon'">
                     </div>
-                    <h3 class="category-title">{{ category.name }}</h3>
+                    <div class="category-info">
+                        <h3 class="category-title">{{ category.name }}</h3>
+                        <p class="skills-count">{{ category.skills.length }} {{ 'skills.technologies' | translate }}</p>
+                    </div>
                 </div>
-                <div class="skills-list">
+                
+                <div class="skills-tags-container">
                     @for (skill of category.skills; track skill.name) {
-                    <div class="skill-row" [title]="autonomyLabel(skill.autonomyLevel) | translate">
-                        <div class="skill-info">
-                            <span class="skill-name">{{ skill.name }}</span>
-                            @if (skill.autonomyLevel) {
-                            <span class="autonomy-text">{{ autonomyLabel(skill.autonomyLevel) | translate }}</span>
-                            }
-                        </div>
+                    <div class="advanced-skill-tag" 
+                        [class.has-autonomy]="!!skill.autonomyLevel"
+                        [style.--level]="skill.autonomyLevel || 0">
+                        <span class="tag-name">{{ skill.name }}</span>
                         @if (skill.autonomyLevel) {
-                        <div class="autonomy-bar-container">
-                            <div class="autonomy-bar-progress" 
-                                [style.width.%]="(skill.autonomyLevel / 5) * 100"
-                                [class.level-1]="skill.autonomyLevel === 1"
-                                [class.level-2]="skill.autonomyLevel === 2"
-                                [class.level-3]="skill.autonomyLevel === 3"
-                                [class.level-4]="skill.autonomyLevel === 4"
-                                [class.level-5]="skill.autonomyLevel === 5">
+                        <div class="tag-autonomy-indicator">
+                            <span class="level-indicator"></span>
+                            <div class="level-details">
+                                <span class="level-label">{{ (skill.autonomyLevel || 0) }}/5</span>
+                                <span class="level-text">{{ autonomyLabel(skill.autonomyLevel) | translate }}</span>
                             </div>
                         </div>
                         }
