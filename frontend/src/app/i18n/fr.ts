@@ -2,7 +2,7 @@ import { TranslationData } from '../services/translation.service';
 
 export const fr: TranslationData = {
     common: {
-        home: 'Accueil',
+        home: 'Accueilfdsdfs',
         about: 'À proposhggf',
         projects: 'Projets',
         experience: 'Expérience',
