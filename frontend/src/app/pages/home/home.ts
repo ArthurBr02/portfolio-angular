@@ -7,6 +7,7 @@ import { Education } from '../../components/education/education';
 import { Experience } from '../../components/experience/experience';
 import { Contact } from '../../components/contact/contact';
 import { Footer } from '../../components/footer/footer';
+import { Navbar } from '../../components/navbar/navbar';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ import { Footer } from '../../components/footer/footer';
     Education,
     Experience,
     Contact,
-    Footer
+    Footer,
+    Navbar
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',

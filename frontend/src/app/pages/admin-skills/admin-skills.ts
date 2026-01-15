@@ -1,6 +1,6 @@
-import { Component, inject, signal, ViewEncapsulation, effect } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation, effect, untracked } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { SkillService } from '../../services/skill.service';
 import { PortfolioService } from '../../services/portfolio.service';
 import { ToastService } from '../../services/toast.service';
@@ -17,7 +17,7 @@ import { SkillItem } from '../../core/models/portfolio.models';
 @Component({
     selector: 'app-admin-skills',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormFileInput, TranslatePipe],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, DeleteConfirmationModal, AdminPageHeader, FormInput, FormFileInput, TranslatePipe],
     templateUrl: './admin-skills.html',
     styleUrl: './admin-skills.css',
     encapsulation: ViewEncapsulation.None
@@ -33,6 +33,8 @@ export class AdminSkills {
     showForm = signal(false);
     isSubmitting = signal(false);
     selectedIconFile: File | null = null;
+    editingCategoryId = signal<number | null>(null);
+    isEditMode = signal(false);
 
     private readonly editableSkillsByCategoryId = signal<Record<number, SkillItem[]>>({});
     protected readonly autonomyScale = [1, 2, 3, 4, 5] as const;
@@ -48,21 +50,15 @@ export class AdminSkills {
     constructor() {
         effect(() => {
             const categories = this.skillCategories();
-            const current = this.editableSkillsByCategoryId();
-            const next: Record<number, SkillItem[]> = { ...current };
+            const current = untracked(() => this.editableSkillsByCategoryId());
+            const next: Record<number, SkillItem[]> = {};
             const presentIds = new Set<number>();
 
             for (const category of categories) {
                 if (!category.id) continue;
                 presentIds.add(category.id);
-                if (!next[category.id]) {
-                    next[category.id] = (category.skills || []).map(s => ({ ...s }));
-                }
-            }
-
-            for (const key of Object.keys(next)) {
-                const id = parseInt(key, 10);
-                if (!presentIds.has(id)) delete next[id];
+                // Toujours mettre à jour depuis les catégories pour refléter les changements du backend
+                next[category.id] = (category.skills || []).map(s => ({ ...s }));
             }
 
             this.editableSkillsByCategoryId.set(next);
@@ -73,6 +69,8 @@ export class AdminSkills {
         this.showForm.update(v => !v);
         this.skillForm.reset();
         this.selectedIconFile = null;
+        this.isEditMode.set(false);
+        this.editingCategoryId.set(null);
     }
 
     onIconFileSelected(event: any) {
@@ -81,6 +79,11 @@ export class AdminSkills {
     }
 
     onSubmit() {
+        if (this.isEditMode()) {
+            this.submitEdit();
+            return;
+        }
+
         console.log('Form submitted');
         console.log('Form valid:', !this.skillForm.invalid);
         console.log('Form value:', this.skillForm.value);
@@ -161,9 +164,9 @@ export class AdminSkills {
         return this.editableSkillsByCategoryId()[categoryId] || [];
     }
 
-    updateSkillAutonomy(categoryId: number | undefined, skillName: string, autonomyValue: string) {
+    updateSkillAutonomy(categoryId: number | undefined, skillName: string, autonomyValue: string | number) {
         if (!categoryId) return;
-        const autonomyLevel = autonomyValue === '' ? null : parseInt(autonomyValue, 10);
+        const autonomyLevel = autonomyValue === '' || autonomyValue === null ? null : parseInt(autonomyValue.toString(), 10);
 
         const current = this.editableSkillsByCategoryId();
         const skills = (current[categoryId] || []).map(s => ({ ...s }));
@@ -172,6 +175,17 @@ export class AdminSkills {
 
         skills[index].autonomyLevel = Number.isNaN(autonomyLevel as any) ? null : autonomyLevel;
         this.editableSkillsByCategoryId.set({ ...current, [categoryId]: skills });
+
+        // Sauvegarde automatique
+        this.skillService.updateSkillCategorySkills(categoryId, skills).subscribe({
+            next: () => {
+                this.portfolioService.refreshSkills();
+            },
+            error: (err) => {
+                console.error('Error updating skill autonomy:', err);
+                this.toastService.error(this.translationService.translate('admin.skillsPage.autonomySaveError'));
+            }
+        });
     }
 
     saveAutonomy(categoryId: number | undefined) {
@@ -192,5 +206,59 @@ export class AdminSkills {
     getIconUrl(categoryId: number | undefined): string {
         if (!categoryId) return '';
         return `${environment.apiUrl}/skill-categories/${categoryId}/icon`;
+    }
+
+    editCategory(category: any) {
+        if (!category.id) return;
+        this.isEditMode.set(true);
+        this.editingCategoryId.set(category.id);
+        this.showForm.set(true);
+        
+        const skillsString = (category.skills || []).map((s: any) => s.name).join(', ');
+        this.skillForm.patchValue({
+            name: category.name,
+            skills: skillsString
+        });
+        this.selectedIconFile = null;
+    }
+
+    cancelEdit() {
+        this.isEditMode.set(false);
+        this.editingCategoryId.set(null);
+        this.showForm.set(false);
+        this.skillForm.reset();
+        this.selectedIconFile = null;
+    }
+
+    submitEdit() {
+        if (this.skillForm.invalid) return;
+        
+        const categoryId = this.editingCategoryId();
+        if (!categoryId) return;
+
+        this.isSubmitting.set(true);
+
+        const formData = new FormData();
+        formData.append('name', this.skillForm.get('name')?.value || '');
+        formData.append('skills', this.skillForm.get('skills')?.value || '');
+
+        if (this.selectedIconFile) {
+            formData.append('iconImage', this.selectedIconFile);
+        }
+
+        this.skillService.updateSkillCategory(categoryId, formData).subscribe({
+            next: () => {
+                this.toastService.success(this.translationService.translate('admin.skillsPage.categoryUpdated'));
+                this.isSubmitting.set(false);
+                this.cancelEdit();
+                this.portfolioService.refreshSkills();
+            },
+            error: (err) => {
+                console.error('Error updating skill category:', err);
+                const errorMsg = this.translationService.translate('admin.skillsPage.errorUpdating');
+                this.toastService.error(errorMsg + ': ' + (err.error?.error || err.message));
+                this.isSubmitting.set(false);
+            }
+        });
     }
 }

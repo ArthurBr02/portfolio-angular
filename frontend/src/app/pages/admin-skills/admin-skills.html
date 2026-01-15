@@ -5,13 +5,13 @@
 
     @if (showForm()) {
     <div class="form-card glass-card">
-        <h3>{{ 'admin.skillsPage.addNewSkillCategory' | translate }}</h3>
+        <h3>{{ isEditMode() ? ('admin.skillsPage.editSkillCategory' | translate) : ('admin.skillsPage.addNewSkillCategory' | translate) }}</h3>
         <form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
             <app-form-input [label]="'admin.skillsPage.categoryName' | translate" formControlName="name" [required]="true"
                 [placeholder]="'admin.placeholders.categoryName' | translate">
             </app-form-input>
 
-            <app-form-file-input [label]="'admin.skillsPage.iconImage' | translate" accept="image/*" [required]="true"
+            <app-form-file-input [label]="'admin.skillsPage.iconImage' | translate" accept="image/*" [required]="!isEditMode()"
                 (fileSelected)="onIconFileSelected($event)">
             </app-form-file-input>
             @if (selectedIconFile) {
@@ -19,14 +19,26 @@
                 {{ 'admin.skillsPage.selectedFile' | translate }} {{ selectedIconFile.name }}
             </small>
             }
+            @if (isEditMode() && !selectedIconFile) {
+            <small class="form-hint" style="color: #a1a1aa; display: block; margin-top: -1rem; margin-bottom: 1rem;">
+                {{ 'admin.skillsPage.keepCurrentIcon' | translate }}
+            </small>
+            }
 
             <app-form-input [label]="'admin.skillsPage.skills' | translate" formControlName="skills" [required]="true"
                 [placeholder]="'admin.placeholders.skillsList' | translate">
             </app-form-input>
 
-            <button type="submit" class="btn btn-primary" [disabled]="skillForm.invalid || isSubmitting()">
-                {{ isSubmitting() ? ('admin.skillsPage.savingCategory' | translate) : ('admin.skillsPage.saveCategory' | translate) }}
-            </button>
+            <div style="display: flex; gap: 1rem;">
+                <button type="submit" class="btn btn-primary" [disabled]="skillForm.invalid || isSubmitting()">
+                    {{ isSubmitting() ? ('admin.skillsPage.savingCategory' | translate) : (isEditMode() ? ('admin.skillsPage.updateCategory' | translate) : ('admin.skillsPage.saveCategory' | translate)) }}
+                </button>
+                @if (isEditMode()) {
+                <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                    {{ 'admin.skillsPage.cancel' | translate }}
+                </button>
+                }
+            </div>
         </form>
     </div>
     }
@@ -41,26 +53,31 @@
                 <h4>{{ category.name }}</h4>
                 <div class="tech-tags">
                     @for (skill of getEditableSkills(category.id); track skill.name) {
-                    <div class="tech-tag skill-autonomy-item">
-                        <span class="skill-autonomy-name">{{ skill.name }}</span>
-                        <select class="skill-autonomy-select"
-                            [value]="skill.autonomyLevel ?? ''"
-                            (change)="updateSkillAutonomy(category.id, skill.name, $any($event.target).value)">
-                            <option value="">{{ 'admin.skillsPage.autonomyNone' | translate }}</option>
+                    <div class="skill-card-compact">
+                        <span class="skill-name-label">{{ skill.name }}</span>
+                        <div class="autonomy-selector">
                             @for (lvl of autonomyScale; track lvl) {
-                            <option [value]="lvl">{{ lvl }}</option>
+                            <button type="button" 
+                                class="autonomy-dot" 
+                                [class.active]="(skill.autonomyLevel ?? 0) >= lvl"
+                                (click)="updateSkillAutonomy(category.id, skill.name, lvl)"
+                                [title]="'skills.autonomy.level' + lvl | translate">
+                            </button>
                             }
-                        </select>
+                            <button type="button" class="autonomy-clear" 
+                                (click)="updateSkillAutonomy(category.id, skill.name, '')"
+                                title="{{ 'admin.skillsPage.autonomyNone' | translate }}">
+                                ✕
+                            </button>
+                        </div>
                     </div>
                     }
                 </div>
-                <div style="margin-top: 0.75rem;">
-                    <button type="button" class="btn btn-secondary" (click)="saveAutonomy(category.id)">
-                        {{ 'admin.skillsPage.saveAutonomy' | translate }}
-                    </button>
-                </div>
             </div>
-            <button type="button" class="btn-delete" (click)="deleteCategory(category.id, $event)">🗑️</button>
+            <div class="skill-actions">
+                <button type="button" class="btn-edit" (click)="editCategory(category)" title="{{ 'admin.skillsPage.editCategory' | translate }}">✏️</button>
+                <button type="button" class="btn-delete" (click)="deleteCategory(category.id, $event)" title="{{ 'admin.skillsPage.deleteCategory' | translate }}">🗑️</button>
+            </div>
         </div>
         }
     </div>

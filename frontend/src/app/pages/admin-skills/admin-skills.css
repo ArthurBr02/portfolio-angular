@@ -36,28 +36,83 @@
 }
 
 .skill-info h4 {
-    margin: 0 0 0.75rem 0;
-    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    color: var(--color-accent-primary);
 }
 
-.skill-autonomy-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+.tech-tags {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.skill-autonomy-name {
-    color: var(--color-text-primary);
-    font-weight: 600;
-}
-
-.skill-autonomy-select {
-    background: rgba(10, 14, 39, 0.9);
-    border: 1px solid rgba(59, 130, 246, 0.35);
-    color: var(--color-text-primary);
+.skill-card-compact {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-md);
-    padding: 0.25rem 0.5rem;
-    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all var(--transition-base);
+}
+
+.skill-card-compact:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.skill-name-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+}
+
+.autonomy-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.autonomy-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.autonomy-dot:hover {
+    transform: scale(1.2);
+    background: rgba(59, 130, 246, 0.3);
+}
+
+.autonomy-dot.active {
+    background: var(--color-accent-primary);
+    box-shadow: 0 0 8px var(--color-accent-primary);
+    border-color: transparent;
+}
+
+.autonomy-clear {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: opacity 0.2s;
+    padding: 2px;
+}
+
+.autonomy-clear:hover {
+    opacity: 1;
+    color: var(--color-accent-error);
 }
 
 .form-hint {
@@ -66,4 +121,54 @@
     font-size: 0.85rem;
     color: var(--color-text-secondary);
     opacity: 0.7;
+}
+
+.skill-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-edit {
+    padding: 0.5rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: var(--color-accent-primary);
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-size: 1.1rem;
+}
+
+.btn-edit:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: var(--color-accent-primary);
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    padding: 0.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--color-accent-error);
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-size: 1.1rem;
+}
+
+.btn-delete:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: var(--color-accent-error);
+    transform: translateY(-2px);
 }

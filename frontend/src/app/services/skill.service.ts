@@ -29,4 +29,8 @@ export class SkillService {
     ): Observable<{ message: string; id: number; skills: SkillItem[] }> {
         return this.http.put<{ message: string; id: number; skills: SkillItem[] }>(`${this.apiUrl}/${id}`, { skills });
     }
+
+    updateSkillCategory(id: number, categoryData: FormData): Observable<SkillCategory> {
+        return this.http.put<SkillCategory>(`${this.apiUrl}/${id}/update`, categoryData);
+    }
 }

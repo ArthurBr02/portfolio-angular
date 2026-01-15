@@ -5,7 +5,7 @@
 }
 
 .admin-sidebar {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 260px;
@@ -18,14 +18,15 @@
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 100;
     background: var(--color-bg-card);
-    /* Ensure background is set */
     backdrop-filter: blur(10px);
+    overflow: hidden;
 }
 
 .sidebar-header {
     padding: 2rem;
     text-align: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
 }
 
 .sidebar-nav {
@@ -35,6 +36,7 @@
     flex-direction: column;
     gap: 0.5rem;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .nav-item {
@@ -46,6 +48,7 @@
     text-decoration: none;
     border-radius: var(--radius-md);
     transition: all var(--transition-base);
+    flex-shrink: 0;
 }
 
 .nav-item:hover {
@@ -62,6 +65,7 @@
 .sidebar-footer {
     padding: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
 }
 
 .logout-btn {
@@ -87,8 +91,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 260px;
-    /* Width of sidebar */
     width: calc(100% - 260px);
     padding: 0;
     min-height: 100vh;
@@ -107,125 +109,6 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 90;
     background: rgba(10, 14, 39, 0.8);
-    /* Ensure background is opaque enough */
-    backdrop-filter: blur(10px);
-}
-
-.header-title h1 {
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-.admin-layout {
-    display: flex;
-    min-height: 100vh;
-    background: var(--color-bg-primary);
-}
-
-.admin-sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 260px;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    border-radius: 0;
-    border: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 100;
-    background: var(--color-bg-card);
-    /* Ensure background is set */
-    backdrop-filter: blur(10px);
-}
-
-.sidebar-header {
-    padding: 2rem;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.sidebar-nav {
-    flex: 1;
-    padding: 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    overflow-y: auto;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 1rem;
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    border-radius: var(--radius-md);
-    transition: all var(--transition-base);
-}
-
-.nav-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--color-text-primary);
-}
-
-.nav-item.active {
-    background: rgba(59, 130, 246, 0.1);
-    color: var(--color-accent-primary);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-}
-
-.sidebar-footer {
-    padding: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.logout-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    color: var(--color-accent-error);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all var(--transition-base);
-}
-
-.logout-btn:hover {
-    background: rgba(239, 68, 68, 0.2);
-}
-
-.admin-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-left: 260px;
-    /* Width of sidebar */
-    width: calc(100% - 260px);
-    padding: 0;
-    min-height: 100vh;
-}
-
-.admin-header {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 90;
-    background: rgba(10, 14, 39, 0.8);
-    /* Ensure background is opaque enough */
     backdrop-filter: blur(10px);
 }
 
@@ -263,7 +146,6 @@
 .content-wrapper {
     flex: 1;
     padding: 2rem;
-    overflow-y: auto;
 }
 
 /* Profile Styles */

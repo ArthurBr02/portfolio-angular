@@ -273,6 +273,38 @@ router.put('/skill-categories/:id', authenticateToken, (req, res) => {
     });
 });
 
+router.put('/skill-categories/:id/update', authenticateToken, upload.single('iconImage'), (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid category id' });
+
+    const { name, skills } = req.body;
+    
+    // Get current category to preserve icon if not updated
+    db.get('SELECT * FROM skill_categories WHERE id = ?', [id], (err, row) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!row) return res.status(404).json({ error: 'Category not found' });
+
+        let icon = row.icon; // Keep current icon by default
+
+        // If a new image was uploaded, use its path
+        if (req.file) {
+            icon = `/uploads/${req.file.filename}`;
+        }
+
+        const skillsArray = normalizeSkillsInput(skills);
+        const skillsString = JSON.stringify(skillsArray);
+
+        db.run('UPDATE skill_categories SET name = ?, icon = ?, skills = ? WHERE id = ?',
+            [name, icon, skillsString, id],
+            function (err) {
+                if (err) return res.status(500).json({ error: err.message });
+                if (this.changes === 0) return res.status(404).json({ error: 'Category not found' });
+                res.json({ id, name, icon, skills: skillsArray });
+            }
+        );
+    });
+});
+
 router.get('/skill-categories/:id/icon', (req, res) => {
     db.get('SELECT icon FROM skill_categories WHERE id = ?', [req.params.id], (err, row) => {
         if (err) return res.status(500).json({ error: err.message });
