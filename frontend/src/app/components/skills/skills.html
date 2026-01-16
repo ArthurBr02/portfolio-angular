@@ -1,9 +1,9 @@
 <section class="section" id="skills">
     <div class="container">
-        <div class="section-header">
+        <!-- <div class="section-header">
             <h2 class="section-title gradient-text">{{ 'skills.title' | translate }}</h2>
             <p class="section-subtitle">{{ 'skills.subtitle' | translate }}</p>
-            
+
             <div class="skills-legend">
                 @for (lvl of autonomyScale; track lvl) {
                 <div class="legend-item">
@@ -12,7 +12,7 @@
                 </div>
                 }
             </div>
-        </div>
+        </div> -->
 
         <div class="skills-grid">
             @for (category of skillCategories(); track category.name) {
@@ -26,10 +26,10 @@
                         <p class="skills-count">{{ category.skills.length }} {{ 'skills.technologies' | translate }}</p>
                     </div>
                 </div>
-                
+
                 <div class="skills-tags-container">
                     @for (skill of category.skills; track skill.name) {
-                    <div class="advanced-skill-tag" 
+                    <div class="advanced-skill-tag"
                         [class.has-autonomy]="!!skill.autonomyLevel"
                         [class.advanced-skill-tag-has-experience]="skill.autonomyLevel"
                         [style.--level]="skill.autonomyLevel || 0">
