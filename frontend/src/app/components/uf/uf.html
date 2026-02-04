@@ -1,0 +1,35 @@
+<section class="section" id="uf">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title gradient-text">Unités de Formation</h2>
+            <p class="section-subtitle">Mes compétences développées en alternance</p>
+        </div>
+
+        <div class="uf-grid">
+            @for (uf of unitesFormation; track uf.code) {
+            <div class="uf-card glass-card">
+                <div class="uf-header">
+                    <div class="uf-code-badge">{{ uf.code }}</div>
+                    <h3 class="uf-title">{{ uf.title }}</h3>
+                </div>
+
+                <div class="uf-content">
+                    <ul class="uf-objectives">
+                        @for (objective of uf.objectives; track $index) {
+                        <li class="uf-objective-item">
+                            <div class="objective-header">
+                                <span class="objective-marker"></span>
+                                <span class="objective-text">{{ objective.description }}</span>
+                            </div>
+                            <div class="objective-validation">
+                                <p class="validation-placeholder">{{ objective.validation }}</p>
+                            </div>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
