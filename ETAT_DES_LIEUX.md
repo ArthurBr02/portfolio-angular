@@ -43,7 +43,7 @@ Pour atteindre un style minimaliste avec des animations de haute qualité, nous 
 - **Composants UI** : Utilisation sélective de bibliothèques modernes (ex: Radix Vue ou des composants inspirés de Shadcn/Magic UI) pour des éléments interactifs sans surcharger le design.
 
 ### 💻 Frontend : Migration vers Vue.js
-- **Framework** : **Vue 3** (Composition API avec `<script setup>`).
+- **Framework** : **Vue 3** (Options API).
 - **Outil de build** : **Vite** pour des performances de développement optimales.
 - **Routage** : Vue Router, avec configuration des transitions de route.
 - **Gestion d'état** : **Pinia** (remplace les Signals/Services complexes d'Angular) pour gérer l'état global (authentification, traductions dynamiques, données du portfolio, **et visibilité des sections**).
