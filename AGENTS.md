@@ -13,6 +13,7 @@ Quel que soit le modèle, voici les règles d'or sur ce projet :
 3. **Vanilla First** : Côté Frontend, nous privilégions le CSS vanilla (Custom Properties) plutôt qu'un framework. Côté Backend, nous utilisons `better-sqlite3` avec du SQL brut plutôt qu'un gros ORM.
 4. **Zéro "Magic"** : Le code doit être explicite. Les erreurs sont gérées via un `errorHandler.ts` central et la validation est stricte (`Zod`).
 5. **Suivi de Progression OBLIGATOIRE** : À chaque fois que vous complétez une fonctionnalité ou une phase majeure définie dans le projet, vous avez l'obligation absolue de mettre à jour le fichier `../progress.md` en cochant la tâche correspondante `[x]`.
+6. Mise à jour du README.md. S'il y a des changements significatifs dans le projet, mettez à jour le README.md pour refléter ces changements.
 
 ---
 

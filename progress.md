@@ -15,25 +15,25 @@ Ce document permet aux agents IA et aux développeurs de suivre l'état global d
 - [x] Contrôleurs et Routes API
 - [x] Tests locaux de la configuration (DB auto-migrate, user seed)
 
-## Phase 2 — Frontend Scaffolding 🔴 À faire
-- [ ] Initialisation Vue 3 + Vite + TS + Router + Pinia
-- [ ] Nettoyage des dépendances et de la structure de base
-- [ ] Création du système de design Vanilla CSS (style.css, reset)
-- [ ] Définition des variables CSS pour les thèmes (Sable, Forêt, Crépuscule, Minuit)
-- [ ] Mise en place du mécanisme de changement de thème
-- [ ] Création des Stores Pinia (auth, settings, messages)
-- [ ] Configuration du Vue Router (routes publiques et protégées admin)
+## Phase 2 — Frontend Scaffolding 🟢 Terminé
+- [x] Initialisation Vue 3 + Vite + TS + Router + Pinia
+- [x] Nettoyage des dépendances et de la structure de base
+- [x] Création du système de design Vanilla CSS (style.css, reset)
+- [x] Définition des variables CSS pour les thèmes (Sable, Forêt, Crépuscule, Minuit)
+- [x] Mise en place du mécanisme de changement de thème
+- [x] Création des Stores Pinia (auth, settings, messages)
+- [x] Configuration du Vue Router (routes publiques et protégées admin)
 
-## Phase 3 — Public Portfolio (Sections + Animations CSS natives) 🔴 À faire
-- [ ] Implémentation du Layout Public et de la Navbar dynamique (toggles)
-- [ ] Création de la HeroSection
-- [ ] Création de la AboutSection
-- [ ] Création de la SkillsSection
-- [ ] Création de la ProjectsSection et modale de détail
-- [ ] Création des sections Experience & Education
-- [ ] Création de la ContactSection (Formulaire)
-- [ ] Intégration des animations CSS natives (scroll-driven, reveals)
-- [ ] Intégration du tracking Analytics (API track)
+## Phase 3 — Public Portfolio (Sections + Animations CSS natives) 🟢 Terminé
+- [x] Implémentation du Layout Public et de la Navbar dynamique (toggles)
+- [x] Création de la HeroSection
+- [x] Création de la AboutSection
+- [x] Création de la SkillsSection
+- [x] Création de la ProjectsSection et modale de détail
+- [x] Création des sections Experience & Education
+- [x] Création de la ContactSection (Formulaire)
+- [x] Intégration des animations CSS natives (scroll-driven, reveals)
+- [x] Intégration du tracking Analytics (API track)
 
 ## Phase 4 — Système Multilingue (i18n) 🔴 À faire
 - [ ] Configuration vue-i18n
