@@ -1,0 +1,97 @@
+/* ═══════════════════════════════════════════════
+   TWEAK VARIANTS — CSS hooks for data-* attributes
+   ═══════════════════════════════════════════════ */
+
+/* ─── Density ─── */
+[data-density="compact"] .section { padding: 4.5rem 0; }
+[data-density="compact"] .container { max-width: 1100px; }
+[data-density="compact"] .nav-inner { padding: 0.65rem 2rem; }
+[data-density="compact"] .panel-body { padding: 1rem; }
+[data-density="compact"] .stat-card { padding: 1.1rem; }
+[data-density="compact"] .stat-card-num { font-size: 1.9rem; }
+[data-density="compact"] .admin-content { padding: 1.5rem; }
+
+[data-density="comfy"] .section { padding: 9rem 0; }
+[data-density="comfy"] .container { max-width: 1240px; }
+[data-density="comfy"] .nav-inner { padding: 1.4rem 2rem; }
+[data-density="comfy"] .panel-body { padding: 2rem; }
+[data-density="comfy"] .stat-card { padding: 2rem; }
+[data-density="comfy"] .stat-card-num { font-size: 2.8rem; }
+[data-density="comfy"] .admin-content { padding: 3.5rem 2.5rem; }
+[data-density="comfy"] .hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); }
+
+/* ─── Card styles ─── */
+[data-card="flat"] .card,
+[data-card="flat"] .panel,
+[data-card="flat"] .stat-card,
+[data-card="flat"] .contact-channel,
+[data-card="flat"] .contact-form {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+}
+[data-card="flat"] .card-hover:hover {
+  background: var(--color-bg-card);
+  box-shadow: none;
+  transform: none;
+  border-color: var(--color-accent);
+}
+
+[data-card="glass"] .card,
+[data-card="glass"] .panel,
+[data-card="glass"] .stat-card,
+[data-card="glass"] .contact-channel,
+[data-card="glass"] .contact-form,
+[data-card="glass"] .modal {
+  background: color-mix(in oklch, var(--color-bg-card) 65%, transparent);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid color-mix(in oklch, var(--color-text-primary) 8%, transparent);
+}
+[data-card="glass"] .modal-overlay { background: oklch(0.15 0.02 50 / 0.45); }
+
+/* ─── Hero variants ─── */
+[data-hero="centered"] .hero-content {
+  text-align: center;
+  margin: 0 auto;
+}
+[data-hero="centered"] .hero-greeting { margin-left: auto; margin-right: auto; }
+[data-hero="centered"] .hero-cta { justify-content: center; }
+[data-hero="centered"] .hero-meta { justify-content: center; }
+[data-hero="centered"] .hero-lede { margin-left: auto; margin-right: auto; }
+
+[data-hero="minimal"] .hero { min-height: 70vh; padding: 4rem 0 2rem; }
+[data-hero="minimal"] .hero-mesh { opacity: 0; }
+[data-hero="minimal"] .hero-grid { opacity: 0; }
+[data-hero="minimal"] .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+[data-hero="minimal"] .hero-greeting { display: none; }
+[data-hero="minimal"] .hero-meta { display: none; }
+
+/* ─── Type pairings ─── */
+[data-type="inter"] .h-display,
+[data-type="inter"] .h-section,
+[data-type="inter"] h1, [data-type="inter"] h2, [data-type="inter"] h3 {
+  letter-spacing: -0.035em;
+  font-weight: 600;
+}
+[data-type="inter"] .hero h1 .accent { font-style: normal; text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 4px; text-underline-offset: 6px; }
+
+[data-type="mono"] .h-section,
+[data-type="mono"] .hero h1,
+[data-type="mono"] .timeline-title {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+[data-type="mono"] .hero h1 .accent { font-style: normal; }
+[data-type="mono"] p, [data-type="mono"] .hero-lede { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.92rem; }
+
+[data-type="playfair"] .hero h1 .accent { font-family: 'Playfair Display', serif; font-style: italic; }
+[data-type="playfair"] .hero h1, [data-type="playfair"] .h-section { font-weight: 500; letter-spacing: -0.02em; }
+
+/* ─── Available badge ─── */
+[data-available="0"] .nav-available,
+[data-available="0"] .hero-greeting { display: none; }
+
+/* ─── Hero grid ─── */
+[data-grid="0"] .hero-grid { display: none; }
