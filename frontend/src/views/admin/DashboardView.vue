@@ -158,7 +158,7 @@ export default defineComponent({
     },
   },
   async mounted() {
-    this.analytics = await api.get<AnalyticsData>(`/admin/analytics?period=${this.period}`);
+    this.analytics = await api.get<AnalyticsData>(this.analyticsUrl());
     await this.$nextTick();
     this.initChart();
   },
@@ -260,9 +260,13 @@ export default defineComponent({
       }));
     },
 
+    analyticsUrl(): string {
+      const tz = -new Date().getTimezoneOffset();
+      return `/admin/analytics?period=${this.period}&tz=${tz}`;
+    },
     async setPeriod(p: string) {
       this.period = p as Period;
-      this.analytics = await api.get<AnalyticsData>(`/admin/analytics?period=${p}`);
+      this.analytics = await api.get<AnalyticsData>(this.analyticsUrl());
       await this.$nextTick();
       const views = this.analytics?.views ?? [];
       if (this._chart) {

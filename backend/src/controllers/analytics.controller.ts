@@ -17,7 +17,9 @@ export function trackController(req: Request, res: Response) {
 export function analyticsController(req: Request, res: Response) {
   const PERIODS = ['1d', '7d', '30d', '1y', 'all'];
   const period = (PERIODS.includes(req.query.period as string) ? req.query.period : '7d') as AnalyticsPeriod;
-  const views = getAnalytics(period);
+  const rawTz = Number(req.query.tz);
+  const tzOffset = Number.isFinite(rawTz) && rawTz >= -720 && rawTz <= 840 ? rawTz : 0;
+  const views = getAnalytics(period, tzOffset);
   const summary = getAnalyticsSummary();
   const messages = getAllMessages();
   const projects = getAllProjects();
