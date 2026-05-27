@@ -163,9 +163,14 @@ export default defineComponent({
       );
       const k = this.sortKey as keyof EducationUe;
       return [...filtered].sort((a, b) => {
+        const semCmp = String(a.semester ?? '').localeCompare(String(b.semester ?? ''));
+        if (semCmp !== 0) return this.sortKey === 'semester' && this.sortDir === 'desc' ? -semCmp : semCmp;
+        const codeCmp = String(a.code ?? '').localeCompare(String(b.code ?? ''));
+        if (k === 'semester') return codeCmp;
         const av = String(a[k] ?? '');
         const bv = String(b[k] ?? '');
-        return this.sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+        const cmp = av.localeCompare(bv);
+        return this.sortDir === 'asc' ? cmp : -cmp;
       });
     },
 
