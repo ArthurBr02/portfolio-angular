@@ -14,7 +14,7 @@
           <span><span class="accent">{{ profile?.title?.split(' ').slice(2).join(' ') || 'Fullstack' }}</span></span>
         </h1>
 
-        <p class="hero-lede">{{ profile?.bio || '' }}</p>
+        <!--<p class="hero-lede">{{ profile?.bio || '' }}</p>-->
 
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">{{ $t('hero.cta_primary') }}</a>

@@ -37,9 +37,15 @@
               <label class="field-label">Nom</label>
               <input v-model="form.name" type="text" />
             </div>
+          </div>
+          <div class="form-row">
             <div>
-              <label class="field-label">Titre</label>
+              <label class="field-label">Titre (FR)</label>
               <input v-model="form.title" type="text" />
+            </div>
+            <div>
+              <label class="field-label">Titre (EN)</label>
+              <input v-model="form.title_en" type="text" />
             </div>
           </div>
           <div class="form-row">
@@ -127,7 +133,7 @@ export default defineComponent({
   components: { AppToast },
   data() {
     return {
-      form: { name: '', title: '', bio: '', bio_en: '', email: '', phone: '', location: '', avatar_url: '', cv_url: '', linkedin_url: '', github_url: '', available_for_work: 0 } as Partial<Profile>,
+      form: { name: '', title: '', title_en: '', bio: '', bio_en: '', email: '', phone: '', location: '', avatar_url: '', cv_url: '', linkedin_url: '', github_url: '', available_for_work: 0 } as Partial<Profile>,
       pwForm: { current_password: '', new_password: '', confirm_password: '' },
       saving: false,
       savingPw: false,
