@@ -59,6 +59,7 @@
     "send": "Envoyer",
     "success": "Message envoyé !",
     "error": "Erreur lors de l'envoi",
+    "rate_limit": "Vous avez déjà envoyé un message récemment. Merci de patienter une minute.",
     "channel_email": "Email",
     "channel_location": "Localisation"
   },

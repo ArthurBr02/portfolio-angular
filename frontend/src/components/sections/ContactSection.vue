@@ -88,8 +88,11 @@ export default defineComponent({
         this.feedback = this.$t('contact.success');
         this.feedbackOk = true;
         this.form = { name: '', email: '', subject: '', message: '' };
-      } catch {
-        this.feedback = this.$t('contact.error');
+      } catch (err: unknown) {
+        const status = (err as { status?: number }).status;
+        this.feedback = status === 429
+          ? this.$t('contact.rate_limit')
+          : this.$t('contact.error');
         this.feedbackOk = false;
       } finally {
         this.sending = false;

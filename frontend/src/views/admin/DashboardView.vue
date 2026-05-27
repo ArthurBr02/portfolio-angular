@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="panel-body">
-          <div class="chart">
+          <div class="chart" ref="chartContainer">
             <svg class="chart-svg" :viewBox="`0 0 ${svgW} ${svgH}`" preserveAspectRatio="none">
               <template v-if="chartPoints.length > 1">
                 <line
@@ -77,16 +77,17 @@
                   :cx="pt.x" :cy="pt.y" r="4"
                   class="chart-dot"
                 />
-                <text
-                  v-for="(pt, i) in chartPoints"
-                  :key="`l${i}`"
-                  :x="pt.x" :y="svgH + 16"
-                  text-anchor="middle"
-                  class="chart-label"
-                >{{ pt.label }}</text>
               </template>
-              <text v-else x="50%" y="50%" text-anchor="middle" class="chart-label">Pas encore de données</text>
             </svg>
+            <div v-if="chartPoints.length > 1" class="chart-labels" aria-hidden="true">
+              <span
+                v-for="(pt, i) in chartPoints"
+                :key="i"
+                class="chart-label"
+                :style="{ left: `${(pt.x / svgW) * 100}%` }"
+              >{{ pt.label }}</span>
+            </div>
+            <div v-else class="chart-empty">Pas encore de données</div>
           </div>
         </div>
       </div>
@@ -135,6 +136,7 @@ export default defineComponent({
       analytics: null as AnalyticsData | null,
       svgW: 400,
       svgH: 140,
+      _resizeObserver: null as ResizeObserver | null,
     };
   },
   computed: {
@@ -162,6 +164,17 @@ export default defineComponent({
   },
   async mounted() {
     this.analytics = await api.get<AnalyticsData>('/admin/analytics');
+    await this.$nextTick();
+    const container = this.$refs.chartContainer as HTMLElement | undefined;
+    if (container) {
+      const measure = () => { if (container.clientWidth) this.svgW = container.clientWidth; };
+      measure();
+      this._resizeObserver = new ResizeObserver(measure);
+      this._resizeObserver.observe(container);
+    }
+  },
+  beforeUnmount() {
+    this._resizeObserver?.disconnect();
   },
   methods: {
     initials,
