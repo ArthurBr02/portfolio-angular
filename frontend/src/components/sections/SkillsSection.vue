@@ -10,7 +10,7 @@
           class="card skills-cat"
         >
           <h3>{{ cat }}</h3>
-          <p class="skills-cat-sub">{{ group.length }} {{ group.length > 1 ? 'compétences' : 'compétence' }}</p>
+          <p class="skills-cat-sub">{{ group.length }} {{ group.length > 1 ? $t('skills.skill_plural') : $t('skills.skill_singular') }}</p>
           <div v-for="skill in group" :key="skill.id" class="skill-row">
             <div class="skill-head">
               <span class="skill-name">{{ skill.name }}</span>
@@ -26,8 +26,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { Skill } from '../../lib/types';
-
-const LEVEL_LABELS: Record<number, string> = { 1: 'Notions', 2: 'Maîtrise', 3: 'Expert' };
 
 export default defineComponent({
   name: 'SkillsSection',
@@ -50,7 +48,7 @@ export default defineComponent({
 
   methods: {
     levelLabel(level: number): string {
-      return LEVEL_LABELS[level] || '';
+      return level >= 1 && level <= 3 ? this.$t(`skills.level_${level}`) : '';
     },
   },
 });

@@ -25,7 +25,7 @@
 
         <div v-if="profile?.location" class="hero-meta">
           <div class="hero-meta-item">
-            <span class="hero-meta-label">Location</span>
+            <span class="hero-meta-label">{{ $t('hero.location') }}</span>
             <span class="hero-meta-val">{{ profile.location }}</span>
           </div>
         </div>

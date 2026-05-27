@@ -12,7 +12,8 @@
     "badge_available": "Disponible pour de nouvelles opportunités",
     "badge_unavailable": "Non disponible actuellement",
     "cta_primary": "Voir mes projets",
-    "cta_secondary": "Télécharger le CV"
+    "cta_secondary": "Télécharger le CV",
+    "location": "Localisation"
   },
   "about": {
     "eyebrow": "À propos",
@@ -23,7 +24,12 @@
   },
   "skills": {
     "eyebrow": "Compétences",
-    "title": "Mon expertise"
+    "title": "Mon expertise",
+    "skill_singular": "compétence",
+    "skill_plural": "compétences",
+    "level_1": "Notions",
+    "level_2": "Maîtrise",
+    "level_3": "Expert"
   },
   "projects": {
     "eyebrow": "Projets",
@@ -33,7 +39,9 @@
     "filter_mobile": "Mobile",
     "filter_tools": "Outils",
     "view_demo": "Voir le projet",
-    "view_repo": "Code source"
+    "view_repo": "Code source",
+    "category": "Catégorie",
+    "year": "Année"
   },
   "experience": {
     "eyebrow": "Parcours",
@@ -50,9 +58,14 @@
     "label_message": "Message",
     "send": "Envoyer",
     "success": "Message envoyé !",
-    "error": "Erreur lors de l'envoi"
+    "error": "Erreur lors de l'envoi",
+    "channel_email": "Email",
+    "channel_location": "Localisation"
   },
   "footer": {
     "rights": "Tous droits réservés"
+  },
+  "common": {
+    "close": "Fermer"
   }
 }

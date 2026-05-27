@@ -13,7 +13,7 @@
               </svg>
             </div>
             <div>
-              <div class="contact-channel-label">Email</div>
+              <div class="contact-channel-label">{{ $t('contact.channel_email') }}</div>
               <div class="contact-channel-val">{{ profile.email }}</div>
             </div>
           </a>
@@ -25,7 +25,7 @@
               </svg>
             </div>
             <div>
-              <div class="contact-channel-label">Location</div>
+              <div class="contact-channel-label">{{ $t('contact.channel_location') }}</div>
               <div class="contact-channel-val">{{ profile.location }}</div>
             </div>
           </a>

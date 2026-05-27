@@ -30,11 +30,11 @@
 
           <div class="modal-meta">
             <div v-if="project.category">
-              <span class="modal-meta-label">Catégorie</span>
+              <span class="modal-meta-label">{{ $t('projects.category') }}</span>
               <span class="modal-meta-val">{{ project.category }}</span>
             </div>
             <div>
-              <span class="modal-meta-label">Année</span>
+              <span class="modal-meta-label">{{ $t('projects.year') }}</span>
               <span class="modal-meta-val">{{ year }}</span>
             </div>
           </div>

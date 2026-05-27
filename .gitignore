@@ -344,3 +344,4 @@ dist
 .angular/
 
 dump.sql
+.claude

@@ -2,7 +2,7 @@
   <Teleport to="body">
     <div v-if="modelValue" class="modal-overlay" @mousedown.self="overlayMousedown = true" @mouseup.self="onOverlayMouseup">
       <div class="modal" role="dialog" :aria-label="title">
-        <button class="modal-close" @click="close" aria-label="Fermer">
+        <button class="modal-close" @click="close" :aria-label="$t('common.close')">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
