@@ -171,8 +171,9 @@ export default defineComponent({
     chartPoints(): { x: number; y: number; label: string }[] {
       const views = this.analytics?.views ?? [];
       if (!views.length) return [];
+      const max = Math.max(...views.map(v => v.count));
+      if (max === 0) return [];
       const n = views.length;
-      const max = Math.max(...views.map(v => v.count), 1);
       const isMonthly = this.period === '1y' || this.period === 'all';
       const isHourly = this.period === '1d';
       const MONTHS = ['jan', 'fév', 'mar', 'avr', 'mai', 'jun', 'jul', 'aoû', 'sep', 'oct', 'nov', 'déc'];

@@ -8,20 +8,17 @@ export function trackPageView(path: string, userAgent: string, ipHash: string): 
 
 export function getAnalytics(period: AnalyticsPeriod): { date: string; count: number }[] {
   if (period === '1d') {
-    return db.prepare(`
-      WITH RECURSIVE hours(h) AS (
-        SELECT 0 UNION ALL SELECT h + 1 FROM hours WHERE h < 23
-      )
-      SELECT printf('%02d', h) AS date, COALESCE(pv.count, 0) AS count
-      FROM hours
-      LEFT JOIN (
-        SELECT CAST(strftime('%H', created_at) AS INTEGER) AS h, COUNT(*) AS count
-        FROM page_views
-        WHERE date(created_at) = date('now')
-        GROUP BY strftime('%H', created_at)
-      ) pv ON pv.h = hours.h
-      ORDER BY h ASC
-    `).all() as { date: string; count: number }[];
+    const rows = db.prepare(`
+      SELECT strftime('%H', created_at) AS h, COUNT(*) AS count
+      FROM page_views
+      WHERE date(created_at) = date('now')
+      GROUP BY strftime('%H', created_at)
+    `).all() as { h: string; count: number }[];
+    const byHour = new Map(rows.map(r => [r.h, r.count]));
+    return Array.from({ length: 24 }, (_, i) => {
+      const h = String(i).padStart(2, '0');
+      return { date: h, count: byHour.get(h) ?? 0 };
+    });
   }
 
   if (period === '7d' || period === '30d') {
