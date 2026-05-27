@@ -6,6 +6,18 @@ export function trackPageView(path: string, userAgent: string, ipHash: string): 
   db.prepare('INSERT INTO page_views (path, user_agent, ip_hash) VALUES (?, ?, ?)').run(path, userAgent, ipHash);
 }
 
+function utcDateStr(offsetDays = 0): string {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() + offsetDays);
+  return d.toISOString().slice(0, 10);
+}
+
+function utcMonthStr(offsetMonths = 0): string {
+  const d = new Date();
+  d.setUTCMonth(d.getUTCMonth() + offsetMonths, 1);
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+
 export function getAnalytics(period: AnalyticsPeriod): { date: string; count: number }[] {
   if (period === '1d') {
     const rows = db.prepare(`
@@ -14,51 +26,40 @@ export function getAnalytics(period: AnalyticsPeriod): { date: string; count: nu
       WHERE date(created_at) = date('now')
       GROUP BY strftime('%H', created_at)
     `).all() as { h: string; count: number }[];
-    const byHour = new Map(rows.map(r => [r.h, r.count]));
+    const map = new Map(rows.map(r => [r.h, r.count]));
     return Array.from({ length: 24 }, (_, i) => {
       const h = String(i).padStart(2, '0');
-      return { date: h, count: byHour.get(h) ?? 0 };
+      return { date: h, count: map.get(h) ?? 0 };
     });
   }
 
   if (period === '7d' || period === '30d') {
     const days = period === '7d' ? 7 : 30;
-    return db.prepare(`
-      WITH RECURSIVE dates(d) AS (
-        SELECT date('now', '-' || (? - 1) || ' days')
-        UNION ALL
-        SELECT date(d, '+1 day') FROM dates WHERE d < date('now')
-      )
-      SELECT d AS date, COALESCE(pv.count, 0) AS count
-      FROM dates
-      LEFT JOIN (
-        SELECT date(created_at) AS d, COUNT(*) AS count
-        FROM page_views
-        WHERE created_at >= datetime('now', '-' || ? || ' days')
-        GROUP BY date(created_at)
-      ) pv ON pv.d = dates.d
-      ORDER BY d ASC
-    `).all(days, days) as { date: string; count: number }[];
+    const rows = db.prepare(`
+      SELECT date(created_at) AS d, COUNT(*) AS count
+      FROM page_views
+      WHERE date(created_at) >= ?
+      GROUP BY date(created_at)
+    `).all(utcDateStr(-(days - 1))) as { d: string; count: number }[];
+    const map = new Map(rows.map(r => [r.d, r.count]));
+    return Array.from({ length: days }, (_, i) => {
+      const d = utcDateStr(-(days - 1 - i));
+      return { date: d, count: map.get(d) ?? 0 };
+    });
   }
 
   if (period === '1y') {
-    return db.prepare(`
-      WITH RECURSIVE months(m) AS (
-        SELECT strftime('%Y-%m', 'now', 'start of month', '-11 months')
-        UNION ALL
-        SELECT strftime('%Y-%m', m || '-01', '+1 month')
-        FROM months WHERE m < strftime('%Y-%m', 'now')
-      )
-      SELECT m AS date, COALESCE(pv.count, 0) AS count
-      FROM months
-      LEFT JOIN (
-        SELECT strftime('%Y-%m', created_at) AS m, COUNT(*) AS count
-        FROM page_views
-        WHERE created_at >= datetime('now', 'start of month', '-11 months')
-        GROUP BY strftime('%Y-%m', created_at)
-      ) pv ON pv.m = months.m
-      ORDER BY m ASC
-    `).all() as { date: string; count: number }[];
+    const rows = db.prepare(`
+      SELECT strftime('%Y-%m', created_at) AS m, COUNT(*) AS count
+      FROM page_views
+      WHERE strftime('%Y-%m', created_at) >= ?
+      GROUP BY strftime('%Y-%m', created_at)
+    `).all(utcMonthStr(-11)) as { m: string; count: number }[];
+    const map = new Map(rows.map(r => [r.m, r.count]));
+    return Array.from({ length: 12 }, (_, i) => {
+      const m = utcMonthStr(-(11 - i));
+      return { date: m, count: map.get(m) ?? 0 };
+    });
   }
 
   return db.prepare(`
